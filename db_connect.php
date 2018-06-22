@@ -8,6 +8,6 @@ if (!$db_conn) {
 $sql = "SHOW TABLES LIKE 'users'";
 $result = mysqli_query($db_conn, $sql);
 if(!$result->num_rows) {
-  $need_to_install = true;
+  die('<a href="/install.php">Install Plantdaddy</a>');
 }
  ?>
