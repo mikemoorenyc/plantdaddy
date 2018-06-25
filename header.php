@@ -1,6 +1,7 @@
 <?php
 date_default_timezone_set('UTC');
 session_start();
+define("REMEMBER_ME_NAME", "plantdaddy_remember_me");
 
 require 'db_connect.php';
 
