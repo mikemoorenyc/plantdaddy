@@ -4,10 +4,10 @@ function verify_remember_me() {
   //DELETE OLD tokens
   $delete_all =  "DELETE FROM tokens WHERE expires <".time();
   $delete_tokens = mysqli_query($db_conn, $delete_all);
- if(!$_COOKIE['ur_fat_remember_me']) {
+ if(!$_COOKIE[REMEMBER_ME_NAME]) {
   return false;
  }
- $credentials = json_decode($_COOKIE['ur_fat_remember_me'],true);
+ $credentials = json_decode($_COOKIE[REMEMBER_ME_NAME],true);
  if(!$credentials['selector'] || !$credentials['validator']) {
   return false;
  }
