@@ -6,7 +6,9 @@ import './style';
 let root;
 function init() {
 	let App = require('./components/app').default;
-	root = render(<App />, document.body, root);
+	root = render(<App 
+		      initInfo={INITINFO}
+		      />, document.body, root);
 }
 
 // register ServiceWorker via OfflinePlugin, for prod only:
