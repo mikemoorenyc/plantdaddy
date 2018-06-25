@@ -9,7 +9,7 @@ export default class App extends Component {
 	constructor(props) {
 		super();
     this.state = {
-     isLoggedIn: props.isLoggedIn 
+     isLoggedIn: props.initInfo.isLoggedIn 
     }
 		
 	}
