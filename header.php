@@ -4,7 +4,7 @@ session_start();
 
 require 'db_connect.php';
 
-if(file_exists("/glpbal_functions")) {
+if(file_exists("/global_functions")) {
   $dir = new DirectoryIterator($dir_path.'global_functions');
   foreach ($dir as $i) {
     if($i->getExtension() !== 'php' || !$i->isFile()) {
