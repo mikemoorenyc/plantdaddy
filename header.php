@@ -5,8 +5,11 @@ define("REMEMBER_ME_NAME", "plantdaddy_remember_me");
 
 require 'db_connect.php';
 
-if(file_exists("/global_functions")) {
-  $dir = new DirectoryIterator($dir_path.'global_functions');
+if($need_to_install) {
+  die('<a href="install.php">Install Plantdaddy</a>');
+}
+if(file_exists("./global_functions")) {
+  $dir = new DirectoryIterator('./global_functions');
   foreach ($dir as $i) {
     if($i->getExtension() !== 'php' || !$i->isFile()) {
      continue;

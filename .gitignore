@@ -7,3 +7,4 @@
 yarn.lock
 /.vscode
 allowed_passwords.php
+database_info.php

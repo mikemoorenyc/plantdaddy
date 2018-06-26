@@ -28,7 +28,7 @@ $plants_table = "CREATE TABLE plants (
   title TEXT NOT NULL,
   photo_url VARCHAR(255),
   watering_frequency SMALLINT(10) NOT NULL DEFAULT 3,
-	on_alert TINYINT(1) NOT NULL DEFAULT 0
+	on_alert TINYINT(1) NOT NULL DEFAULT 0,
   created_by BIGINT(20) UNSIGNED NOT NULL default 0,
   date_created BIGINT(20) NOT NULL DEFAULT 0
 )";
