@@ -1,11 +1,16 @@
 import { h, Component } from 'preact';
-
+import { route } from 'preact-router';
 
 
 export default class Login extends Component {
   constructor(props) {
     super();
   }
+	componentWillMount() {
+		if(this.props.isLoggedIn) {
+			route('/', true);
+		}
+	}
   componentDidMount() {
     //document.title = "Login to Plantdaddy";
   }
