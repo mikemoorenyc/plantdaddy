@@ -37,7 +37,7 @@ export default class App extends Component {
 
 				<Router onChange={this.handleRoute.bind(this)}>
 					<Home path="/" />
-					<Login path="/login/" noonce={props.initInfo.loginNoonce} />
+					<Login path="/login/" isLoggedIn={state.isLoggedIn} noonce={props.initInfo.loginNoonce} />
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />
 				</Router>
