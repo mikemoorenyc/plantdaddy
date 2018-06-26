@@ -5,6 +5,10 @@ import { route } from 'preact-router';
 export default class Login extends Component {
   constructor(props) {
     super();
+	  this.state = {
+			createAccount: false,
+			noonce: props.noonce
+		}
   }
 	componentWillMount() {
 		if(this.props.isLoggedIn) {
