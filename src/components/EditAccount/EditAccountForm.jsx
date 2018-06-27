@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import {linkstate} from "linkstate"
 import { route } from 'preact-router';
 import fetch from "fetch";
+import checkStatus from "../checkStatus.js";
 
 import FormSection from "./FormSection.jsx";
 
@@ -47,9 +48,11 @@ export default class CreateAccount extends Component {
     		'Content-Type': 'application/json'
   		},
   		body: JSON.stringify(this.state)
-			}).then( r => {
-				//
-			})
+			.then( checkStatus )
+  		.then( r => r.json() )
+ 			.then( data => {
+    		console.log(data);
+  		});
 		
 	}
 	
