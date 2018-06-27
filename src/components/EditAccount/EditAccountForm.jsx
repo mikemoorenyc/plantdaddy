@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import {linkstate} from "linkstate"
 import { route } from 'preact-router';
+import fetch from "fetch";
 
 import FormSection from "./FormSection.jsx";
 
@@ -17,6 +18,7 @@ export default class CreateAccount extends Component {
 			disabled: true
 		}		
 		this.inputChange = this.inputChange.bind(this);
+		this.submitForm = this.submitForm.bind(this);
 	}
 	componentWillMount() {
 		if(this.props.isLoggedIn && this.props.create) {
@@ -33,10 +35,28 @@ export default class CreateAccount extends Component {
 		});
 		
 	}
+	submitForm(e) {
+		e.preventDefault();
+		if(this.state.disabled) {
+			this.generateErrors();
+			return false;
+		}
+		fetch('/bear', {
+  		method: 'POST',
+  		headers: {
+    		'Content-Type': 'application/json'
+  		},
+  		body: JSON.stringify(this.state)
+			}).then( r => {
+				//
+			})
+		
+	}
 	
 
 
   render(props,state) {
+		let submitText = (props.create)? "Create Account" : "Save Changes";
 		let password = 	<FormSection
 											labelShort={"password"}
 											value={state.password}
@@ -68,7 +88,7 @@ export default class CreateAccount extends Component {
 			}
 		
 		].map(function(e,i) {
-			return <FormSection 
+			return <FormSection onSubmit={this.submitForm}
 							 onChange={this.inputChange} 
 							 labelShort={e.labelShort} 
 							 value={e.value} 
@@ -76,10 +96,10 @@ export default class CreateAccount extends Component {
 							 label={e.label} />
 		});
     return (
-      <form>
+      <form onSubmit={this.submitForm}>
 				{sections}
 				{password}
-        <button onClick={props.cancelClick}>Cancel</button>
+				<button disabled={state.disabled}>{submitText}</button>
       </form>
     )
   }
