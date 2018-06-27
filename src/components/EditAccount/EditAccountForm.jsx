@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import {linkstate} from "linkstate"
+import { route } from 'preact-router';
 
 import FormSection from "./FormSection.jsx";
 
@@ -16,6 +17,11 @@ export default class CreateAccount extends Component {
 			disabled: true
 		}		
 		this.inputChange = this.inputChange.bind(this);
+	}
+	componentWillMount() {
+		if(this.props.isLoggedIn && this.props.create) {
+			route('/',true);
+		}
 	}
 	inputChange(e) {
 		let stateObj = {};
