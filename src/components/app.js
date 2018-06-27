@@ -12,6 +12,11 @@ export default class App extends Component {
     this.state = {
      isLoggedIn: props.initInfo.isLoggedIn
     }
+		
+		this.okNoLogPaths = [
+			'/login/',
+			'/create-account/'
+		];
 
 	}
 	/** Gets fired when the route changes.
