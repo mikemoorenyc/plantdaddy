@@ -48,7 +48,7 @@ export default class CreateAccount extends Component {
     		'Content-Type': 'application/json'
   		},
   		body: JSON.stringify(this.state)
-			.then( checkStatus )
+			.then( checkStatus(r.status) )
   		.then( r => r.json() )
  			.then( data => {
     		console.log(data);
