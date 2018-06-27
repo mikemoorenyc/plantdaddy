@@ -1,8 +1,9 @@
 <?php
 require "/header.php";
 
+require "/app-path.php";
 
-$HTML = file_get_contents("http://localhost:8080/");
+$HTML = file_get_contents($app_path);
 
 $initInfo = [];
 
