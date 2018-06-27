@@ -16,7 +16,8 @@ export default class CreateAccount extends Component {
 			password: '',
 			telephone: '',
 			noonce: props.noonce,
-			disabled: true
+			disabled: true,
+			updated: false
 		}		
 		this.inputChange = this.inputChange.bind(this);
 		this.submitForm = this.submitForm.bind(this);
@@ -48,11 +49,17 @@ export default class CreateAccount extends Component {
     		'Content-Type': 'application/json'
   		},
   		body: JSON.stringify(this.state)
-			.then( checkStatus(r.status) )
-  		.then( r => r.json() )
- 			.then( data => {
-    		console.log(data);
-  		});
+
+  		.then(function(r){
+				if(r.status >= 300) {
+					//errorHandling;
+					return false;
+				}
+				
+				
+			
+			}.bind(this));
+
 		
 	}
 	
