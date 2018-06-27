@@ -1,6 +1,8 @@
 import { h, Component } from 'preact';
 import { Router, route } from 'preact-router';
 
+import {findIndex} from "../util/array_helpers.js";
+
 import Header from './header';
 import Home from './home';
 import Profile from './profile';
@@ -17,31 +19,30 @@ export default class App extends Component {
 			'/login/',
 			'/create-account/'
 		];
+		this.handleRoute = this.handleRoute.bind(this);
 
 	}
 	/** Gets fired when the route changes.
 	 *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
 	 *	@param {string} event.url	The newly routed URL
 	 */
-	handleRoute = e => {
-		this.currentUrl = e.url;
-    if(!this.state.isLoggedIn) {
+	handleRoute() {
+		let url = window.location.pathname;
+    if(!this.state.isLoggedIn && !findIndex(this.okNoLogPaths, url)) {
      route('/login/', true)
     }
 
 	};
 
 	componentWillMount() {
-		if(!this.state.isLoggedIn) {
-      route('/login/', true)
-    }
+		this.handleRoute();
 	}
 
 	render(props,state) {
 		return (
 			<div id="app">
 
-				<Router onChange={this.handleRoute.bind(this)}>
+				<Router onChange={this.handleRoute}>
 					<Home path="/" />
 					<Home path="/index.php" />
 					<Login path="/login/" isLoggedIn={state.isLoggedIn} noonce={props.initInfo.loginNoonce} />
