@@ -1,1 +1,2 @@
-
+RewriteEngine On
+RewriteRule ^/endpoints/ api-router.php
