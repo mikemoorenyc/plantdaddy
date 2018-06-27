@@ -23,6 +23,7 @@ export default class App extends Component {
     if(!this.state.isLoggedIn) {
      route('/login/', true)
     }
+
 	};
 
 	componentWillMount() {
@@ -37,7 +38,9 @@ export default class App extends Component {
 
 				<Router onChange={this.handleRoute.bind(this)}>
 					<Home path="/" />
+					<Home path="/index.php" />
 					<Login path="/login/" isLoggedIn={state.isLoggedIn} noonce={props.initInfo.loginNoonce} />
+					<Login path="/login/create-account/" create={true} isLoggedIn={state.isLoggedIn} noonce={props.initInfo.loginNoonce} />
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />
 				</Router>
