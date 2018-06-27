@@ -7,6 +7,7 @@ import Header from './header';
 import Home from './home';
 import Profile from './profile';
 import Login from './login';
+import EditAccount from "/EditAccount/EditAccountForm.jsx";
 
 export default class App extends Component {
 	constructor(props) {
@@ -46,7 +47,11 @@ export default class App extends Component {
 					<Home path="/" />
 					<Home path="/index.php" />
 					<Login path="/login/" isLoggedIn={state.isLoggedIn} noonce={props.initInfo.loginNoonce} />
-					<Login path="/login/create-account/" create={true} isLoggedIn={state.isLoggedIn} noonce={props.initInfo.loginNoonce} />
+					<EditAccount path="/create-account/"  
+						isLoggedIn={state.isLoggedIn}
+						noonce={props.initInfo.loginNooince}
+						create={true}
+					/>
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />
 				</Router>
