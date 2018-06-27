@@ -3,6 +3,7 @@ import { route } from 'preact-router';
 
 
 import CreateAccount from "./CreateAccount.jsx";
+import EditAccount from "../EditAccount/EditAccountForm.jsx";
 
 export default class Login extends Component {
   constructor(props) {
@@ -31,9 +32,10 @@ export default class Login extends Component {
 
   render(props,state) {
     if(state.createAccount) {
-      return <CreateAccount
+      return <EditAccount
         cancelClick={this.cancelClick}
 	noonce={props.noonce}
+	newAccount={true}
       />;
     }
     return (
