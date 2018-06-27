@@ -1,5 +1,6 @@
 RewriteEngine On
 RewriteCond %{REQUEST_URI} !^/install.php$
 RewriteCond %{REQUEST_URI} !^/index.php
+RewriteCond %{REQUEST_URI} !^/endpoints$
 
 RewriteRule .* /index.php [L]
