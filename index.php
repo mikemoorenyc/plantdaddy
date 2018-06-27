@@ -1,7 +1,7 @@
 <?php
 require "/header.php";
 
-require "/app-path.php";
+require "/app_path.php";
 
 $HTML = file_get_contents($app_path);
 
