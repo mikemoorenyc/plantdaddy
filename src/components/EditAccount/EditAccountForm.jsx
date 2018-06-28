@@ -60,7 +60,7 @@ export default class CreateAccount extends Component {
 			}
 			//SEND INFO
 			var response = r.json();
-			this.props.UserContainer.recieveUserProfile(response.user)
+			this.props.UserContainer.recieveNewStateItem("login_noonce", response.new_login_noonce);
 			this.setState({created: true});
 			
 		}.bind(this))
