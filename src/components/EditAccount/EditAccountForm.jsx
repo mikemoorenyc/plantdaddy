@@ -104,6 +104,7 @@ export default class CreateAccount extends Component {
 				labelShort:"email",
 				value: state.email,
 				required: true,
+				type: "email",
 				label: "Email Address"
 			},
 			{
