@@ -7,7 +7,7 @@ $HTML = file_get_contents($app_path);
 
 $initInfo = [];
 
-$initInfo['loggedIn'] = is_user_logged_in();
+$initInfo['isLoggedIn'] = is_user_logged_in();
 
 $_SESSION['login_noonce'] = generate_noonce();
 $initInfo['loginNoonce'] = $_SESSION['login_noonce'];

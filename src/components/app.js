@@ -7,15 +7,17 @@ import Header from './header';
 import Home from './home';
 import Profile from './profile';
 import Login from './login';
-import EditAccount from "/EditAccount/EditAccountForm.jsx";
+import EditAccount from "./EditAccount/EditAccountForm.jsx";
 
 export default class App extends Component {
 	constructor(props) {
+
 		super();
     this.state = {
-     isLoggedIn: props.initInfo.isLoggedIn
+     isLoggedIn: INITINFO.isLoggedIn,
+		 login_noonce: INITINFO.loginNoonce
     }
-		
+
 		this.okNoLogPaths = [
 			'/login/',
 			'/create-account/'
@@ -29,10 +31,12 @@ export default class App extends Component {
 	 */
 	handleRoute() {
 		let url = window.location.pathname;
+
     if(!this.state.isLoggedIn && !findIndex(this.okNoLogPaths, url)) {
+
      route('/login/', true)
     }
-
+		return false;
 	};
 
 	componentWillMount() {
@@ -46,10 +50,10 @@ export default class App extends Component {
 				<Router onChange={this.handleRoute}>
 					<Home path="/" />
 					<Home path="/index.php" />
-					<Login path="/login/" isLoggedIn={state.isLoggedIn} noonce={props.initInfo.loginNoonce} />
-					<EditAccount path="/create-account/"  
+					<Login path="/login/" isLoggedIn={state.isLoggedIn} noonce={state.login_noonce} />
+					<EditAccount path="/create-account/"
 						isLoggedIn={state.isLoggedIn}
-						noonce={props.initInfo.loginNooince}
+						noonce={state.login_noonce}
 						create={true}
 					/>
 					<Profile path="/profile/" user="me" />

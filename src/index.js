@@ -6,8 +6,8 @@ import './style';
 let root;
 function init() {
 	let App = require('./components/app').default;
-	root = render(<App 
-		      initInfo={INITINFO}
+	root = render(<App
+		      
 		      />, document.body, root);
 }
 

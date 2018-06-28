@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import {linkstate} from "linkstate"
 import { route } from 'preact-router';
-import fetch from "fetch";
+import fetch from "unfetch";
 import checkStatus from "../../util/checkStatus.js";
 
 import FormSection from "./FormSection.jsx";
@@ -10,15 +10,17 @@ import FormSection from "./FormSection.jsx";
 export default class CreateAccount extends Component {
 	constructor(props) {
 		super();
+
 		this.state = {
 			firstname: '',
 			email: '',
 			password: '',
 			telephone: '',
-			noonce: props.noonce,
+			login_noonce: props.noonce,
 			disabled: true,
 			updated: false
-		}		
+		}
+
 		this.inputChange = this.inputChange.bind(this);
 		this.submitForm = this.submitForm.bind(this);
 	}
@@ -30,14 +32,16 @@ export default class CreateAccount extends Component {
 	inputChange(e) {
 		let stateObj = {};
 		stateObj[e.target.id] = e.target.value;
+
 		this.setState(stateObj,function(){
-			if(!this.state.firstname || !this.state.password || !this.state.email) {
-				this.setState({disabled: true});
-			}
+			let disabled = (!this.state.firstname || !this.state.password || !this.state.email) ? true : false;
+			this.setState({disabled: disabled});
 		});
-		
+
 	}
 	submitForm(e) {
+		console.log(e);
+		/*
 		e.preventDefault();
 		if(this.state.disabled) {
 			this.generateErrors();
@@ -55,14 +59,15 @@ export default class CreateAccount extends Component {
 					//errorHandling;
 					return false;
 				}
-				
-				
-			
-			}.bind(this));
 
-		
+
+
+			});
+			*/
+
+
 	}
-	
+
 
 
   render(props,state) {
@@ -72,15 +77,16 @@ export default class CreateAccount extends Component {
 											value={state.password}
 											required={true}
 											label={"Password"}
-											onChange={this.inputChange}
+											onInput={this.inputChange}
+											type={"password"}
 											/>
-		if(!props.new) {
+		if(!props.create) {
 			password = <div><button>Change Password</button> </div>
 		}
 		let sections = [
 			{
 				labelShort:"firstname",
-				value:state.firstame,
+				value:state.firstname,
 				required: true,
 				label : "First Name"
 			},
@@ -96,19 +102,21 @@ export default class CreateAccount extends Component {
 				required: false,
 				label: "Telephone Number"
 			}
-		
+
 		].map(function(e,i) {
-			return <FormSection onSubmit={this.submitForm}
-							 onChange={this.inputChange} 
-							 labelShort={e.labelShort} 
-							 value={e.value} 
-							 required={e.required} 
+			return <FormSection
+							key={i}
+							 onInput={this.inputChange}
+							 labelShort={e.labelShort}
+							 value={e.value}
+							 required={e.required}
 							 label={e.label} />
-		});
+		}.bind(this));
     return (
       <form onSubmit={this.submitForm}>
 				{sections}
 				{password}
+				<br/><br/>
 				<button disabled={state.disabled}>{submitText}</button>
       </form>
     )

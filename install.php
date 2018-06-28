@@ -15,7 +15,7 @@ telephone INT(10),
 color VARCHAR(255) NOT NULL,
 reset_asked TINYINT(1) DEFAULT 0,
 reset_token char(64) DEFAULT NULL,
-reset_expires expires BIGINT(20) NOT NULL DEFAULT 0,
+reset_expires  BIGINT(20) NOT NULL DEFAULT 0,
   date_created BIGINT(20) NOT NULL DEFAULT 0,
   date_modified BIGINT(20) NOT NULL DEFAULT 0
 )";

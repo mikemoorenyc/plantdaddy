@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import { route } from 'preact-router';
 
 
-import CreateAccount from "./CreateAccount.jsx";
+
 import EditAccount from "../EditAccount/EditAccountForm.jsx";
 
 export default class Login extends Component {
@@ -44,7 +44,7 @@ export default class Login extends Component {
         <label>Email</label>
 
         <br/>
-        <button class="button-link" value={true}  onClick={this.cancelClick}>Create a new account</button>
+        <a href="/create-account/">Create a new account</a>
       </div>
 
     )
