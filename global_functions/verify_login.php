@@ -15,6 +15,6 @@ $pass_pass = password_verify(base64_encode(hash('sha256', $password, true)),$use
   if(!$pass_pass) {
     return false;
   }
-  return login_user($user['id']);
+  return $user['id'];
 }
  ?>
