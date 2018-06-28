@@ -72,6 +72,15 @@ export default class CreateAccount extends Component {
 
 
   render(props,state) {
+		if(props.create && state.created) {
+			return(
+				<div>
+					Account Created<br/>
+					<a href="/login/">Login Now</a>	
+				</div>
+			)
+			
+		}
 		let submitText = (props.create)? "Create Account" : "Save Changes";
 		let password = 	<FormSection
 											labelShort={"password"}
