@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
+import fetch from "unfetch";
 
 import {FormField} "../common/FormField.jsx";
 
@@ -10,7 +11,9 @@ export default class Login extends Component {
 	  this.state = {
 			disabled: true,
 			password: '',
-			email: ''
+			email: '',
+			loggedIn: false,
+			firstname: null
 		}
 
   }
@@ -30,12 +33,42 @@ export default class Login extends Component {
 	submitForm(e) {
 		e.preventDefault();
 		if(!this.state.password || !this.state.email) {return false;}
-		//LOGIN
+		let state = this.state;
+		fetch("/endpoints/login-user/",{
+			method: "POST",
+			headers: {
+				"Content-Type" : 'application/json'
+			},
+			body: JSON.stringify(state)
+		})
+		.then(function(r){
+			if(r.status >= 300) {
+				//errorHandlinge
+				return false;
+			}
+			//SEND INFO
+			let response = r.json();
+			this.setState({
+				loggedIn: true,
+				firstname: response.user.firstname
+			});
+			this.props.UserContainer.recieveNewStateItem('isLoggedIn',true);
+			this.props.UserContainer.recieveNewStateItem('userProfile' response.user);
+			setTimeout(function(){
+				route("/",true)
+			}), 2000);
+		}.bind(this))
 	}
   
 
 
   render(props,state) {
+		
+		if(state.loggedIn) {
+			return(
+				<div>You're logged in, {firstname}</div>
+			)
+		}
     
     return (
       <form onSubmit={this.submitForm}>
