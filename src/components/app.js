@@ -53,10 +53,10 @@ export default class App extends Component {
 				<Router onChange={this.handleRoute}>
 					<Home path="/" />
 					<Home path="/index.php" />
-					<Login path="/login/" UserContainer={user} isLoggedIn={user.isLoggedIn} noonce={state.login_noonce} />
+					<Login path="/login/" UserContainer={user} isLoggedIn={user.isLoggedIn} noonce={user.login_noonce} />
 					<EditAccount path="/create-account/"
 						isLoggedIn={user.isLoggedIn}
-						noonce={state.login_noonce}
+						noonce={user.login_noonce}
 						create={true}
 						UserContainer={user}
 					/>
