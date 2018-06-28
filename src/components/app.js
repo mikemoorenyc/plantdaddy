@@ -9,6 +9,8 @@ import Profile from './profile';
 import Login from './login';
 import EditAccount from "./EditAccount/EditAccountForm.jsx";
 
+import UserCountainer from "../containers/UserContainer.js"
+
 export default class App extends Component {
 	constructor(props) {
 
@@ -46,19 +48,24 @@ export default class App extends Component {
 	render(props,state) {
 		return (
 			<div id="app">
-
+			<Subscribe to={[UserContainer]}>
+			{function(user){
 				<Router onChange={this.handleRoute}>
 					<Home path="/" />
 					<Home path="/index.php" />
-					<Login path="/login/" isLoggedIn={state.isLoggedIn} noonce={state.login_noonce} />
+					<Login path="/login/" isLoggedIn={user.isLoggedIn} noonce={state.login_noonce} />
 					<EditAccount path="/create-account/"
-						isLoggedIn={state.isLoggedIn}
+						isLoggedIn={user.isLoggedIn}
 						noonce={state.login_noonce}
 						create={true}
+						UserContainer={user}
 					/>
 					<Profile path="/profile/" user="me" />
 					<Profile path="/profile/:user" />
 				</Router>
+				}.bind(this)
+			}
+			</Subscribe>
 			</div>
 		);
 	}
