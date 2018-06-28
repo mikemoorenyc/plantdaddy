@@ -18,7 +18,9 @@ export default class CreateAccount extends Component {
 			telephone: '',
 			login_noonce: props.noonce,
 			disabled: true,
-			updated: false
+			updated: false,
+			sending: false,
+			created: false
 		}
 
 		this.inputChange = this.inputChange.bind(this);
@@ -41,29 +43,28 @@ export default class CreateAccount extends Component {
 	}
 	submitForm(e) {
 		console.log(e);
-		/*
+		this.setState{sending:true});
 		e.preventDefault();
-		if(this.state.disabled) {
-			this.generateErrors();
-			return false;
-		}
-		fetch('/bear', {
-  		method: 'POST',
-  		headers: {
-    		'Content-Type': 'application/json'
-  		},
-  		body: JSON.stringify(this.state)
+		let state = this.state;
+		fetch("/endpoints/create-account/",{
+			method: "POST",
+			headers: {
+				"Content-Type" : 'application/json'
+			},
+			body: JSON.stringify(state)
+		})
+		.then(function(r){
+			if(r.status >= 300) {
+				//errorHandlinge
+				return false;
+			}
+			//SEND INFO
+			var response = r.json();
+			this.props.UserContainer.recieveUserInfo(response.user)
+			this.setState({created: true});
+			
+		}.bind(this))
 
-  		.then(function(r){
-				if(r.status >= 300) {
-					//errorHandling;
-					return false;
-				}
-
-
-
-			});
-			*/
 
 
 	}
