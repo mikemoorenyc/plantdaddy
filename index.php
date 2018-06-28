@@ -12,7 +12,7 @@ $initInfo['userProfile'] = null;
 
 
 $_SESSION['login_noonce'] = generate_noonce();
-$initInfo['loginNoonce'] = $_SESSION['login_noonce'];
+$initInfo['login_noonce'] = $_SESSION['login_noonce'];
 
 $initJS = "<script>var INITINFO = ".json_encode($initInfo)."; </script>";
 
