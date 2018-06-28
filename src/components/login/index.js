@@ -66,7 +66,7 @@ export default class Login extends Component {
 		
 		if(state.loggedIn) {
 			return(
-				<div>You're logged in, {firstname}</div>
+				<div>You&rsquo;re logged in, {firstname}</div>
 			)
 		}
     
