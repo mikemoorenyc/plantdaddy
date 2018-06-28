@@ -10,6 +10,9 @@ switch($url) {
 	case "/login-user/":
 		require "login-user.php";
 		break;
+	case "/require-reset/"
+		require "code-require-reset.php";
+		break;
 
 
     default:
