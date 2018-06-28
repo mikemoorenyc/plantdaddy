@@ -32,7 +32,7 @@ export default class ForgotPassword extend Component {
 					onInput={linkState(this, 'email')}
 					type={"email"} 
 				/>
-				<button disabled={this.state.email}>Submit</button> 
+				<button type="submit" disabled={this.state.email}>Submit</button> 
 				
 			</form>
 		
