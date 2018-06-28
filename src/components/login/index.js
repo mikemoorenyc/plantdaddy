@@ -1,51 +1,62 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
 
+import {FormField} "../common/FormField.jsx";
 
-
-import EditAccount from "../EditAccount/EditAccountForm.jsx";
 
 export default class Login extends Component {
   constructor(props) {
     super();
 	  this.state = {
-			createAccount: props.create,
-			noonce: props.noonce
+			disabled: true,
+			password: '',
+			email: ''
 		}
-    this.cancelClick = this.cancelClick.bind(this)
+
   }
 	componentWillMount() {
 		if(this.props.isLoggedIn) {
 			route('/', true);
 		}
 	}
-  componentDidMount() {
-    //document.title = "Login to Plantdaddy";
-  }
-  cancelClick(e) {
-    e.preventDefault();
-    var newSwitch = e.target.value || false
-    this.setState({createAccount: newSwitch});
-  }
-
+  inputChange(e) {
+		let stateObj = {};
+		stateObj[e.target.id] = e.target.value;
+		this.setState(stateObj,function(){
+			let disabled = (!this.state.password || !this.state.email) ? true : false;
+			this.setState({disabled: disabled});
+		});
+	}
+	submitForm(e) {
+		e.preventDefault();
+		if(!this.state.password || !this.state.email) {return false;}
+		//LOGIN
+	}
+  
 
 
   render(props,state) {
-    if(state.createAccount) {
-      return <EditAccount
-        cancelClick={this.cancelClick}
-	noonce={props.noonce}
-	newAccount={true}
-      />;
-    }
+    
     return (
-      <div>
-        <h1>Log into Plantdaddy</h1>
-        <label>Email</label>
-
-        <br/>
-        <a href="/create-account/">Create a new account</a>
-      </div>
+      <form onSubmit={this.submitForm}>
+				<FormField
+					labelShort={"email"}
+					value={state.email}
+					required={true}
+					label={"Password"}
+					onInput={this.inputChange}
+					type={"email"}			
+				/>
+				<FormField
+					labelShort={"password"}
+					value={state.password}
+					required={true}
+					label={"Password"}
+					onInput={this.inputChange}
+					type={"password"}			
+				/>
+				<button disabled={state.disabled}>Log In</button>
+			</form>
 
     )
   }
