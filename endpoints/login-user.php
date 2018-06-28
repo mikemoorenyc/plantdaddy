@@ -11,4 +11,22 @@ if($_SESSION['login_noonce'] !== $_POST['login_noonce']) {
 	errorResponse(400, $error);
 }
 
-$logged_in_user = verify_login($_POST['email'],$_POST['pass']);
+$verified = verify_login($response['email'],$response['password']);
+
+if($verifed === false) {
+	$_SESSION['login_noonce'] = generate_noonce();
+	$error = array (
+		"new_login_noonce" => $_SESSION['login_noonce'],
+		"msg" => "The email address or password you've entered doesn't match any user."
+	);
+	errorResponse(403,$error);
+}
+$user = get_user_by_id($verified);
+$remember_me = create_remember_me($user['id']);
+
+  $response = array(
+    'logged_in' => true,
+    'user' => $user
+  );
+  echo json_encode($response);
+  die();
