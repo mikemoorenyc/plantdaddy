@@ -51,7 +51,7 @@ if(!in_array(strtolower($response['email']),$allowed_emails)) {
 	errorResponse(400, $mailError);
 }
 //CHECK IF EMAIL EXISTS
-$get_user =  "SELECT email FROM users WHERE `email` = '".mysql_real_escape_string($response['email'])."' LIMIT 1";
+$get_user =  "SELECT email FROM users WHERE `email` = '".$db_conn->real_escape_string($response['email'])."' LIMIT 1";
 $user = $db_conn->query($get_user);
 if($user->num_rows > 0) {
   $mailError['type'] = "Already Exists";
@@ -60,7 +60,7 @@ if($user->num_rows > 0) {
 
 $stored_pass = password_hash(
     base64_encode(
-        hash('sha256', mysql_real_escape_string($_POST['password']), true)
+        hash('sha256', $db_conn->real_escape_string($_POST['password']), true)
     ),
     PASSWORD_DEFAULT
 ); 
