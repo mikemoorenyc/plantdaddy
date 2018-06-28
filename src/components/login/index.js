@@ -76,7 +76,7 @@ export default class Login extends Component {
 					labelShort={"email"}
 					value={state.email}
 					required={true}
-					label={"Password"}
+					label={"Email"}
 					onInput={this.inputChange}
 					type={"email"}			
 				/>
