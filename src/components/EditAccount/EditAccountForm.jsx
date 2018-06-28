@@ -127,7 +127,8 @@ export default class CreateAccount extends Component {
 				{sections}
 				{password}
 				<br/><br/>
-				<button disabled={state.disabled}>{submitText}</button>
+				<button disabled={state.disabled}>{submitText}</button><br/>
+				<a href="/login/">Cancel</a>
       </form>
     )
   }
