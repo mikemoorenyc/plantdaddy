@@ -90,7 +90,7 @@ $insert_db = "INSERT INTO users (".$insert_keys.") VALUES (".$insert_values.")";
 $add_user = mysqli_query($db_conn, $insert_db);
 	 
 if ($add_user) {
-   
+	$_SESSION['login_noonce'] = null;
 	echo json_encode(array(
 		"msg": "User Created",
 		"user" : get_user_by_id(mysqli_insert_id($db_conn));
