@@ -8,6 +8,8 @@ $HTML = file_get_contents($app_path);
 $initInfo = [];
 
 $initInfo['isLoggedIn'] = is_user_logged_in();
+$initInfo['userProfile'] = null;
+
 
 $_SESSION['login_noonce'] = generate_noonce();
 $initInfo['loginNoonce'] = $_SESSION['login_noonce'];
