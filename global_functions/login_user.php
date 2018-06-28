@@ -3,7 +3,7 @@ function login_user($id=null) {
   if(!$id) {
     return false;
   }
-  $current_user = get_user($id);
+  $current_user = get_user_by_id($id);
   if($current_user) {
     $_SESSION['logged_in'] = true;
     $_SESSION['current_user'] = $current_user;
