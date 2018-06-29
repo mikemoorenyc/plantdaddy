@@ -44,9 +44,9 @@ $mailError = array(
 if (!filter_var($response['email'], FILTER_VALIDATE_EMAIL)) {
 	errorResponse(400, $mailError);
 }
-require "/allowed_emails.php";
 
-if(!in_array(strtolower($response['email']),$allowed_emails)) {
+
+if(!in_array(strtolower($response['email']),ALLOWED_EMAILS)) {
 	$mailError['type'] = "Not Allowed";
 	errorResponse(400, $mailError);
 }
@@ -63,8 +63,8 @@ $stored_pass = password_hash(
         hash('sha256', $db_conn->real_escape_string($_POST['password']), true)
     ),
     PASSWORD_DEFAULT
-); 
-	 
+);
+
 $user_color = RandomColor::one(array(
    'luminosity' => 'bright',
    'hue' => 'random',
@@ -86,9 +86,9 @@ $insert_keys = implode(", ", array_keys($insert_fields));
 
 
 $insert_db = "INSERT INTO users (".$insert_keys.") VALUES (".$insert_values.")";
-	 
+
 $add_user = mysqli_query($db_conn, $insert_db);
-	 
+
 if ($add_user) {
 	$_SESSION['login_noonce'] = null;
 	echo json_encode(array(

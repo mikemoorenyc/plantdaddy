@@ -1,7 +1,7 @@
 <?php
 function create_remember_me($id) {
   global $db_conn;
-  if($_COOKIE['ur_fat_remember_me']) {
+  if($_COOKIE[REMEMBER_ME_NAME]) {
     //DELETE OLD REMEMBER ME
     delete_remember_me();
   }
@@ -14,10 +14,9 @@ function create_remember_me($id) {
     VALUES ('$selector','$validator','$user_id','$expires')";
   $db_token = $dbconn->mysqli_query($db_conn, $insert_token);
   if($db_token) {
-    setcookie("ur_fat_remember_me", json_encode(array("selector" => $selector , "validator" => $plain_token)),$expires, '/');
+    setcookie(REMEMBER_ME_NAME, json_encode(array("selector" => $selector , "validator" => $plain_token)),$expires, '/');
     return true;
   } else {
     return false;
   }
 }
-

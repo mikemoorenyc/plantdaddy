@@ -6,6 +6,5 @@
 /.idea
 yarn.lock
 /.vscode
-allowed_emails.php
 database_info.php
-app_path.php
+site_specs.php

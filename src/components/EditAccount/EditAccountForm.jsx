@@ -4,7 +4,7 @@ import { route } from 'preact-router';
 import fetch from "unfetch";
 import checkStatus from "../../util/checkStatus.js";
 
-import FormSection from "./FormSection.jsx";
+import FormSection from "../common/FormField.jsx";
 
 
 export default class CreateAccount extends Component {
@@ -62,7 +62,7 @@ export default class CreateAccount extends Component {
 			var response = r.json();
 			this.props.UserContainer.recieveNewStateItem("login_noonce", response.new_login_noonce);
 			this.setState({created: true});
-			
+
 		}.bind(this))
 
 
@@ -76,10 +76,10 @@ export default class CreateAccount extends Component {
 			return(
 				<div>
 					Account Created<br/>
-					<a href="/login/">Login Now</a>	
+					<a href="/login/">Login Now</a>
 				</div>
 			)
-			
+
 		}
 		let submitText = (props.create)? "Create Account" : "Save Changes";
 		let password = 	<FormSection

@@ -3,12 +3,15 @@ require "/header.php";
 
 require "/app_path.php";
 
-$HTML = file_get_contents($app_path);
+$HTML = file_get_contents(APP_PATH);
 
 $initInfo = [];
 
 $initInfo['isLoggedIn'] = is_user_logged_in();
 $initInfo['userProfile'] = null;
+$initInfo['reset_verified'] = verify_reset_token($_GET['reset_token']);
+
+
 
 
 $_SESSION['login_noonce'] = generate_noonce();
