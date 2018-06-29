@@ -26,7 +26,8 @@ $remember_me = create_remember_me($user['id']);
 
   $response = array(
     'logged_in' => true,
-    'user' => $user
+    'user' => $user,
+    "success" => true
   );
   echo json_encode($response);
   die();

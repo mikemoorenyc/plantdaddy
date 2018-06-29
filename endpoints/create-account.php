@@ -46,7 +46,7 @@ if (!filter_var($response['email'], FILTER_VALIDATE_EMAIL)) {
 }
 
 
-if(!in_array(strtolower($response['email']),ALLOWED_EMAILS)) {
+if(!in_array(strtolower($response['email']),explode(",",ALLOWED_EMAILS))) {
 	$mailError['type'] = "Not Allowed";
 	errorResponse(400, $mailError);
 }
@@ -58,12 +58,7 @@ if($user->num_rows > 0) {
 	errorResponse(400, $mailError);
 }
 
-$stored_pass = password_hash(
-    base64_encode(
-        hash('sha256', $db_conn->real_escape_string($_POST['password']), true)
-    ),
-    PASSWORD_DEFAULT
-);
+$stored_pass = pw_hasher($response['password']);
 
 $user_color = RandomColor::one(array(
    'luminosity' => 'bright',
@@ -76,7 +71,7 @@ $insert_fields = array(
 	"password" => $stored_pass,
 	"telephone" => ($response['telephone'])? intval($response['telephone']) : null,
 	"firstname" => $db_conn->real_escape_string($response['firstname']),
-	"photo_url" => ($response['telephone'])? $db_conn->real_escape_string($response['photo_url']) : null,
+	"photo_url" => ($response['photo_url'])? $db_conn->real_escape_string($response['photo_url']) : null,
 	"date_created" => time(),
 	"date_modified" => time(),
 	"color" => $user_color
@@ -92,15 +87,16 @@ $add_user = mysqli_query($db_conn, $insert_db);
 if ($add_user) {
 	$_SESSION['login_noonce'] = null;
 	echo json_encode(array(
-		"msg": "User Created",
-		"user" : get_user_by_id(mysqli_insert_id($db_conn));
+		"msg"=> "User Created",
+		"user" => get_user_by_id(mysqli_insert_id($db_conn)),
+		"success" => true
 	));
 } else {
 	$_SESSION['login_noonce'] = generate_noonce();
   $error = array(
 		"msg" : "User Could Not Be Created",
 		"new_login_noonce" => $_SESSION['login_noonce'],
-		"server_msg" => mysqli_error($db_conn);
+		"server_msg" => mysqli_error($db_conn)
 	);
 	errorResponse(501, $error);
 }

@@ -13,12 +13,15 @@ switch($url) {
 	case "/require-reset/"
 		require "code-require-reset.php";
 		break;
+  case "/reset-password/":
+		require "code-reset-password.php";
+		break;
 
 
     default:
 			http_response_code(404);
 			die();
-				
+
 }
 
 

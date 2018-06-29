@@ -9,7 +9,7 @@ $initInfo = [];
 
 $initInfo['isLoggedIn'] = is_user_logged_in();
 $initInfo['userProfile'] = null;
-$initInfo['reset_verified'] = verify_reset_token($_GET['reset_token']);
+$initInfo['reset_verified'] = (!$_GET['reset_token']) ? false : verify_reset_token();
 
 
 

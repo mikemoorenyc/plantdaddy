@@ -13,6 +13,7 @@ verify_reset_token($token) {
   $expires = $user["reset_expires"]
   $sql = "UPDATE users SET reset_token=null, reset_expires=0  WHERE id=".$id;
   $delete_token = mysqli_query($db_conn, $sql);
+  $_SESSION['reset_token_verified'] = true;
 
   if( $expires < time()) {return false;}
 

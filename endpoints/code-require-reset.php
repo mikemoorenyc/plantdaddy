@@ -5,7 +5,8 @@ require_once "endpoint-header.php";
 $email = $db_conn->real_escape_string($response['email']);
 
 $success_msg = json_encode(array(
-	"msg" => "Message Sent"
+	"msg" => "Message Sent",
+	"success" => true
 ));
 
 
