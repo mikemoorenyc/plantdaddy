@@ -9,10 +9,10 @@ import React from 'react';
 
 let root;
 function init() {
-	let App = require('./components/app').default;
+	let App = require('./components/AppWrap.jsx').default;
 	root = render(<App
 
-		      />, document.body, root);
+		      />, document.getElementById("root"), root);
 }
 
 // register ServiceWorker via OfflinePlugin, for prod only:

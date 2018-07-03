@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import fetch from "unfetch";
 
-import {FormField} from "../common/FormField.jsx";
+import FormField from "../common/FormField.jsx";
 
 
 export default class Login extends Component {
@@ -12,13 +12,13 @@ export default class Login extends Component {
 			disabled: true,
 			password: '',
 			email: '',
-			loggedIn: false,
-			firstname: null
+			firstname: null,
 		}
 
   }
 	componentWillMount() {
-		if(this.props.isLoggedIn) {
+
+		if(this.props.UserContainer.state.isLoggedIn) {
 			route('/', true);
 		}
 	}
@@ -64,7 +64,7 @@ export default class Login extends Component {
 
   render(props,state) {
 
-		if(state.loggedIn) {
+		if(props.UserContainer.state.isLoggedIn) {
 			return(
 				<div>You&rsquo;re logged in, {firstname}</div>
 			)
@@ -89,6 +89,8 @@ export default class Login extends Component {
 					type={"password"}
 				/>
 				<button disabled={state.disabled}>Log In</button>
+        <br/><br/>
+        <a href="/create-account/">Create a new account</a>
 			</form>
 
     )

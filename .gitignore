@@ -8,3 +8,4 @@ yarn.lock
 /.vscode
 database_info.php
 site_specs.php
+yarn-error.log

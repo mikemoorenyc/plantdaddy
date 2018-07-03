@@ -1,12 +1,9 @@
 import { Container } from 'unstated';
-import { h, Component } from 'preact';
 
-class UserContainer extends Container{
+export default class TodoContainer extends Container {
   state = {
-	  isLoggedIn: false
-
+    isLoggedIn: INITINFO.isLoggedIn
   };
 
-}
 
-export default UserContainer;
+}
