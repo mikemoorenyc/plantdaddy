@@ -3,10 +3,11 @@ import { route } from 'preact-router';
 import fetch from "unfetch";
 import linkstate from "linkstate";
 
-import {FormField} "../common/FormField.jsx";
+import {FormField} from "../common/FormField.jsx";
 
 export default class ForgotPassword extends Component {
 	constructor() {
+		super();
 		this.state = {
 			email: '',
 			status: 'unsent'

@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import fetch from "unfetch";
 
-import {FormField} "../common/FormField.jsx";
+import {FormField} from "../common/FormField.jsx";
 
 
 export default class Login extends Component {
@@ -53,23 +53,23 @@ export default class Login extends Component {
 				firstname: response.user.firstname
 			});
 			this.props.UserContainer.recieveNewStateItem('isLoggedIn',true);
-			this.props.UserContainer.recieveNewStateItem('userProfile' response.user);
+			this.props.UserContainer.recieveNewStateItem('userProfile', response.user);
 			setTimeout(function(){
 				route("/",true)
-			}), 2000);
+			}, 2000);
 		}.bind(this))
 	}
-  
+
 
 
   render(props,state) {
-		
+
 		if(state.loggedIn) {
 			return(
 				<div>You&rsquo;re logged in, {firstname}</div>
 			)
 		}
-    
+
     return (
       <form onSubmit={this.submitForm}>
 				<FormField
@@ -78,7 +78,7 @@ export default class Login extends Component {
 					required={true}
 					label={"Email"}
 					onInput={this.inputChange}
-					type={"email"}			
+					type={"email"}
 				/>
 				<FormField
 					labelShort={"password"}
@@ -86,7 +86,7 @@ export default class Login extends Component {
 					required={true}
 					label={"Password"}
 					onInput={this.inputChange}
-					type={"password"}			
+					type={"password"}
 				/>
 				<button disabled={state.disabled}>Log In</button>
 			</form>

@@ -1,5 +1,5 @@
 <?php
-verify_reset_token($token) {
+function verify_reset_token($token) {
   global $db_conn;
   if(!$token) {return false;}
 
@@ -10,7 +10,7 @@ verify_reset_token($token) {
   $user->fetch_assoc();
   //RESET EVERTHING
   $id = $user['id'];
-  $expires = $user["reset_expires"]
+  $expires = $user["reset_expires"];
   $sql = "UPDATE users SET reset_token=null, reset_expires=0  WHERE id=".$id;
   $delete_token = mysqli_query($db_conn, $sql);
   $_SESSION['reset_token_verified'] = true;

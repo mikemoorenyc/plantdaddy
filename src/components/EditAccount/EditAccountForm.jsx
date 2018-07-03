@@ -43,7 +43,7 @@ export default class CreateAccount extends Component {
 	}
 	submitForm(e) {
 		console.log(e);
-		this.setState{sending:true});
+		this.setState({sending:true});
 		e.preventDefault();
 		let state = this.state;
 		fetch("/endpoints/create-account/",{

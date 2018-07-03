@@ -4,7 +4,7 @@ function update_item($p) {
   global $db_conn;
   //MAKE SURE EVERYTHING IS THERE
   $values = ['update_column','update_value',"db","selector_key","selector_value"];
-  if(!empty(array_diff($values,array_keys($p)))){return false};
+  if(!empty(array_diff($values,array_keys($p)))){return false;}
 
   $db = $db_conn->real_escape_string($p["db"]);
   $update_column = $db_conn->real_escape_string($p["update_column"]);

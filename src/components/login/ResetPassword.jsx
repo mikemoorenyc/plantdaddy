@@ -3,11 +3,12 @@ import { route } from 'preact-router';
 import fetch from "unfetch";
 import linkstate from "linkstate";
 
-import {FormField} "../common/FormField.jsx";
+import {FormField} from "../common/FormField.jsx";
 
 
 export default class ResetPassword extends Component {
 	constructor() {
+		super();
 		this.state = {
 			email: '',
 			status: 'unsent',
@@ -23,17 +24,17 @@ export default class ResetPassword extends Component {
 	submitForm(e) {
 		e.preventDefault();
 		if(!this.state.email || (this.state.password !== this.state.password_2)) { return false;}
-		let package = {
+		let sendPackage = {
       email: this.state.email,
       password: this.state.password
-    }
+    };
 		this.setState({status: "sending"});
 		fetch("/endpoints/reset-password/",{
 			method: "POST",
 			headers: {
 				"Content-Type" : 'application/json'
 			},
-			body: JSON.stringify(package)
+			body: JSON.stringify(sendPackage)
 		})
 		.then(function(r){
 			if(r.status >= 300) {
@@ -59,6 +60,7 @@ export default class ResetPassword extends Component {
         <p>
         Your password has been successfully reset. <br/>
         <a href="/login/">Login</a>
+				</p>
       )
     }
 
