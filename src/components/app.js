@@ -53,28 +53,45 @@ export default class App extends Component {
 
 	render(props,state) {
 		return (
-			 <Provider>
-			<Subscribe to={[UserContainer]}>
-			{function(user){
-				<Router onChange={this.handleRoute}>
-					<Home path="/" />
-					<Home path="/index.php" />
-					<Login path="/login/" UserContainer={user} isLoggedIn={user.isLoggedIn} noonce={user.login_noonce} />
-					<ForgotPassword path="/forgot-password/" />
-					<ResetPassword path="/reset-password/" />
-					<EditAccount path="/create-account/"
-						isLoggedIn={user.isLoggedIn}
-						noonce={user.login_noonce}
-						create={true}
-						UserContainer={user}
-					/>
-					<Profile path="/profile/" user="me" />
-					<Profile path="/profile/:user" />
-				</Router>
-				}.bind(this)
-			}
-			</Subscribe>
+			<Provider>
+				<Subscribe to={[UserContainer]}>
+					{todos =>
+						<div>ddff</div>
+					}
+
+				</Subscribe>
+
 			</Provider>
 		);
 	}
 }
+
+/*
+<Provider>
+<Subscribe to={[UserContainer]}>
+{function(user){
+
+ }.bind(this)
+}
+</Subscribe>
+</Provider>
+*/
+
+
+/*
+<Router onChange={this.handleRoute}>
+	<Home path="/" />
+	<Home path="/index.php" />
+	<Login path="/login/" UserContainer={user} isLoggedIn={user.isLoggedIn} noonce={user.login_noonce} />
+	<ForgotPassword path="/forgot-password/" />
+	<ResetPassword path="/reset-password/" />
+	<EditAccount path="/create-account/"
+		isLoggedIn={user.isLoggedIn}
+		noonce={user.login_noonce}
+		create={true}
+		UserContainer={user}
+	/>
+	<Profile path="/profile/" user="me" />
+	<Profile path="/profile/:user" />
+</Router>
+*/

@@ -8,7 +8,9 @@ import path from 'path';
 const ENV = process.env.NODE_ENV || 'development';
 
 const CSS_MAPS = ENV!=='production';
-const output_path = (process.env.NODE_ENV!=='production') ? "http://localhost:8080/" : "/";
+const output_path = (process.env.NODE_ENV!=='production') ? "http://localhost:8080/" : "";
+
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 module.exports = {
 	context: path.resolve(__dirname, "src"),
 	entry: './index.js',
@@ -29,8 +31,9 @@ module.exports = {
 		alias: {
 			components: path.resolve(__dirname, "src/components"),    // used for tests
 			style: path.resolve(__dirname, "src/style"),
-			'react': 'preact-compat',
-			'react-dom': 'preact-compat'
+			"react": "preact-compat",
+      "react-dom": "preact-compat",
+			'preact-compat': 'preact-compat/dist/preact-compat'
 		}
 	},
 
@@ -133,34 +136,15 @@ module.exports = {
 			{ from: './favicon.ico', to: './' }
 		])
 	]).concat(ENV==='production' ? [
-		new webpack.optimize.UglifyJsPlugin({
-			output: {
-				comments: false
-			},
-			compress: {
-				unsafe_comps: true,
-				properties: true,
-				keep_fargs: false,
-				pure_getters: true,
-				collapse_vars: true,
-				unsafe: true,
-				warnings: false,
-				screw_ie8: true,
-				sequences: true,
-				dead_code: true,
-				drop_debugger: true,
-				comparisons: true,
-				conditionals: true,
-				evaluate: true,
-				booleans: true,
-				loops: true,
-				unused: true,
-				hoist_funs: true,
-				if_return: true,
-				join_vars: true,
-				cascade: true,
-				drop_console: true
-			}
+		new UglifyJsPlugin({
+			cache: true,
+        parallel: true,
+        uglifyOptions: {
+          compress: false,
+          ecma: 6,
+          mangle: true
+        },
+        sourceMap: true
 		}),
 
 		new OfflinePlugin({

@@ -3,6 +3,8 @@
 import { h, render } from 'preact';
 import './style';
 
+import React from 'react';
+
 
 
 let root;
