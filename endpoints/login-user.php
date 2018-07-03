@@ -23,6 +23,8 @@ if($verifed === false) {
 }
 $user = get_user_by_id($verified);
 $remember_me = create_remember_me($user['id']);
+$_SESSION['logged_in'] = true;
+$_SESSION['current_user'] = $user;
 
   $response = array(
     'logged_in' => true,

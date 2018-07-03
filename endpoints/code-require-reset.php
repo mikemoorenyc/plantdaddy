@@ -28,7 +28,7 @@ $sql = "UPDATE users SET reset_token='$reset_token', reset_expires='$expires'  W
  }
 
 $reset_url = SITE_URL.'/reset-password/?reset_token='.$email_token;
-$body = str_replace("***REPLACE WITH URL***", $reset_url, file_get_contents("email-reset-template.html"));
+$body = str_replace("***REPLACE WITH URL***", $reset_url, file_get_contents("aaset/email-reset-template.html"));
 
 $reset_message = mail($user['email'], "Plant Daddy: Reset Your Password",$body,"From:".ADMIN_EMAIL);
 

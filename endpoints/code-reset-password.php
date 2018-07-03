@@ -4,7 +4,8 @@ if(!$_SESSION['reset_token_verified']) {
 }
 $mailError = array(
 	"msg" => "Bad Email",
-	"type" => "Bad Format"
+	"type" => "Bad Format",
+  "success" => false
 )
 if (!filter_var($response['email'], FILTER_VALIDATE_EMAIL) || get_user_by_email($response['email'])) {
 	errorResponse(400, $mailError);
@@ -23,7 +24,8 @@ $updated_pass = update_item($update_package);
 
 if(!$updated_pass) {
   $error = array(
-    "msg" => "Couldn't Update"
+    "msg" => "Couldn't Update",
+    "success" => false
   )
   errorResponse(500, $error);
 }

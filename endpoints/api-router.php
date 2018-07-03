@@ -16,6 +16,9 @@ switch($url) {
   case "/reset-password/":
 		require "code-reset-password.php";
 		break;
+  case "/logout-user/":
+  		require "code-logout-user.php";
+  		break;
 
 
     default:

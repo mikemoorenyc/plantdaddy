@@ -9,7 +9,7 @@ import Profile from './profile';
 import Login from './login';
 import ForgotPassword from './login/ForgotPassword.jsx';
 import EditAccount from "./EditAccount/EditAccountForm.jsx";
-
+import ResetPassword from './login/ResetPassword.jsx';
 import UserCountainer from "../containers/UserContainer.js"
 
 export default class App extends Component {
@@ -24,7 +24,8 @@ export default class App extends Component {
 		this.okNoLogPaths = [
 			'/login/',
 			'/create-account/',
-			'/forgot-password/'
+			'/forgot-password/',
+			"/reset-password/"
 		];
 		this.handleRoute = this.handleRoute.bind(this);
 
@@ -57,6 +58,7 @@ export default class App extends Component {
 					<Home path="/index.php" />
 					<Login path="/login/" UserContainer={user} isLoggedIn={user.isLoggedIn} noonce={user.login_noonce} />
 					<ForgotPassword path="/forgot-password/" />
+					<ResetPassword path="/reset-password/" />
 					<EditAccount path="/create-account/"
 						isLoggedIn={user.isLoggedIn}
 						noonce={user.login_noonce}
