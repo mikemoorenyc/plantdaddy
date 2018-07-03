@@ -1,10 +1,12 @@
 import { Container } from 'unstated';
 import { h, Component } from 'preact';
 
-export default class UserContainer extends Container{
+class UserContainer extends Container{
   state = {
 	  isLoggedIn: false
 	  
   };
 
 }
+
+export default UserContainer; 
