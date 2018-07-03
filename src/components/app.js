@@ -50,7 +50,7 @@ export default class App extends Component {
 
 	render(props,state) {
 		return (
-			<div id="app">
+			 <Provider>
 			<Subscribe to={[UserContainer]}>
 			{function(user){
 				<Router onChange={this.handleRoute}>
@@ -71,7 +71,7 @@ export default class App extends Component {
 				}.bind(this)
 			}
 			</Subscribe>
-			</div>
+			</Provider>
 		);
 	}
 }
