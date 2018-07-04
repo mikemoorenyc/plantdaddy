@@ -12,7 +12,7 @@ export default class Login extends Component {
 			disabled: true,
 			password: '',
 			email: '',
-			firstname: null,
+			first_name: null,
 		}
 
   }
@@ -50,7 +50,7 @@ export default class Login extends Component {
 			let response = r.json();
 			this.setState({
 				loggedIn: true,
-				firstname: response.user.firstname
+				first_name: response.user.first_name
 			});
 			this.props.UserContainer.recieveNewStateItem('isLoggedIn',true);
 			this.props.UserContainer.recieveNewStateItem('userProfile', response.user);
@@ -66,7 +66,7 @@ export default class Login extends Component {
 
 		if(props.UserContainer.state.isLoggedIn) {
 			return(
-				<div>You&rsquo;re logged in, {firstname}</div>
+				<div>You&rsquo;re logged in, {first_name}</div>
 			)
 		}
 

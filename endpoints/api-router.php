@@ -1,7 +1,6 @@
 <?php
 
-$url = str_replace('/endpoints','',parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
-
+$url = str_replace('/endpoints','',$url);
 
 
 switch($url) {
@@ -23,10 +22,10 @@ switch($url) {
 
 
     default:
-			http_response_code(404);
+			var_dump($_SESSION['login_noonce']);
 			die();
 
 }
 
-
+die();
 ?>

@@ -1,8 +1,8 @@
+
+
 RewriteEngine On
 
 
-RewriteCond %{REQUEST_URI} !^/install.php$
-RewriteCond %{REQUEST_URI} !^/index.php
-RewriteCond %{REQUEST_URI} !^/endpoints$
 
-RewriteRule .* /index.php [L]
+RewriteRule ^(install.php|robots.txt|favicon.ico)($|/) - [L]
+RewriteRule ^(.*)$ index.php [L]

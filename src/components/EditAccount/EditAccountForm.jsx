@@ -12,7 +12,7 @@ export default class CreateAccount extends Component {
 		super();
 
 		this.state = {
-			firstname: '',
+			first_name: '',
 			email: '',
 			password: '',
 			telephone: '',
@@ -36,7 +36,7 @@ export default class CreateAccount extends Component {
 		stateObj[e.target.id] = e.target.value;
 
 		this.setState(stateObj,function(){
-			let disabled = (!this.state.firstname || !this.state.password || !this.state.email) ? true : false;
+			let disabled = (!this.state.first_name || !this.state.password || !this.state.email) ? true : false;
 			this.setState({disabled: disabled});
 		});
 
@@ -54,14 +54,15 @@ export default class CreateAccount extends Component {
 			body: JSON.stringify(state),
 			credentials: 'include'
 		})
-		.then( r => r.json() )
+		.then( r => r.text() )
   	.then( function(data) {
+
+			console.log(data);
     	if(!data.success) {
-				alert(data.msg);
-				console.log(data);
+
 				//Update Noonce
 				this.setState({
-					firstname: '',
+					first_name: '',
 					email: '',
 					password: '',
 					telephone: ''
@@ -69,6 +70,7 @@ export default class CreateAccount extends Component {
 				this.props.uc.recieveNewStateItem('login_noonce', data.new_login_noonce)
 				return false;
 			}
+
   	}.bind(this))
 
 		/*
@@ -119,8 +121,8 @@ export default class CreateAccount extends Component {
 		}
 		let sections = [
 			{
-				labelShort:"firstname",
-				value:state.firstname,
+				labelShort:"first_name",
+				value:state.first_name,
 				required: true,
 				label : "First Name"
 			},

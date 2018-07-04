@@ -1,9 +1,9 @@
 <?PHP
 
-function get_user($selector, $key) {
+function get_user($key,$selector) {
   global $db_conn;
   if(!$selector || !$key) {
-    return false;
+    return 'bad parameters';
   }
 	$get_user =  "SELECT * FROM users WHERE `$key` = '".$db_conn->real_escape_string($selector)."' LIMIT 1";
 	$user = $db_conn->query($get_user);

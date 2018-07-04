@@ -1,7 +1,16 @@
 <?php
 
 require_once $_SERVER['DOCUMENT_ROOT'] ."/header.php";
+
 require_once "endpoint-header.php";
+
+
+
+if($_GET['form']) {
+	$response = $_POST;
+}
+
+var_dump($response);
 
 
 
@@ -32,7 +41,7 @@ foreach($response as $k=> $r) {
 		$empty_fields[] = $k;
 	}
 }
-if(empty($empty_fields)) {
+if(!empty($empty_fields)) {
 	$error = array(
 		"msg" => "Empty Fields",
 		"empty_fields" => $empty_fields
@@ -70,32 +79,40 @@ if($user->num_rows > 0) {
 
 $stored_pass = pw_hasher($response['password']);
 
-$user_color = RandomColor::one(array(
-   'luminosity' => 'bright',
-   'hue' => 'random',
-		"format" => "hex"
-));
+
 
 $insert_fields = array(
 	"email" => $db_conn->real_escape_string($response['email']),
 	"password" => $stored_pass,
 	"telephone" => ($response['telephone'])? intval($response['telephone']) : null,
-	"firstname" => $db_conn->real_escape_string($response['firstname']),
+	"first_name" => $db_conn->real_escape_string($response['first_name']),
 	"photo_url" => ($response['photo_url'])? $db_conn->real_escape_string($response['photo_url']) : null,
 	"date_created" => time(),
 	"date_modified" => time(),
-	"color" => $user_color
+	"color" =>$db_conn->real_escape_string( makeHSL())
 );
-$insert_values = implode(", ",$insert_fields);
+
+$insert_values = [];
+
+foreach($insert_fields as $k => $f) {
+	$insert_values[] = "'".$f."'";
+}
+
+$insert_values = implode(", ",$insert_values);
 $insert_keys = implode(", ", array_keys($insert_fields));
 
+var_dump($insert_values);
+var_dump($insert_keys);
 
-$insert_db = "INSERT INTO users (".$insert_keys.") VALUES (".$insert_values.")";
+$insert_db = "INSERT INTO users ($insert_keys) VALUES ($insert_values)";
+
+var_dump($insert_db);
 
 $add_user = mysqli_query($db_conn, $insert_db);
 
 if ($add_user) {
 	$_SESSION['login_noonce'] = null;
+	var_dump(mysqli_insert_id($db_conn));
 	echo json_encode(array(
 		"msg"=> "User Created",
 		"user" => get_user_by_id(mysqli_insert_id($db_conn)),
