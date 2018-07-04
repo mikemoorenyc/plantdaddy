@@ -5,15 +5,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] ."/header.php";
 require_once "endpoint-header.php";
 
 
-
-if($_GET['form']) {
-	$response = $_POST;
-}
-
-var_dump($response);
-
-
-
 if($_SESSION['logged_in']) {
 	$error = array(
 		"msg" => "Already a user"
@@ -32,19 +23,12 @@ if($_SESSION['login_noonce'] !== $response['login_noonce']) {
 	);
 	errorResponse(400, $error);
 }
-$empty_fields = [];
-foreach($response as $k=> $r) {
-	if($k == 'login_noonce' || $k == 'telephone') {
-		continue;
-	}
-	if(!$r) {
-		$empty_fields[] = $k;
-	}
-}
-if(!empty($empty_fields)) {
+$required_fields =['first_name','email','password'];
+$required_diff = array_diff($required_fields, array_keys($response));
+if(!empty($required_diff)) {
 	$error = array(
 		"msg" => "Empty Fields",
-		"empty_fields" => $empty_fields
+		"empty_fields" => $required_diff
 	);
 	errorResponse(400, $error);
 }
@@ -101,12 +85,9 @@ foreach($insert_fields as $k => $f) {
 $insert_values = implode(", ",$insert_values);
 $insert_keys = implode(", ", array_keys($insert_fields));
 
-var_dump($insert_values);
-var_dump($insert_keys);
 
 $insert_db = "INSERT INTO users ($insert_keys) VALUES ($insert_values)";
 
-var_dump($insert_db);
 
 $add_user = mysqli_query($db_conn, $insert_db);
 
