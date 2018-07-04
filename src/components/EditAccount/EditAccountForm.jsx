@@ -42,20 +42,43 @@ export default class CreateAccount extends Component {
 
 	}
 	submitForm(e) {
-		console.log(e);
 		this.setState({sending:true});
 		e.preventDefault();
 		let state = this.state;
+		state.login_noonce = this.props.uc.state.login_noonce;
 		fetch("/endpoints/create-account/",{
 			method: "POST",
 			headers: {
 				"Content-Type" : 'application/json'
 			},
-			body: JSON.stringify(state)
+			body: JSON.stringify(state),
+			credentials: 'include'
 		})
+		.then( r => r.json() )
+  	.then( function(data) {
+    	if(!data.success) {
+				alert(data.msg);
+				console.log(data);
+				//Update Noonce
+				this.setState({
+					firstname: '',
+					email: '',
+					password: '',
+					telephone: ''
+				});
+				this.props.uc.recieveNewStateItem('login_noonce', data.new_login_noonce)
+				return false;
+			}
+  	}.bind(this))
+
+		/*
 		.then(function(r){
+
+			var response = r.text();
+
+			console.log(response);
 			if(r.status >= 300) {
-				//errorHandlinge
+				alert(response.msg)
 				return false;
 			}
 			//SEND INFO
@@ -64,7 +87,7 @@ export default class CreateAccount extends Component {
 			this.setState({created: true});
 
 		}.bind(this))
-
+*/
 
 
 	}
@@ -72,6 +95,7 @@ export default class CreateAccount extends Component {
 
 
   render(props,state) {
+
 		if(props.create && state.created) {
 			return(
 				<div>

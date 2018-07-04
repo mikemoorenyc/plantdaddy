@@ -1,2 +1,2 @@
 RewriteEngine On
-RewriteRule ^/endpoints/ api-router.php
+RewriteRule ^(.*)$ api-router.php [L]

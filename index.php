@@ -14,7 +14,9 @@ $initInfo['reset_verified'] = (!$_GET['reset_token']) ? false : verify_reset_tok
 
 
 
+
 $_SESSION['login_noonce'] = generate_noonce();
+
 $initInfo['login_noonce'] = $_SESSION['login_noonce'];
 
 $initJS = "<script>var INITINFO = ".json_encode($initInfo)."; </script>";

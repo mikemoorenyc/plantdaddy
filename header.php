@@ -9,8 +9,8 @@ require "site_specs.php";
 if($need_to_install) {
   die('<a href="install.php">Install Plantdaddy</a>');
 }
-if(file_exists("./global_functions")) {
-  $dir = new DirectoryIterator('./global_functions');
+if(file_exists($_SERVER['DOCUMENT_ROOT']."/global_functions")) {
+  $dir = new DirectoryIterator($_SERVER['DOCUMENT_ROOT']."/global_functions");
   foreach ($dir as $i) {
     if($i->getExtension() !== 'php' || !$i->isFile()) {
      continue;

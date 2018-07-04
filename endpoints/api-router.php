@@ -1,6 +1,7 @@
 <?php
 
-$url = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$url = str_replace('/endpoints','',parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+
 
 
 switch($url) {
@@ -10,7 +11,7 @@ switch($url) {
 	case "/login-user/":
 		require "login-user.php";
 		break;
-	case "/require-reset/"
+	case "/require-reset/":
 		require "code-require-reset.php";
 		break;
   case "/reset-password/":

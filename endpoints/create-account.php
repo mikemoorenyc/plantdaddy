@@ -1,6 +1,9 @@
 <?php
-require_once "/header.php";
+
+require_once $_SERVER['DOCUMENT_ROOT'] ."/header.php";
 require_once "endpoint-header.php";
+
+
 
 if($_SESSION['logged_in']) {
 	$error = array(
@@ -10,9 +13,12 @@ if($_SESSION['logged_in']) {
 }
 
 if($_SESSION['login_noonce'] !== $response['login_noonce']) {
+	$server = $_SESSION['login_noonce'];
 	$_SESSION['login_noonce'] = generate_noonce();
 	$error = array(
 		"msg" => "Bad Noonce",
+		"server" => $server,
+		"response" => $response['login_noonce'],
 		"new_login_noonce" => $_SESSION['login_noonce']
 	);
 	errorResponse(400, $error);
@@ -33,14 +39,18 @@ if(empty($empty_fields)) {
 	);
 	errorResponse(400, $error);
 }
-if($response['telephone'] && (!is_numeric($response['telephone'] || intval($response['telephone'] > 9999999999) || intval($response['telephone']) =< 1000000000)) {
-	$error = array('msg' => 'Bad Telephone');
-	errorResponse(400, $error);
+if($response['telephone']) {
+	if(!is_numeric($response['telephone']) || intval($response['telephone']) > 9999999999 || intval($response['telephone']) <= 1000000000 ) {
+		$error = array('msg' => 'Bad Telephone');
+		errorResponse(400, $error);
+	}
 }
+
+
 $mailError = array(
 	"msg" => "Bad Email",
 	"type" => "Bad Format"
-)
+);
 if (!filter_var($response['email'], FILTER_VALIDATE_EMAIL)) {
 	errorResponse(400, $mailError);
 }
@@ -94,7 +104,7 @@ if ($add_user) {
 } else {
 	$_SESSION['login_noonce'] = generate_noonce();
   $error = array(
-		"msg" : "User Could Not Be Created",
+		"msg" => "User Could Not Be Created",
 		"new_login_noonce" => $_SESSION['login_noonce'],
 		"server_msg" => mysqli_error($db_conn)
 	);
