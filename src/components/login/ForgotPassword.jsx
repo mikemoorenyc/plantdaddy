@@ -10,13 +10,18 @@ export default class ForgotPassword extends Component {
 		super();
 		this.state = {
 			email: '',
-			status: 'unsent'
+			status: null
 		}
 
 	}
 	submitForm(e) {
 		e.preventDefault();
 		if(!this.state.email) { return false;}
+		let send_body = {
+			email: this.state.email,
+			login_noonce: this.props.login_noonce
+		};
+		
 		let email = this.state.email;
 		this.setState({status: "sending"});
 		fetch("/endpoints/require-reset/",{
@@ -24,20 +29,15 @@ export default class ForgotPassword extends Component {
 			headers: {
 				"Content-Type" : 'application/json'
 			},
-			body: JSON.stringify({email:email})
+			body: JSON.stringify(send_body)
 		})
-		.then(function(r){
-			if(r.status >= 300) {
-				//errorHandlinge
+		.then( r => r.json() )
+		.then(function(d){
+			if(!d.status) {
+				//error handling
 				return false;
 			}
-			//SEND INFO
-			var response = r.json();
-			if(response.success) {
-				this.setState({status: "sent"});
-				return false;
-			}
-			//ERROR HANDLIGN
+			this.setState({status: "sent"});
 
 		}.bind(this))
 	}
@@ -67,9 +67,9 @@ export default class ForgotPassword extends Component {
 					onInput={linkState(this, 'email')}
 					type={"email"}
 				/>
-				<button type="submit" disabled={this.state.email}>Submit</button>
+				<button type="submit" disabled={(this.state.email || state.status == "sending")}>Submit</button>
 				<br/><br/>
-				Enter your email above to reseet your password. <a href="/login/">Cancel</a>
+				Enter your email above to reset your password. <a native href="/login/">Cancel</a>
 			</form>
 
 		)
