@@ -90,7 +90,8 @@ export default class Login extends Component {
 				/>
 				<button disabled={state.disabled}>Log In</button>
         <br/><br/>
-        <a href="/create-account/">Create a new account</a>
+        <a href="/create-account/">Create a new account</a><br/>
+	    <a href="/forgot-password/">Forget your password?</a>
 			</form>
 
     )
