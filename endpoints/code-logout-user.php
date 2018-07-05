@@ -1,9 +1,9 @@
 <?php
 if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-	echo json_encode({
-    error: true,
-    msg: "Cannot logout with ajax request"
-  })
+	$error = array(
+		"msg" => "Cannot logout with ajax request"
+	);
+	errorResponse($error);
 	die();
 }
 $_SESSION['logged_in'] = null;
