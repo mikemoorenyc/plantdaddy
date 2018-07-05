@@ -11,6 +11,7 @@ function errorResponse($code=400, $error) {
 //	$_SESSION['login_noonce'] = generate_noonce();
 	if(is_array($error)) {
 		$error['success'] = false;
+		$error['error_code'] = $error['error_code'] ?: "general";
 		$error['new_login_noonce'] = $_SESSION['login_noonce'];
 		$error = json_encode($error);
 
