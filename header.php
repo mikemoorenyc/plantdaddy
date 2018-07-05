@@ -9,6 +9,9 @@ var_dump($_SESSION['login_noonce']);
 require 'db_connect.php';
 require "site_specs.php";
 
+define("ADMIN_EMAIL", $site_specs['admin_email']);
+define("SITE_URL",$site_specs['site_url']);
+
 if($need_to_install) {
   die('<a href="install.php">Install Plantdaddy</a>');
 }
