@@ -16,11 +16,8 @@ export default class CreateAccount extends Component {
 			email: '',
 			password: '',
 			telephone: '',
-			login_noonce: props.noonce,
 			disabled: true,
-			updated: false,
-			sending: false,
-			created: false
+			status: null
 		}
 
 		this.inputChange = this.inputChange.bind(this);
@@ -42,8 +39,11 @@ export default class CreateAccount extends Component {
 
 	}
 	submitForm(e) {
-		this.setState({sending:true});
 		e.preventDefault();
+		if(this.state.disabled) {
+			return false;
+		}
+		this.setState({status : "sending"});
 		let state = this.state;
 		state.login_noonce = this.props.uc.state.login_noonce;
 		fetch("/endpoints/create-account/",{
@@ -54,42 +54,23 @@ export default class CreateAccount extends Component {
 			body: JSON.stringify(state),
 			credentials: 'include'
 		})
-		.then( r => r.text() )
+		.then( r => r.json() )
   	.then( function(data) {
 
-			console.log(data);
     	if(!data.success) {
-
+				this.setState({status :null});
 				//Update Noonce
 				this.setState({
-					first_name: '',
-					email: '',
+					email: (data.error_code == "bad_email") ? "" : state.email,
 					password: '',
-					telephone: ''
+					telephone: (data.error_code == "bad_telephone") ? '' : state.telephone
 				});
 				this.props.uc.recieveNewStateItem('login_noonce', data.new_login_noonce)
 				return false;
 			}
+			this.setState({status: "created"});
 
   	}.bind(this))
-
-		/*
-		.then(function(r){
-
-			var response = r.text();
-
-			console.log(response);
-			if(r.status >= 300) {
-				alert(response.msg)
-				return false;
-			}
-			//SEND INFO
-			var response = r.json();
-			this.props.UserContainer.recieveNewStateItem("login_noonce", response.new_login_noonce);
-			this.setState({created: true});
-
-		}.bind(this))
-*/
 
 
 	}
@@ -98,7 +79,7 @@ export default class CreateAccount extends Component {
 
   render(props,state) {
 
-		if(props.create && state.created) {
+		if(props.create && state.status == "created") {
 			return(
 				<div>
 					Account Created<br/>
@@ -107,6 +88,7 @@ export default class CreateAccount extends Component {
 			)
 
 		}
+		let disabled = (state.disabled || state.status == "sending") ? true : false;
 		let submitText = (props.create)? "Create Account" : "Save Changes";
 		let password = 	<FormSection
 											labelShort={"password"}
@@ -154,7 +136,7 @@ export default class CreateAccount extends Component {
 				{sections}
 				{password}
 				<br/><br/>
-				<button disabled={state.disabled}>{submitText}</button><br/>
+				<button disabled={disabled}>{submitText}</button><br/>
 				<a href="/login/">Cancel</a>
       </form>
     )
