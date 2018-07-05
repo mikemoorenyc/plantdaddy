@@ -2,12 +2,15 @@
 require_once "/header.php";
 require_once "endpoint-header.php";
 
+$session_login_noonce = $_SESSION['login_noonce'];
+$_SESSION['login_noonce'] = null;
+
 $success_msg = json_encode(array(
 	"msg" => "Message Sent",
 	"success" => true
 ));
 
-if($_SESSION['login_noonce'] !== $response['login_noonce']) {
+if($session_login_noonce !== $response['login_noonce'] || $_SESSION['logged_in']) {
 	die($success_msg);
 }
 
