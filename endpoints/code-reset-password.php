@@ -4,10 +4,10 @@ if(!$_SESSION['reset_token_verified']) {
 }
 $mailError = array(
 	"msg" => "Bad Email",
-	"type" => "Bad Format",
+	"error_code" => "bad_email",
   "success" => false
 )
-if (!filter_var($response['email'], FILTER_VALIDATE_EMAIL) || get_user_by_email($response['email'])) {
+if (!get_user_by_email($response['email'])) {
 	errorResponse(400, $mailError);
 }
 $new_password = pw_hasher($response['password']);
