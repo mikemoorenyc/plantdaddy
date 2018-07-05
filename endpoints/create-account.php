@@ -16,7 +16,7 @@ if($_SESSION['login_noonce'] !== $response['login_noonce']) {
 	$server = $_SESSION['login_noonce'];
 	$_SESSION['login_noonce'] = generate_noonce();
 	$error = array(
-		"msg" => "Bad Noonce",
+		"error_code" => "bad_noonce",
 		"server" => $server,
 		"response" => $response['login_noonce'],
 		"new_login_noonce" => $_SESSION['login_noonce']
@@ -27,22 +27,22 @@ $required_fields =['first_name','email','password'];
 $required_diff = array_diff($required_fields, array_keys($response));
 if(!empty($required_diff)) {
 	$error = array(
-		"msg" => "Empty Fields",
+		"error_code" => "empty_fields"
 		"empty_fields" => $required_diff
 	);
 	errorResponse(400, $error);
 }
 if($response['telephone']) {
 	if(!is_numeric($response['telephone']) || intval($response['telephone']) > 9999999999 || intval($response['telephone']) <= 1000000000 ) {
-		$error = array('msg' => 'Bad Telephone');
+		$error = array('error_code' => 'bad_message', "msg" => "The telephone number you entered isn't valid.");
 		errorResponse(400, $error);
 	}
 }
 
 
 $mailError = array(
-	"msg" => "Bad Email",
-	"type" => "Bad Format"
+	"error_code" => "bad_email",
+	"msg" => "Your email address isn't formatted correctly."
 );
 if (!filter_var($response['email'], FILTER_VALIDATE_EMAIL)) {
 	errorResponse(400, $mailError);
@@ -50,14 +50,14 @@ if (!filter_var($response['email'], FILTER_VALIDATE_EMAIL)) {
 
 
 if(!in_array(strtolower($response['email']),explode(",",ALLOWED_EMAILS))) {
-	$mailError['type'] = "Not Allowed";
+	$mailError['msg'] = "That email address isn't allowed.";
 	errorResponse(400, $mailError);
 }
 //CHECK IF EMAIL EXISTS
 $get_user =  "SELECT email FROM users WHERE `email` = '".$db_conn->real_escape_string($response['email'])."' LIMIT 1";
 $user = $db_conn->query($get_user);
 if($user->num_rows > 0) {
-  $mailError['type'] = "Already Exists";
+  $mailError['msg'] = "There is problem with using this email address. Try another one.";
 	errorResponse(400, $mailError);
 }
 
