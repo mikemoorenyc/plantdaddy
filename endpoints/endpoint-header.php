@@ -13,11 +13,9 @@ function errorResponse($code=400, $error) {
 		$error['success'] = false;
 		$error['error_code'] = $error['error_code'] ?: "general";
 		$error['new_login_noonce'] = $_SESSION['login_noonce'];
-		$error = json_encode($error);
-
 	}
 	http_response_code($code);
-	echo $error;
+	echo json_encode($error);
 	die();
 }
 
