@@ -2,8 +2,7 @@
 
 //header('Content-Type: application/json');
 $response = json_decode(file_get_contents('php://input'),true);
-$session_login_noonce = $_SESSION['login_noonce'];
-$_SESSION['login_noonce'] = null;
+
 
 if($_GET['form']) {
 	$response = $_POST;
