@@ -51,7 +51,7 @@ export default class ForgotPassword extends Component {
 				<p>
 					Your password reset request has been sent. Please check your email for the request.
 					<br/>
-					<a href="/login/">Go back to Log In</a>
+					<a native href="/login/">Go back to Log In</a>
 				</p>
 
 
