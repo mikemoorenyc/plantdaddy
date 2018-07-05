@@ -1,12 +1,17 @@
 <?php
 if(!$_SESSION['reset_token_verified']) {
-  errorResponse(400, array("msg"=> "Bad Token"));
+  errorResponse(400, array("msg"=> "Bad Token", "error_code" => "bad_reset_token"));
 }
+
+if($_SESSION['login_noonce'] !== $response['login_noonce']) {
+	errorResponse(400, array("msg"=> "Bad Noonce", "error_code" => "bad_noonce"));
+}
+
 $mailError = array(
 	"msg" => "Bad Email",
 	"error_code" => "bad_email",
   "success" => false
-)
+);
 if (!get_user_by_email($response['email'])) {
 	errorResponse(400, $mailError);
 }
@@ -18,7 +23,7 @@ $update_package = array(
   "update_value" => $new_password,
   "selector_key" => "email",
   "selector_value" => $response['email']
-)
+);
 
 $updated_pass = update_item($update_package);
 
@@ -26,7 +31,7 @@ if(!$updated_pass) {
   $error = array(
     "msg" => "Couldn't Update",
     "success" => false
-  )
+  );
   errorResponse(500, $error);
 }
 echo json_encode(array(
