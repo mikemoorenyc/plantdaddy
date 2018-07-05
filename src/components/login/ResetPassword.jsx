@@ -11,7 +11,7 @@ export default class ResetPassword extends Component {
 		super();
 		this.state = {
 			email: '',
-			status: 'unsent',
+			status: null,
       reset_verified: INITINFO.reset_verified,
       errored: false,
       error_type:null,
