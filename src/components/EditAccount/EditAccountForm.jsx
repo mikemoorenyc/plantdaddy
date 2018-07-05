@@ -59,13 +59,14 @@ export default class CreateAccount extends Component {
 
     	if(!data.success) {
 				this.setState({status :null});
+				this.props.uc.recieveNewStateItem('login_noonce', data.new_login_noonce)
 				//Update Noonce
 				this.setState({
 					email: (data.error_code == "bad_email") ? "" : state.email,
 					password: '',
 					telephone: (data.error_code == "bad_telephone") ? '' : state.telephone
 				});
-				this.props.uc.recieveNewStateItem('login_noonce', data.new_login_noonce)
+				
 				return false;
 			}
 			this.setState({status: "created"});
