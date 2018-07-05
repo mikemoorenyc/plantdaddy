@@ -59,7 +59,6 @@ export default class CreateAccount extends Component {
 
     	if(!data.success) {
 				this.setState({status :null});
-				this.props.uc.recieveNewStateItem('login_noonce', data.new_login_noonce)
 				//Update Noonce
 				this.setState({
 					email: (data.error_code == "bad_email") ? "" : state.email,
@@ -84,7 +83,7 @@ export default class CreateAccount extends Component {
 			return(
 				<div>
 					Account Created<br/>
-					<a href="/login/">Login Now</a>
+					<a native href="/login/">Login Now</a>
 				</div>
 			)
 
