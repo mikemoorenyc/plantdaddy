@@ -12,13 +12,12 @@ if($_SESSION['logged_in']) {
 	errorResponse(403,$error);
 }
 
+$_SESSION['login_noonce'] = generate_noonce();
+
 if($_SESSION['login_noonce'] !== $response['login_noonce']) {
-	$server = $_SESSION['login_noonce'];
-	$_SESSION['login_noonce'] = generate_noonce();
+
 	$error = array(
 		"error_code" => "bad_noonce",
-		"server" => $server,
-		"response" => $response['login_noonce'],
 		"new_login_noonce" => $_SESSION['login_noonce']
 	);
 	errorResponse(400, $error);
@@ -92,15 +91,15 @@ $insert_db = "INSERT INTO users ($insert_keys) VALUES ($insert_values)";
 $add_user = mysqli_query($db_conn, $insert_db);
 
 if ($add_user) {
-	$_SESSION['login_noonce'] = null;
-	var_dump(mysqli_insert_id($db_conn));
+
+
 	echo json_encode(array(
 		"msg"=> "User Created",
 		"user" => get_user_by_id(mysqli_insert_id($db_conn)),
-		"success" => true
+		"success" => true,
+		"new_login_noonce" => $_SESSION['login_noonce']
 	));
 } else {
-	$_SESSION['login_noonce'] = generate_noonce();
   $error = array(
 		"msg" => "User Could Not Be Created",
 		"new_login_noonce" => $_SESSION['login_noonce'],
