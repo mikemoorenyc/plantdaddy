@@ -22,7 +22,7 @@ switch($url) {
 
 
     default:
-			var_dump($_SESSION['login_noonce']);
+
 			die();
 
 }

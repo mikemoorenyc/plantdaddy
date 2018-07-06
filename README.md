@@ -1,13 +1,8 @@
-Plant Daddy app
+## To do
+
+- Error handling
+- Client-side validation
+- Phone Number masking
 
 
-RewriteEngine On
-RewriteCond %{REQUEST_URI} !^/endpoints$
-RewriteRule ^endpoints endpoints/api-router.php [L]
-
-
-RewriteCond %{REQUEST_URI} !^/install.php$
-RewriteCond %{REQUEST_URI} !^/index.php
-RewriteCond %{REQUEST_URI} !^endpoints$
-
-RewriteRule .* /index.php [L]
+e7972a5901c9de32ab6e

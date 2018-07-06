@@ -4,7 +4,7 @@
 
 define("REMEMBER_ME_NAME", "plantdaddy_remember_me");
 
-var_dump($_SESSION['login_noonce']);
+
 
 require 'db_connect.php';
 require "site_specs.php";

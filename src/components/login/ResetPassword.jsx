@@ -3,7 +3,7 @@ import { route } from 'preact-router';
 import fetch from "unfetch";
 import linkstate from "linkstate";
 
-import {FormField} from "../common/FormField.jsx";
+import FormField from "../common/FormField.jsx";
 
 
 export default class ResetPassword extends Component {
@@ -12,13 +12,14 @@ export default class ResetPassword extends Component {
 		this.state = {
 			email: '',
 			status: null,
-      reset_verified: INITINFO.reset_verified,
+      reset_token: INITINFO.reset_token,
       errored: false,
       error_type:null,
       email: '',
       password: '',
       password_2: ''
 		}
+
 
 	}
 	submitForm(e) {
@@ -28,6 +29,7 @@ export default class ResetPassword extends Component {
       email: this.state.email,
       password: this.state.password
     };
+		sendPackage.reset_token = this.state.reset_token;
 		this.setState({status: "sending"});
 		fetch("/endpoints/reset-password/",{
 			method: "POST",
@@ -59,16 +61,16 @@ export default class ResetPassword extends Component {
       return (
         <p>
         Your password has been successfully reset. <br/>
-        <a href="/login/">Login</a>
+        <a  native href="/login/">Login</a>
 				</p>
       )
     }
 
-    if(!state.reset_verified) {
+    if(!state.reset_token) {
       return (
         <p>
           We can't verify that you requested a password reset. <br/>
-          <a href="/forgot-password/">Try Again</a>
+          <a native href="/forgot-password/">Try Again</a>
         </p>
       )
     }
@@ -84,15 +86,15 @@ export default class ResetPassword extends Component {
 					value={state.email}
 					required={true}
 					label={"Email Address"}
-					onInput={linkState(this, 'email')}
+					onInput={linkstate(this, 'email')}
 					type={"email"}
 				/>
         <FormField
 					labelShort={"password"}
-					value={state.email}
+					value={state.password}
 					required={true}
 					label={"New Password"}
-					onInput={linkState(this, 'password')}
+					onInput={linkstate(this, 'password')}
 					type={"password"}
 				/>
         <FormField
@@ -100,11 +102,11 @@ export default class ResetPassword extends Component {
 					value={state.password_2}
 					required={true}
 					label={"Confirm Your New Password"}
-					onInput={linkState(this, 'password_2')}
+					onInput={linkstate(this, 'password_2')}
 					type={"password"}
 				/>
 
-				<button type="submit" disabled={this.state.email}>Submit</button>
+				<button type="submit" disabled={!this.state.email || !this.state.password || !this.state.password_2}>Submit</button>
 
 
 			</form>

@@ -26,7 +26,7 @@ $required_fields =['first_name','email','password'];
 $required_diff = array_diff($required_fields, array_keys($response));
 if(!empty($required_diff)) {
 	$error = array(
-		"error_code" => "empty_fields"
+		"error_code" => "empty_fields",
 		"empty_fields" => $required_diff
 	);
 	errorResponse(400, $error);
@@ -96,8 +96,7 @@ $_SESSION['login_noonce'] = null;
 	echo json_encode(array(
 		"msg"=> "User Created",
 		"user" => get_user_by_id(mysqli_insert_id($db_conn)),
-		"success" => true,
-		"new_login_noonce" => 
+		"success" => true
 	));
 } else {
   $error = array(

@@ -5,9 +5,9 @@ function verify_reset_token($token) {
 
   $get_user =  "SELECT * FROM users WHERE `reset_token` = '".$db_conn->real_escape_string($token)."' LIMIT 1";
   $user = $db_conn->query($get_user);
-  if(!$user) {return false;}
-  if($user->num_rows < 1) {return false;}
-  $user->fetch_assoc();
+  if(!$user) {return mysqli_connect_error();}
+  if($user->num_rows < 1) {return "user not found";}
+  $user = $user->fetch_assoc();
   //RESET EVERTHING
   $id = $user['id'];
   $expires = $user["reset_expires"];
@@ -15,7 +15,7 @@ function verify_reset_token($token) {
   $delete_token = mysqli_query($db_conn, $sql);
   $_SESSION['reset_token_verified'] = true;
 
-  if( $expires < time()) {return false;}
+  if( $expires < time()) {return "bad time";}
 
   return true;
 }

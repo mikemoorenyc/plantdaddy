@@ -1,5 +1,10 @@
 <?php
-if(!$_SESSION['reset_token_verified']) {
+require_once $_SERVER['DOCUMENT_ROOT'] ."/header.php";
+
+require_once "endpoint-header.php";
+
+
+if(verify_reset_token($response['reset_token'])) {
   errorResponse(400, array("msg"=> "Bad Token", "error_code" => "bad_reset_token"));
 }
 
