@@ -1,15 +1,16 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
-import fetch from "unfetch";
+import fetch from "../../util/endpointFetch.js";
 import linkstate from "linkstate";
 
 import FormField from "../common/FormField.jsx";
 
-
+//60582442e173c27e1a7f
 export default class ResetPassword extends Component {
-	constructor() {
+	constructor(props) {
 		super();
 		this.state = {
+			login_noonce: props.login_noonce,
 			email: '',
 			status: null,
       reset_token: INITINFO.reset_token,
@@ -20,40 +21,30 @@ export default class ResetPassword extends Component {
       password_2: ''
 		}
 
-
+		this.successHandler = this.successHandler.bind(this);
 	}
+	successHandler(data) {
+		console.log(data);
+			if(!data) {
+				//error_handling
+				return null;
+			}
+	}
+
 	submitForm(e) {
 		e.preventDefault();
 		if(!this.state.email || (this.state.password !== this.state.password_2)) { return false;}
-		let sendPackage = {
-      email: this.state.email,
-      password: this.state.password
-    };
-		sendPackage.reset_token = this.state.reset_token;
-		this.setState({status: "sending"});
-		fetch("/endpoints/reset-password/",{
-			method: "POST",
-			headers: {
-				"Content-Type" : 'application/json'
-			},
-			body: JSON.stringify(sendPackage)
-		})
-		.then(function(r){
-			if(r.status >= 300) {
-				//errorHandlinge
-				return false;
-			}
-			//SEND INFO
-			var response = r.json();
-			if(response.success) {
-				this.setState({status: "reset_success"});
-				return false;
-			}
-			//ERROR HANDLIGN
-
-		}.bind(this))
+		let sendPackage = this.state;
+		this.setState({
+			status: "sending",
+			password: '',
+			password_2: ''
+		});
+		fetch(sendPackage,"/endpoints/reset-password/", this.successHandler );
 	}
+
 	componentWillMount() {
+		console.log(this.state.reset_token);
 		if(this.props.isLoggedIn) {route('/',true);}
 	}
 	render(props,state) {
@@ -107,6 +98,8 @@ export default class ResetPassword extends Component {
 				/>
 
 				<button type="submit" disabled={!this.state.email || !this.state.password || !this.state.password_2}>Submit</button>
+				<br/><br/>
+				<a native href="/login/">Go to Login Page</a>
 
 
 			</form>

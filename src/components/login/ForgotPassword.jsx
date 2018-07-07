@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
-import fetch from "unfetch";
+import fetch from "../../util/endpointFetch.js";
 import linkstate from "linkstate";
 
 import FormField from "../common/FormField.jsx";
@@ -10,9 +10,18 @@ export default class ForgotPassword extends Component {
 		super();
 		this.state = {
 			email: '',
-			status: null
+			status: null,
 		}
+		this.submitForm = this.submitForm.bind(this);
 
+	}
+	resetSuccess (data) {
+		console.log(data);
+		if(!data.success) {
+			this.setState({status: "failed"});
+			return false;
+		}
+		this.setState({status: "sent"});
 	}
 	submitForm(e) {
 		e.preventDefault();
@@ -21,35 +30,21 @@ export default class ForgotPassword extends Component {
 			email: this.state.email,
 			login_noonce: this.props.login_noonce
 		};
-
 		let email = this.state.email;
 		this.setState({status: "sending"});
-		fetch("/endpoints/require-reset/",{
-			method: "POST",
-			headers: {
-				"Content-Type" : 'application/json'
-			},
-			body: JSON.stringify(send_body),
-			credentials: 'include'
-		})
-		.then( r => r.text() )
-		.then(function(d){
-			console.log(d);
-			return false;
-			if(!d.success) {
-				//error handling
-				return false;
-			}
-			this.setState({status: "sent"});
-
-
-
-		}.bind(this))
+		fetch(send_body, "/endpoints/require-reset/", this.resetSuccess.bind(this));
 	}
 	componentWillMount() {
 		if(this.props.isLoggedIn) {route('/',true);}
 	}
 	render(props,state) {
+		if(state.status == "failed" ) {
+		return (	<p>
+			There was a problem with your request.
+			<br/>
+			<a native href="/reset-password">Try Again</a>
+		</p>)
+		}
 
 		if(state.status === "sent") {
 			return (

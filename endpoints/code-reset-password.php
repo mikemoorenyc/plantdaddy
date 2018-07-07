@@ -20,6 +20,10 @@ $mailError = array(
 if (!get_user_by_email($response['email'])) {
 	errorResponse(400, $mailError);
 }
+if($response['password'] !== $response['password_2']) {
+  errorResponse(400, "Passwords do not match");
+}
+
 $new_password = pw_hasher($response['password']);
 
 $update_package = array(

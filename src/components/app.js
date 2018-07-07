@@ -47,7 +47,7 @@ export default class App extends Component {
               <Home path="/index.php" />
               <Login path="/login/" UserContainer={user} />
               <ForgotPassword login_noonce={user.state.login_noonce} path="/forgot-password/" />
-            	<ResetPassword path="/reset-password/" />
+            	<ResetPassword login_noonce={user.state.login_noonce} path="/reset-password/" />
             	<EditAccount path="/create-account/"
             		create={true}
             		uc={user}
