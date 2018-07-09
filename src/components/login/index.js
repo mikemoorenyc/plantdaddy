@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
-import fetch from "unfetch";
+import fetch from "../../util/endpointFetch.js";
 
 import FormField from "../common/FormField.jsx";
 
@@ -14,8 +14,10 @@ export default class Login extends Component {
 			email: '',
 			first_name: null,
 		}
+		this.responseHandler = this.responseHandler.bind(this);
 
   }
+	
 	componentWillMount() {
 
 		if(this.props.UserContainer.state.isLoggedIn) {
@@ -30,34 +32,25 @@ export default class Login extends Component {
 			this.setState({disabled: disabled});
 		});
 	}
+	responseHandler(r) {
+		if(!r.success) {
+			//Error Handling
+		}
+		this.setState({
+				loggedIn: true,
+				first_name: r.user.first_name
+		});
+		this.props.UserContainer.recieveNewStateItem('isLoggedIn',true);
+		this.props.UserContainer.recieveNewStateItem('userProfile', response.user);
+		setTimeout(function(){
+			route("/",true)
+		}, 2000);
+	}
 	submitForm(e) {
 		e.preventDefault();
 		if(!this.state.password || !this.state.email) {return false;}
 		let state = this.state;
-		fetch("/endpoints/login-user/",{
-			method: "POST",
-			headers: {
-				"Content-Type" : 'application/json'
-			},
-			body: JSON.stringify(state)
-		})
-		.then(function(r){
-			if(r.status >= 300) {
-				//errorHandlinge
-				return false;
-			}
-			//SEND INFO
-			let response = r.json();
-			this.setState({
-				loggedIn: true,
-				first_name: response.user.first_name
-			});
-			this.props.UserContainer.recieveNewStateItem('isLoggedIn',true);
-			this.props.UserContainer.recieveNewStateItem('userProfile', response.user);
-			setTimeout(function(){
-				route("/",true)
-			}, 2000);
-		}.bind(this))
+		fetch(state,"/endpoints/login-user/", this.responseHandler);
 	}
 
 
