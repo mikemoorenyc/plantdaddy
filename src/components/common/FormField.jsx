@@ -1,5 +1,6 @@
 import { h} from 'preact';
 import {linkstate} from "linkstate";
+import PhotoField from "./Photofield"
 
 export default function(p) {
 	let type = p.type || "text";
