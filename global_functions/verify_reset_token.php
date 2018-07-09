@@ -1,7 +1,7 @@
 <?php
 function verify_reset_token($token) {
   global $db_conn;
-  if(!$token) {return false;}
+  if(!$token) {return (DEV_ENV) ? "NO TOKEN" : false;}
 
   $get_user =  "SELECT * FROM users WHERE `reset_token` = '".$db_conn->real_escape_string($token)."' LIMIT 1";
   $user = $db_conn->query($get_user);
