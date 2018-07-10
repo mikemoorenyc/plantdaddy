@@ -97,7 +97,7 @@ if($response['photo_data'])  {
 			"selector_value" => $user['id']
 			"update_array" => array(
 				"photo_id" => $photo_url,
-				"modified_by" => $user_id
+				"modified_by" => $user['id']
 			)
 		);
 		$insert_photo = update_item($update_array);
