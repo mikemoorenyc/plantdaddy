@@ -8,15 +8,10 @@ if($_GET['form']) {
 	$response = $_POST;
 }
 
-function errorResponse($code=400, $error) {
-//	$_SESSION['login_noonce'] = generate_noonce();
-	if(is_array($error)) {
-		$error['success'] = false;
-		$error['error_code'] = $error['error_code'] ?: "general";
-	
-	}
+function errorResponse($code=400, $error_code="general") {
+	header("Error Code : ".$error_code);
 	http_response_code($code);
-	echo json_encode($error);
+	
 	die();
 }
 
