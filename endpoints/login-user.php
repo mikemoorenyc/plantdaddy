@@ -3,23 +3,14 @@ require_once "/header.php";
 require_once "endpoint-header.php";
 
 if($_SESSION['login_noonce'] !== $_POST['login_noonce']) {
-  $_SESSION['login_noonce'] = generate_noonce();
-	$error = array(
-		"msg" => "Bad Noonce",
-		"new_login_noonce" => $_SESSION['login_noonce']
-	);
-	errorResponse(400, $error);
+
+	errorResponse(400, "bad_noonce");
 }
 
 $verified = verify_login($response['email'],$response['password']);
 
 if($verifed === false) {
-	$_SESSION['login_noonce'] = generate_noonce();
-	$error = array (
-		"new_login_noonce" => $_SESSION['login_noonce'],
-		"msg" => "The email address or password you've entered doesn't match any user."
-	);
-	errorResponse(403,$error);
+	errorResponse(403,"verification_failed");
 }
 $user = get_user_by_id($verified);
 $remember_me = create_remember_me($user['id']);
