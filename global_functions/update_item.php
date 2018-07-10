@@ -11,7 +11,7 @@ function update_item($p) {
 	$update_array['modified_by'] = $update_array['modified_by'] ?: $_SESSION['user']['id'];
 	
 	if(!$update_array['modified_by']) {
-		unset($update_array['modified_by']);
+		return false;
 	}
 
   $db = $db_conn->real_escape_string($p["db"]);
