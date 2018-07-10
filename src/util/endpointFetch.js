@@ -23,19 +23,26 @@ export default function(data, url, callback) {
     credentials: 'include'
   })
 	.then(function(response){
-    endResponse.status = response.status;
-    return response.json();
+    if(response.status > 299) {
+			throw response.status;
+		} else {
+			return response.json();
+		}
+    
   })
   .then(function(r){
-		endResponse.data = r;
-		if(endResponse.status > 299) {
-			endResponse.success = false
-			callback(endResponse);
-			return false;
-		}
-		endResponse.success = false;
-    callback(endResponse);
-		return false;
+		callback({
+			success: true,
+			data: r
+		})
+		return false;	
   })
+	.catch(function(error) {
+		callback({
+			success: false,
+			code: error
+		});
+		return false;
+	})
   
 }
