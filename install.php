@@ -49,7 +49,11 @@ $waterings_table = "CREATE TABLE waterings (
 
 $images_table = "CREATE TABLE images (
   id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  url TEXT NOT NULL
+  url TEXT NOT NULL,
+  created_by BIGINT(20) UNSIGNED NOT NULL default 0,
+  date_created BIGINT(20) NOT NULL DEFAULT 0,
+	date_modified BIGINT(20) NOT NULL DEFAULT 0,
+	modified_by BIGINT(20) UNSIGNED NOT NULL default 0,
 )";
 
 $create_plants = mysqli_query($db_conn, $plants_table);
