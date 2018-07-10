@@ -4,7 +4,7 @@ import fetch from "unfetch"
 
 
 export default function(data, url, callback) {
-	let endResponse = {};
+
   if (!JSON.parse(JSON.stringify(data))) {
     callback(
       {
