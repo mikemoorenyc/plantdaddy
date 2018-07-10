@@ -35,7 +35,9 @@ $plants_table = "CREATE TABLE plants (
   watering_frequency SMALLINT(10) NOT NULL DEFAULT 3,
 	on_alert TINYINT(1) NOT NULL DEFAULT 0,
   created_by BIGINT(20) UNSIGNED NOT NULL default 0,
-  date_created BIGINT(20) NOT NULL DEFAULT 0
+  date_created BIGINT(20) NOT NULL DEFAULT 0,
+	date_modified BIGINT(20) NOT NULL DEFAULT 0,
+	modified_by BIGINT(20) UNSIGNED NOT NULL default 0,
 )";
 
 $waterings_table = "CREATE TABLE waterings (
@@ -43,6 +45,11 @@ $waterings_table = "CREATE TABLE waterings (
   plant_id BIGINT(20) UNSIGNED NOT NULL,
   created_by BIGINT(20) UNSIGNED NOT NULL default 0,
   date_created BIGINT(20) NOT NULL DEFAULT 0
+)";
+
+$images_table = "CREATE TABLE images (
+  id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  url TEXT NOT NULL
 )";
 
 $create_plants = mysqli_query($db_conn, $plants_table);
