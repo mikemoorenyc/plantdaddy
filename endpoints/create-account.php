@@ -89,16 +89,17 @@ $_SESSION['login_noonce'] = null;
 $user = get_user_by_id($add_user);
 //UPLOAD PHOTO
 if($response['photo_data'])  {
-	$photo_url = upload_image($response['photo_data'], "account_img_".$user['id'], $user['id']);
+	$photo_id = upload_image($response['photo_data'], "account_img_".$user['id'], $user['id']);
 	if($photo_url) {
 		$update_array = array(
 			"db" => "users",
 			"selector_key" => "id",
 			"selector_value" => $user['id']
 			"update_array" => array(
-				"photo_url" => $photo_url
+				"photo_id" => $photo_url,
+				"modified_by" => $user_id
 			)
-		)
+		);
 		$insert_photo = update_item($update_array);
 	}
 }
