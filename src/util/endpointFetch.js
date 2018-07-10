@@ -1,6 +1,6 @@
 import fetch from "unfetch"
 
-//2bb2ed45ac741d9c0802
+//1d9343bbe55960545c8f
 
 
 export default function(data, url, callback) {
@@ -21,29 +21,15 @@ export default function(data, url, callback) {
     body: JSON.stringify(data),
     credentials: 'include'
   })
-  .then(function(response){
-    if (response.ok) {
-      return response;
-    } else {
-      /*
-      console.log(response.status);
-      var error = new Error({status: response.status});
 
-      return Promise.reject(error);
-      */
-      throw {success:false, code: response.status};
-    }
-  })
-  .then( r => r.json() )
-  .then(function(data){
-    let obj = {
-      success: true,
-      data: data
-    }
-    callback(obj);
+  .then( r => r.text() )
+  .then(function(d){
+    callback(d);
 
   })
   .catch(function(e) {
+    console.log(e);
+
      callback(e);
   })
 }

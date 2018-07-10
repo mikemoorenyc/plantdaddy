@@ -22,12 +22,14 @@ export default class App extends Component {
 			this.props.callback(data);
    	}.bind(this);
 	}
-	
-	
+
+
 	render(props,state) {
-		<input type="file" onChange={this.fileChange.bind(this)} accept="*/image" ref={uploader => this.uploader = uploader}/>
-		<img src={state.current_img} onClick={this.fakeClick.bind(this)}/>
+		<div class="photoField">
+		<input style={{display:"none"}} type="file" onChange={this.fileChange.bind(this)} accept="*/image" ref={uploader => this.uploader = uploader}/>
+		<img style={{width:100, height:100}} src={state.current_img} onClick={this.fakeClick.bind(this)}/>
+		</div>
 	}
-	
-	
+
+
 }

@@ -5,7 +5,7 @@ require_once "endpoint-header.php";
 
 $token_verified = verify_reset_token($response['reset_token']);
 if($token_verified !== true) {
-	
+
   errorResponse(400, array("msg"=> (DEV_NEV) ? $token_verified : "Bad Token", "error_code" => "bad_reset_token"));
 }
 
@@ -16,13 +16,14 @@ if($_SESSION['login_noonce'] !== $response['login_noonce']) {
 $mailError = array(
 	"msg" => "Bad Email",
 	"error_code" => "bad_email",
-  "success" => false
+  "success" => false,
+	"error_info" => $response['email']
 );
-if (!get_user_by_email($response['email'])) {
+if (!get_user_by_email($response['email']) ){
 	errorResponse(400, $mailError);
 }
 if($response['password'] !== $response['password_2']) {
-  errorResponse(400, array("msg" => "Passwords do not match", "error_code"=>"pw_mismatch");
+  errorResponse(400, array("msg" => "Passwords do not match", "error_code"=>"pw_mismatch"));
 }
 
 $new_password = pw_hasher($response['password']);
@@ -36,6 +37,8 @@ $update_package = array(
 );
 
 $updated_pass = update_item($update_package);
+
+
 
 if(!$updated_pass) {
   $error = array(
