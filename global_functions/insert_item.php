@@ -10,7 +10,8 @@ insert_item($table, $insert_array) {
 	}
 	$insert_values = implode(", ",$safe_values);
 	$insert_keys = implode(", ", array_keys($safe_values));
-	$insert_db = "INSERT INTO $table ($insert_keys) VALUES ($insert_values)";
+	$db = $db_conn->real_escape_string($table);
+	$insert_db = "INSERT INTO $db ($insert_keys) VALUES ($insert_values)";
 	$insert_item = mysqli_query($db_conn, $insert_db);
 	if(!$insert_item) {
 		return false;
