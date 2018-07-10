@@ -24,7 +24,11 @@ export default function(data, url, callback) {
   })
 	.then(function(response){
     if(response.status > 299) {
-			throw response.status;
+			throw {
+				success:false,
+				status : response.status,
+				code: response.headers.get('Error Code');
+			};
 		} else {
 			return response.json();
 		}
@@ -38,10 +42,7 @@ export default function(data, url, callback) {
 		return false;	
   })
 	.catch(function(error) {
-		callback({
-			success: false,
-			code: error
-		});
+		callback(error);
 		return false;
 	})
   
