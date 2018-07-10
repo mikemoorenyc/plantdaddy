@@ -10,7 +10,7 @@ $users_table = "CREATE TABLE users (
   email VARCHAR(100) NOT NULL DEFAULT '',
   password VARCHAR(255) NOT NULL ,
 first_name VARCHAR(255) NOT NULL,
-photo_url VARCHAR(255),
+photo_id VARCHAR(255),
 telephone INT(10),
 color VARCHAR(255) NOT NULL,
 reset_asked TINYINT(1) DEFAULT 0,
