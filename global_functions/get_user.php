@@ -5,15 +5,8 @@ function get_user($key,$selector) {
   if(!$selector || !$key) {
     return 'bad parameters';
   }
-	$get_user =  "SELECT id, first_name, email, photo_url, telephone, color, date_created, date_modified FROM users WHERE `$key` = '".$db_conn->real_escape_string($selector)."' LIMIT 1";
-	$user = $db_conn->query($get_user);
-  if(!$user) {
-    return mysqli_error($db_conn);
-  }
-  if($user->num_rows < 1) {
-    return "not found";
-  }
-  return $user->fetch_assoc();
+	
+  return get_items("users",$columns, $key, $selector);
 }
 
 ?>
