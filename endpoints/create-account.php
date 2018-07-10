@@ -65,47 +65,50 @@ $stored_pass = pw_hasher($response['password']);
 
 
 $insert_fields = array(
-	"email" => $db_conn->real_escape_string($response['email']),
+	"email" => $response['email'],
 	"password" => $stored_pass,
 	"telephone" => ($response['telephone'])? intval($response['telephone']) : null,
-	"first_name" => $db_conn->real_escape_string($response['first_name']),
-	"photo_url" => ($response['photo_url'])? $db_conn->real_escape_string($response['photo_url']) : null,
+	"first_name" => ($response['first_name'],
 	"date_created" => time(),
 	"date_modified" => time(),
-	"color" =>$db_conn->real_escape_string( makeHSL())
+	"color" => makeHSL()
 );
+$add_user = insert_item("users", $insert_fields);
 
-$insert_values = [];
-
-foreach($insert_fields as $k => $f) {
-	$insert_values[] = "'".$f."'";
-}
-
-$insert_values = implode(", ",$insert_values);
-$insert_keys = implode(", ", array_keys($insert_fields));
-
-
-$insert_db = "INSERT INTO users ($insert_keys) VALUES ($insert_values)";
-
-
-$add_user = mysqli_query($db_conn, $insert_db);
-
-if ($add_user) {
-$_SESSION['login_noonce'] = null;
-
-	echo json_encode(array(
-		"msg"=> "User Created",
-		"user" => get_user_by_id(mysqli_insert_id($db_conn)),
-		"success" => true
-	));
-} else {
-  $error = array(
+if(!$add_user) {
+	$error = array(
 		"msg" => "User Could Not Be Created",
-		"new_login_noonce" => $_SESSION['login_noonce'],
-		"server_msg" => mysqli_error($db_conn)
+		"new_login_noonce" => $_SESSION['login_noonce']
 	);
 	errorResponse(501, $error);
 }
+
+
+$_SESSION['login_noonce'] = null;
+	
+$user = get_user_by_id($add_user);
+//UPLOAD PHOTO
+if($response['photo_data'])  {
+	$photo_url = upload_image($response['photo_data'], "account_img_".$user['id'], $user['id']);
+	if($photo_url) {
+		$update_array = array(
+			"db" => "users",
+			"selector_key" => "id",
+			"selector_value" => $user['id']
+			"update_array" => array(
+				"photo_url" => $photo_url
+			)
+		)
+		$insert_photo = update_item($update_array);
+	}
+}
+
+echo json_encode(array(
+	"msg"=> "User Created",
+	"user" => get_user_by_id($user['id']),
+	"success" => true
+));
+
 die();
 
 
