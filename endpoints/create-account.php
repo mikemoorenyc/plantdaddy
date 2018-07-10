@@ -6,58 +6,43 @@ require_once "endpoint-header.php";
 
 
 if($_SESSION['logged_in']) {
-	$error = array(
-		"msg" => "Already a user"
-	);
-	errorResponse(403,$error);
+
+	errorResponse(403,"existing_user");
 }
 
 
 
 if($_SESSION['login_noonce'] !== $response['login_noonce']) {
 
-	$error = array(
-		"error_code" => "bad_noonce",
-
-	);
-	errorResponse(400, $error);
+	errorResponse(400, "bad_noonce");
 }
 $required_fields =['first_name','email','password'];
 $required_diff = array_diff($required_fields, array_keys($response));
 if(!empty($required_diff)) {
 	$error = array(
-		"error_code" => "empty_fields",
-		"empty_fields" => $required_diff
-	);
-	errorResponse(400, $error);
+	errorResponse(400, "empty_fields ".implode(",",$required_diff);
 }
 if($response['telephone']) {
 	if(!is_numeric($response['telephone']) || intval($response['telephone']) > 9999999999 || intval($response['telephone']) <= 1000000000 ) {
-		$error = array('error_code' => 'bad_message', "msg" => "The telephone number you entered isn't valid.");
-		errorResponse(400, $error);
+		errorResponse(400, "invalid_phone");
 	}
 }
 
 
-$mailError = array(
-	"error_code" => "bad_email",
-	"msg" => "Your email address isn't formatted correctly."
-);
+
 if (!filter_var($response['email'], FILTER_VALIDATE_EMAIL)) {
-	errorResponse(400, $mailError);
+	errorResponse(400, "invalid_email");
 }
 
 
 if(!in_array(strtolower($response['email']),explode(",",ALLOWED_EMAILS))) {
-	$mailError['msg'] = "That email address isn't allowed.";
-	errorResponse(400, $mailError);
+	errorResponse(400, "invalid_email");
 }
 //CHECK IF EMAIL EXISTS
 $get_user =  "SELECT email FROM users WHERE `email` = '".$db_conn->real_escape_string($response['email'])."' LIMIT 1";
 $user = $db_conn->query($get_user);
 if($user->num_rows > 0) {
-  $mailError['msg'] = "There is problem with using this email address. Try another one.";
-	errorResponse(400, $mailError);
+	errorResponse(400, "email_problem");
 }
 
 $stored_pass = pw_hasher($response['password']);
@@ -80,7 +65,7 @@ if(!$add_user) {
 		"msg" => "User Could Not Be Created",
 		"new_login_noonce" => $_SESSION['login_noonce']
 	);
-	errorResponse(501, $error);
+	errorResponse(501, "insert_error");
 }
 
 
