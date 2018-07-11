@@ -42,7 +42,7 @@ export default class App extends Component {
           {function(user) {
             return (
             <Router onChange={this.handleRoute.bind(this)}>
-              <Home todos={user} path="/" />
+              <Home user={user} path="/" />
               <Home path="/index.php" />
               <Login path="/login/" UserContainer={user} />
               <ForgotPassword login_noonce={user.state.login_noonce} path="/forgot-password/" />
