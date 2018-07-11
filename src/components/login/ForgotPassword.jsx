@@ -7,6 +7,14 @@ import Layout from "../Layout.jsx";
 import FormField from "../common/FormField.jsx";
 import BackArrow from "../common/BackArrow.jsx";
 
+let BackArrow = <BackArrow href="/login/" native={false} />
+const LayoutSlug = function(p) {
+			return (
+				<Layout title="Reset Your Password" headerLeft={BackArrow}>{this.props.children}</Layout>
+			)
+		
+}
+
 export default class ForgotPassword extends Component {
 	constructor() {
 		super();
@@ -40,29 +48,36 @@ export default class ForgotPassword extends Component {
 		if(this.props.isLoggedIn) {route('/',true);}
 	}
 	render(props,state) {
+		
 		if(state.status == "failed" ) {
-		return (	<p>
-			There was a problem with your request.
-			<br/>
-			<a native href="/reset-password">Try Again</a>
-		</p>)
+		return (	
+		<LayoutSlug>
+				<p>
+					There was a problem with your request.
+						<br/>
+						<a native href="/reset-password">Try Again</a>
+				</p>
+		</LayoutSlug>
+			)
 		}
 
 		if(state.status === "sent") {
 			return (
+				<LayoutSlug>
 				<p>
 					Your password reset request has been sent. Please check your email for the request.
 					<br/>
 					<a native href="/login/">Go back to Log In</a>
 				</p>
+		</LayoutSlug>
+				
 
 
 			)
 		}
 		return(
-			let BackArrow = <BackArrow href="/login/" native={false} />
-		<Layout title="Reset Your Password" headerLeft={BackArrow}>
-			<form onSubmit={this.submitForm.bind(this)}>
+			<LayoutSlug />
+				<form onSubmit={this.submitForm.bind(this)}>
 				<FormField
 					labelShort={"email"}
 					value={state.email}
@@ -75,9 +90,11 @@ export default class ForgotPassword extends Component {
 				<br/><br/>
 				Enter your email above to reset your password. <a href="/login/">Cancel</a>
 			</form>
-		</Layout>
+			</LayoutSlug >
+
 
 		)
+
 
 
 	}
