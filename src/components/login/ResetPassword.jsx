@@ -48,7 +48,7 @@ export default class ResetPassword extends Component {
 			password: '',
 			password_2: ''
 		});
-		fetch(sendPackage,"/endpoints/reset-password/", this.successHandler );
+		fetch(sendPackage,"/endpoints/reset-password/", "POST", this.successHandler );
 	}
 
 	componentWillMount() {
