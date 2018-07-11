@@ -3,7 +3,7 @@ import fetch from "unfetch"
 //1d9343bbe55960545c8f
 
 
-export default function(data, url, callback) {
+export default function(data, url, method,callback) {
 
   if (!JSON.parse(JSON.stringify(data))) {
     callback(
@@ -15,7 +15,7 @@ export default function(data, url, callback) {
     return false;
   }
   fetch(url,{
-    method: "POST",
+    method: method.toUpperCase(),
     headers: {
       "Content-Type" : 'application/json'
     },
