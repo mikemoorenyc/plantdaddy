@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import fetch from "../../util/endpointFetch.js";
+import Layout from "../Layout.jsx";
 
 import FormField from "../common/FormField.jsx";
 
@@ -56,14 +57,15 @@ export default class Login extends Component {
 
 
   render(props,state) {
-
+		let title = "Log into PlantDaddy";
 		if(props.UserContainer.state.isLoggedIn) {
 			return(
-				<div>You&rsquo;re logged in, {first_name}</div>
+				<Layout title={title}><div>You&rsquo;re logged in, {first_name}</div></Layout>
 			)
 		}
 
     return (
+		<Layout title={title}>
       <form onSubmit={this.submitForm}>
 				<FormField
 					labelShort={"email"}
@@ -86,7 +88,7 @@ export default class Login extends Component {
         <a href="/create-account/">Create a new account</a><br/>
 	    <a href="/forgot-password/">Forget your password?</a>
 			</form>
-
+	</Layout>
     )
   }
 }
