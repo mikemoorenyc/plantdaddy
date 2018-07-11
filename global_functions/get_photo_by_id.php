@@ -6,5 +6,5 @@ function get_photo_by_id($id) {
   if(!$photo) {
     return false;
   }
-  return SITE_URL.$photo[0]['url'];
+  return SITE_URL.$photo['url'];
 }
