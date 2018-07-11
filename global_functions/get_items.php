@@ -1,6 +1,6 @@
 
 <?php
-function get_items($table, $values="*", $selector_key, $selector_value, $limit=1 ) {
+function get_items($table,$values="*", $selector_key, $selector_value, $limit=1 ) {
 	if(!$selector_key || !$selector_value) {
 		return false;
 	}
