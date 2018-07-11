@@ -27,6 +27,9 @@ function get_items($table, $values="*", $selector_key, $selector_value, $limit=1
   if($items->num_rows < 1) {
     return false;
   }
+	if($safe_limit < 2) {
+		$return $items->fetch_assoc();
+	}
 	while ($row = $items->fetch_assoc()) {
     $rows[] = $row;
   }
