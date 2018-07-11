@@ -9,7 +9,7 @@ function update_item($p) {
 	$update_array = $p['update_array'];
 	$update_array['date_modified'] = $update_array['date_modified'] ?: time();
 	$update_array['modified_by'] = $update_array['modified_by'] ?: $_SESSION['user']['id'];
-	
+
 	if(!$update_array['modified_by']) {
 		return false;
 	}
@@ -18,10 +18,10 @@ function update_item($p) {
 	$safe_values = [];
 	foreach($update_array as $k => $v) {
 		$value = (is_int($v)) ? intval($v) : "'".$db_conn->real_escape_string($v)."'";
-		
+
 		$safe_values[] = "`$k`= $value";
 	}
-	$update_string = implode(", ",$safe_values); 
+	$update_string = implode(", ",$safe_values);
 
   $selector_key = $db_conn->real_escape_string($p['selector_key']);
   $selector_value = (is_int($p['selector_value'])) ? intval($p['selector_value']) : "'".$db_conn->real_escape_string($p['selector_value'])."'";
@@ -42,9 +42,8 @@ function update_item($p) {
     return false;
   }
   $item = $get_item->fetch_assoc();
-	
+
 	return $item['id'];
 
 }
 
-  ?>

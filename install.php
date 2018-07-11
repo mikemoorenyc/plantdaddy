@@ -37,7 +37,7 @@ $plants_table = "CREATE TABLE plants (
   created_by BIGINT(20) UNSIGNED NOT NULL default 0,
   date_created BIGINT(20) NOT NULL DEFAULT 0,
 	date_modified BIGINT(20) NOT NULL DEFAULT 0,
-	modified_by BIGINT(20) UNSIGNED NOT NULL default 0,
+	modified_by BIGINT(20) UNSIGNED NOT NULL default 0
 )";
 
 $waterings_table = "CREATE TABLE waterings (
@@ -53,14 +53,15 @@ $images_table = "CREATE TABLE images (
   created_by BIGINT(20) UNSIGNED NOT NULL default 0,
   date_created BIGINT(20) NOT NULL DEFAULT 0,
 	date_modified BIGINT(20) NOT NULL DEFAULT 0,
-	modified_by BIGINT(20) UNSIGNED NOT NULL default 0,
+	modified_by BIGINT(20) UNSIGNED NOT NULL default 0
 )";
 
 $create_plants = mysqli_query($db_conn, $plants_table);
 $create_tokens = mysqli_query($db_conn, $tokens_table);
 $create_users = mysqli_query($db_conn, $users_table);
 $create_waterings = mysqli_query($db_conn, $waterings_table);
-if(!$create_plants || !$create_tokens || !$create_users || !$create_waterings) {
+$create_images = mysqli_query($db_conn, $images_table);
+if(!$create_plants || !$create_tokens || !$create_users || !$create_waterings || !$create_images) {
   die('something went wrong');
 }
 echo 'Tables created <a href="/">Go to Plant Daddy</a>';

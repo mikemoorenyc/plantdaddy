@@ -10,7 +10,7 @@ function verify_reset_token($token) {
 		$response = (DEV_ENV)? "User Not Found" : false;
 		return $response;
 	}
-	
+
   $user = $user->fetch_assoc();
   //RESET EVERTHING
   $id = $user['id'];
@@ -25,5 +25,3 @@ function verify_reset_token($token) {
 	}
   return true;
 }
-
- ?>

@@ -7,5 +7,3 @@ function get_user_by_id($id) {
 	if(!$user_id){ return false;}
 	return get_user("id",$id);
 }
-
-?>

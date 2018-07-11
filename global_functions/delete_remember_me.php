@@ -11,4 +11,3 @@ function delete_remember_me() {
      return false;
    }
 }
- ?>

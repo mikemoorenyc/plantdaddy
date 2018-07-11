@@ -19,8 +19,7 @@ if($_SESSION['login_noonce'] !== $response['login_noonce']) {
 $required_fields =['first_name','email','password'];
 $required_diff = array_diff($required_fields, array_keys($response));
 if(!empty($required_diff)) {
-	$error = array(
-	errorResponse(400, "empty_fields ".implode(",",$required_diff);
+	errorResponse(400, "empty_fields ".implode(",",$required_diff));
 }
 if($response['telephone']) {
 	if(!is_numeric($response['telephone']) || intval($response['telephone']) > 9999999999 || intval($response['telephone']) <= 1000000000 ) {
@@ -53,24 +52,22 @@ $insert_fields = array(
 	"email" => $response['email'],
 	"password" => $stored_pass,
 	"telephone" => ($response['telephone'])? intval($response['telephone']) : null,
-	"first_name" => ($response['first_name'],
+	"first_name" => ($response['first_name']),
 	"date_created" => time(),
 	"date_modified" => time(),
 	"color" => makeHSL()
 );
+
 $add_user = insert_item("users", $insert_fields);
 
 if(!$add_user) {
-	$error = array(
-		"msg" => "User Could Not Be Created",
-		"new_login_noonce" => $_SESSION['login_noonce']
-	);
+
 	errorResponse(501, "insert_error");
 }
 
 
 $_SESSION['login_noonce'] = null;
-	
+
 $user = get_user_by_id($add_user);
 //UPLOAD PHOTO
 if($response['photo_data'])  {
@@ -79,7 +76,7 @@ if($response['photo_data'])  {
 		$update_array = array(
 			"db" => "users",
 			"selector_key" => "id",
-			"selector_value" => $user['id']
+			"selector_value" => $user['id'],
 			"update_array" => array(
 				"photo_id" => $photo_url,
 				"modified_by" => $user['id']

@@ -5,8 +5,12 @@ function get_user($key,$selector) {
   if(!$selector || !$key) {
     return 'bad parameters';
   }
-	
-  return get_items("users",$columns, $key, $selector);
+  $columns = ['id','email','first_name',"color","telephone","photo_id","date_created","date_modified"];
+  $user =  get_items("users",$columns, $key, $selector);
+  if(!$user) {return false;}
+  $user = $user[0];
+
+  $user['photo_url'] = ($user['photo_id']) ? get_photo_by_id($user['photo_id']) : '';
+  return $user;
 }
 
-?>

@@ -7,6 +7,3 @@ function get_user_by_email($email) {
   }
 	return get_user("email",$email_address);
 }
-
-
- ?>

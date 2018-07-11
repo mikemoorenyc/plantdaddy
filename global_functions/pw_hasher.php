@@ -8,5 +8,3 @@ function pw_hasher($pass) {
       PASSWORD_DEFAULT
   );
 }
-
- ?>

@@ -28,4 +28,3 @@ switch($url) {
 }
 
 die();
-?>

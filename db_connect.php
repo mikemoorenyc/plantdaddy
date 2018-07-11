@@ -9,6 +9,5 @@ $sql = "SHOW TABLES LIKE 'users'";
 $result = mysqli_query($db_conn, $sql);
 if(!$result->num_rows) {
   $need_to_install = true;
-  
+
 }
- ?>

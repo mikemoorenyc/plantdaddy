@@ -11,4 +11,3 @@ function login_user($id=null) {
   }
   return false;
 }
- ?>

@@ -17,4 +17,3 @@ $pass_pass = password_verify(base64_encode(hash('sha256', $password, true)),$use
   }
   return $user['id'];
 }
- ?>

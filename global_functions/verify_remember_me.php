@@ -33,5 +33,3 @@ function verify_remember_me() {
  }
  return login_user($db_token['user_id']);
 }
-
-?>

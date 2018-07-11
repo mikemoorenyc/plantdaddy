@@ -29,6 +29,3 @@ if(file_exists($_SERVER['DOCUMENT_ROOT']."/global_functions")) {
   die();
 
 }
-
-
-?>

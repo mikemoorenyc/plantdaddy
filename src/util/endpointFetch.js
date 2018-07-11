@@ -27,23 +27,23 @@ export default function(data, url, callback) {
 			throw {
 				success:false,
 				status : response.status,
-				code: response.headers.get('Error Code');
-			};
+				code: response.headers.get('Error-Code')
+			}
 		} else {
 			return response.json();
 		}
-    
+
   })
   .then(function(r){
 		callback({
 			success: true,
 			data: r
 		})
-		return false;	
+		return false;
   })
 	.catch(function(error) {
 		callback(error);
 		return false;
 	})
-  
+
 }

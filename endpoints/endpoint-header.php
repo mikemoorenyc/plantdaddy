@@ -9,9 +9,9 @@ if($_GET['form']) {
 }
 
 function errorResponse($code=400, $error_code="general") {
-	header("Error Code : ".$error_code);
+	header('Error-Code: '.$error_code);
 	http_response_code($code);
-	
+
 	die();
 }
 
@@ -21,7 +21,3 @@ function makeHSL() {
 
     return "hsl($h, 100%, $l%)";
 }
-
-
-
-?>

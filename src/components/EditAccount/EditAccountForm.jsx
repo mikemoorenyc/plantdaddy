@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import {linkstate} from "linkstate"
 import { route } from 'preact-router';
-import fetch from "unfetch";
+import fetch from "../../util/endpointFetch.js";
 import checkStatus from "../../util/checkStatus.js";
 
 import FormSection from "../common/FormField.jsx";
@@ -38,6 +38,14 @@ export default class CreateAccount extends Component {
 		});
 
 	}
+	handleResult(data) {
+		console.log(data);
+		if(!data.success) {
+			//Error Handling
+			return false;
+		}
+		this.setState({status: "created"});
+	}
 	submitForm(e) {
 		e.preventDefault();
 		if(this.state.disabled) {
@@ -46,15 +54,11 @@ export default class CreateAccount extends Component {
 		this.setState({status : "sending"});
 		let state = this.state;
 		state.login_noonce = this.props.uc.state.login_noonce;
-		fetch("/endpoints/create-account/",{
-			method: "POST",
-			headers: {
-				"Content-Type" : 'application/json'
-			},
-			body: JSON.stringify(state),
-			credentials: 'include'
-		})
-		.then( r => r.json() )
+		fetch(state,"/endpoints/create-account/",this.handleResult.bind(this));
+		/*
+		state.login_noonce = this.props.uc.state.login_noonce;
+		fetch(state,"/endpoints/create-account/",this.handleResult.bind(this));
+
   	.then( function(data) {
 
     	if(!data.success) {
@@ -65,13 +69,13 @@ export default class CreateAccount extends Component {
 					password: '',
 					telephone: (data.error_code == "bad_telephone") ? '' : state.telephone
 				});
-				
+
 				return false;
 			}
 			this.setState({status: "created"});
 
   	}.bind(this))
-
+		*/
 
 	}
 
