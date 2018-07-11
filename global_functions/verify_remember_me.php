@@ -11,13 +11,13 @@ function verify_remember_me() {
  if(!$credentials['selector'] || !$credentials['validator']) {
   return false;
  }
-$token = get_items("tokens", "selector", intval($credentials['selector']));
+$token = get_items("tokens", "*", "selector", intval($credentials['selector']));
 	if(!$token) {
 		return false;
 	}
 
  if(intval($token['expires']) < time()) {
-   $del_id = intval($db_token['id']);
+   $del_id = intval($token['id']);
    $delete =  "DELETE FROM tokens WHERE id=$del_id";
    $delete_item = mysqli_query($db_conn, $delete);
    return false;
