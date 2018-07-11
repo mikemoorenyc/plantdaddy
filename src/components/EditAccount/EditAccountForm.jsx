@@ -3,9 +3,10 @@ import {linkstate} from "linkstate"
 import { route } from 'preact-router';
 import fetch from "../../util/endpointFetch.js";
 import checkStatus from "../../util/checkStatus.js";
+import Layout from "../Layout.jsx";
 
 import FormSection from "../common/FormField.jsx";
-
+import BackArrow from "../common/BackArrow.jsx";
 
 export default class CreateAccount extends Component {
 	constructor(props) {
@@ -82,13 +83,13 @@ export default class CreateAccount extends Component {
 
 
   render(props,state) {
-
+		let headerText = (props.create) ? "Create Your Account" : "Edit Your Account"
 		if(props.create && state.status == "created") {
 			return(
-				<div>
+				<Layout title={headerText}>
 					Account Created<br/>
 					<a native href="/login/">Login Now</a>
-				</div>
+				</Layout>
 			)
 
 		}
@@ -136,6 +137,7 @@ export default class CreateAccount extends Component {
 							 label={e.label} />
 		}.bind(this));
     return (
+		<Layout title={headerText} headerLeft={<BackArrow native={false} href={"/login/"}/>} />
       <form onSubmit={this.submitForm}>
 				{sections}
 				{password}
@@ -143,6 +145,7 @@ export default class CreateAccount extends Component {
 				<button disabled={disabled}>{submitText}</button><br/>
 				<a href="/login/">Cancel</a>
       </form>
+			</Layout>
     )
   }
 
