@@ -42,7 +42,7 @@ export default class ForgotPassword extends Component {
 		};
 		let email = this.state.email;
 		this.setState({status: "sending"});
-		fetch(send_body, "/endpoints/require-reset/", this.resetSuccess.bind(this));
+		fetch(send_body, "/endpoints/require-reset/", "POST", this.resetSuccess.bind(this));
 	}
 	componentWillMount() {
 		if(this.props.isLoggedIn) {route('/',true);}
