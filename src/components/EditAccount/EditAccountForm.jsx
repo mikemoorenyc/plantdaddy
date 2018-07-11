@@ -56,7 +56,7 @@ export default class CreateAccount extends Component {
 		this.setState({status : "sending"});
 		let state = this.state;
 		state.login_noonce = this.props.uc.state.login_noonce;
-		fetch(state,"/endpoints/create-account/",this.handleResult.bind(this));
+		fetch(state,"/endpoints/accounts/","POST",this.handleResult.bind(this));
 
 	}
 
