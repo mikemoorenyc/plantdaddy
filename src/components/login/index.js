@@ -51,7 +51,7 @@ export default class Login extends Component {
 		e.preventDefault();
 		if(!this.state.password || !this.state.email) {return false;}
 		let state = this.state;
-		fetch(state,"/endpoints/login-user/", this.responseHandler);
+		fetch(state,"/endpoints/login-user/", "POST" ,this.responseHandler);
 	}
 
 
