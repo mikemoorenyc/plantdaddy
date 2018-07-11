@@ -23,7 +23,7 @@ $initInfo = [];
 
 $initInfo['isLoggedIn'] = is_user_logged_in();
 $initInfo['userProfile'] = null;
-$initInfo['reset_token'] = $_GET['reset_token'] ?: false  ;
+$initInfo['reset_token'] = $_GET['reset_token'] ?: null  ;
 
 
 
