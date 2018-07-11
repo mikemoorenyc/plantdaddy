@@ -17,6 +17,7 @@ export default class CreateAccount extends Component {
 			email: '',
 			password: '',
 			telephone: '',
+			photo_data: null,
 			disabled: true,
 			status: null
 		}
@@ -56,27 +57,6 @@ export default class CreateAccount extends Component {
 		let state = this.state;
 		state.login_noonce = this.props.uc.state.login_noonce;
 		fetch(state,"/endpoints/create-account/",this.handleResult.bind(this));
-		/*
-		state.login_noonce = this.props.uc.state.login_noonce;
-		fetch(state,"/endpoints/create-account/",this.handleResult.bind(this));
-
-  	.then( function(data) {
-
-    	if(!data.success) {
-				this.setState({status :null});
-				//Update Noonce
-				this.setState({
-					email: (data.error_code == "bad_email") ? "" : state.email,
-					password: '',
-					telephone: (data.error_code == "bad_telephone") ? '' : state.telephone
-				});
-
-				return false;
-			}
-			this.setState({status: "created"});
-
-  	}.bind(this))
-		*/
 
 	}
 
@@ -107,6 +87,13 @@ export default class CreateAccount extends Component {
 			password = <div><button>Change Password</button> </div>
 		}
 		let sections = [
+			{
+				labelShort:"photo_data",
+				value:state.photo_data,
+				required: false,
+				type: "photo",
+				label : "Photo"
+			},
 			{
 				labelShort:"first_name",
 				value:state.first_name,
