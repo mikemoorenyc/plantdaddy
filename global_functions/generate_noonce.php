@@ -1,5 +1,5 @@
 <?php
-function generate_noonce($length = 10)
+function generate_noonce($length = 15)
 {
     $buf = '';
     for ($i = 0; $i < $length; ++$i) {
