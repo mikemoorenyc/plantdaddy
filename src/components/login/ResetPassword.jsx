@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import fetch from "../../util/endpointFetch.js";
 import linkstate from "linkstate";
+import Layout from "../Layout.jsx";
 
 import FormField from "../common/FormField.jsx";
 import BackArrow from "../common/BackArrow";
