@@ -38,7 +38,6 @@ export default class App extends Component {
   }
   render() {
     return (
-      <div>
         <Subscribe to={[UserContainer]}>
           {function(user) {
             return (
@@ -56,7 +55,6 @@ export default class App extends Component {
             )
           }.bind(this)}
         </Subscribe>
-      </div>
       );
   }
 }
