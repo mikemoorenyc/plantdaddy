@@ -11,16 +11,12 @@ function verify_remember_me() {
  if(!$credentials['selector'] || !$credentials['validator']) {
   return false;
  }
- $get_token =  "SELECT * FROM tokens WHERE selector= '".intval($credentials['selector'])."' LIMIT 1";
- $token = $db_conn->query($get_token);
- if(!$token) {
-  return false;
- }
- if($token->num_rows < 1) {
-   return false;
- }
- $db_token =  $token->fetch_assoc();
- if(intval($db_token['expires']) < time()) {
+$token = get_items("tokens", "selector", intval($credentials['selector']));
+	if(!$token) {
+		return false;
+	}
+
+ if(intval($token['expires']) < time()) {
    $del_id = intval($db_token['id']);
    $delete =  "DELETE FROM tokens WHERE id=$del_id";
    $delete_item = mysqli_query($db_conn, $delete);
