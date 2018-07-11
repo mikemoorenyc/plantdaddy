@@ -5,7 +5,7 @@ import PhotoField from "./PhotoField"
 export default function(p) {
 	let type = p.type || "text";
 	if(type == "photo") {
-		return <PhotoField current_img={p.current_img} onChange={p.onChange} />
+		return <PhotoField current_img={p.value} onChange={p.onInput} />
 	}
 	return(
 		<div class="formRow">
