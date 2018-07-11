@@ -2,8 +2,10 @@ import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import fetch from "../../util/endpointFetch.js";
 import linkstate from "linkstate";
+import Layout from "../Layout.jsx";
 
 import FormField from "../common/FormField.jsx";
+import BackArrow from "../common/BackArrow.jsx";
 
 export default class ForgotPassword extends Component {
 	constructor() {
@@ -58,6 +60,8 @@ export default class ForgotPassword extends Component {
 			)
 		}
 		return(
+			let BackArrow = <BackArrow href="/login/" native={false} />
+		<Layout title="Reset Your Password" headerLeft={BackArrow}>
 			<form onSubmit={this.submitForm.bind(this)}>
 				<FormField
 					labelShort={"email"}
@@ -71,6 +75,7 @@ export default class ForgotPassword extends Component {
 				<br/><br/>
 				Enter your email above to reset your password. <a href="/login/">Cancel</a>
 			</form>
+		</Layout>
 
 		)
 
