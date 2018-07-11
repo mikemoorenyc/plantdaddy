@@ -4,8 +4,15 @@ import fetch from "../../util/endpointFetch.js";
 import linkstate from "linkstate";
 
 import FormField from "../common/FormField.jsx";
+import BackArrow from "../common/BackArrow";
 
-//60582442e173c27e1a7f
+let BackArrow = <BackArrow href="/login/" native={true} />
+const LayoutSlug = function(p) {
+			return (
+				<Layout title="Reset Your Password" headerLeft={BackArrow}>{this.props.children}</Layout>
+			)
+		
+}
 export default class ResetPassword extends Component {
 	constructor(props) {
 		super();
@@ -50,19 +57,23 @@ export default class ResetPassword extends Component {
 	render(props,state) {
     if(this.state.sent && state.status === "reset_success") {
       return (
+				<LayoutSlug>
         <p>
         Your password has been successfully reset. <br/>
         <a  native href="/login/">Login</a>
 				</p>
+					</LayoutSlug>
       )
     }
 
     if(!state.reset_token) {
       return (
+				<LayoutSlug>
         <p>
           We can't verify that you requested a password reset. <br/>
           <a native href="/forgot-password/">Try Again</a>
         </p>
+					</LayoutSlug>
       )
     }
 
@@ -70,6 +81,7 @@ export default class ResetPassword extends Component {
 
 
 		return(
+			<LayoutSlug>
 			<form onSubmit={this.submitForm.bind(this)}>
         <p>Enter the email address associated with your account and a new password.</p>
 				<FormField
@@ -103,6 +115,7 @@ export default class ResetPassword extends Component {
 
 
 			</form>
+				</LayoutSlug>
 
 		)
 
