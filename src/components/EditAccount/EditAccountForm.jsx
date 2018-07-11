@@ -124,7 +124,7 @@ export default class CreateAccount extends Component {
 							 label={e.label} />
 		}.bind(this));
     return (
-		<Layout title={headerText} headerLeft={<BackArrow native={false} href={"/login/"}/>} />
+		<Layout title={headerText} headerLeft={<BackArrow native={false} href={"/login/"}/>} >
       <form onSubmit={this.submitForm}>
 				{sections}
 				{password}

@@ -7,12 +7,12 @@ import Layout from "../Layout.jsx";
 import FormField from "../common/FormField.jsx";
 import BackArrow from "../common/BackArrow";
 
-let BackArrow = <BackArrow href="/login/" native={true} />
+let backArrow = <BackArrow href="/login/" native={true} />
 const LayoutSlug = function(p) {
 			return (
-				<Layout title="Reset Your Password" headerLeft={BackArrow}>{this.props.children}</Layout>
+				<Layout title="Reset Your Password" headerLeft={backArrow}>{this.props.children}</Layout>
 			)
-		
+
 }
 export default class ResetPassword extends Component {
 	constructor(props) {

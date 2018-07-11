@@ -7,12 +7,12 @@ import Layout from "../Layout.jsx";
 import FormField from "../common/FormField.jsx";
 import BackArrow from "../common/BackArrow.jsx";
 
-let BackArrow = <BackArrow href="/login/" native={false} />
+let backArrow = <BackArrow href="/login/" native={false} />
 const LayoutSlug = function(p) {
 			return (
 				<Layout title="Reset Your Password" headerLeft={BackArrow}>{this.props.children}</Layout>
 			)
-		
+
 }
 
 export default class ForgotPassword extends Component {
@@ -48,9 +48,9 @@ export default class ForgotPassword extends Component {
 		if(this.props.isLoggedIn) {route('/',true);}
 	}
 	render(props,state) {
-		
+
 		if(state.status == "failed" ) {
-		return (	
+		return (
 		<LayoutSlug>
 				<p>
 					There was a problem with your request.
@@ -70,13 +70,13 @@ export default class ForgotPassword extends Component {
 					<a native href="/login/">Go back to Log In</a>
 				</p>
 		</LayoutSlug>
-				
+
 
 
 			)
 		}
 		return(
-			<LayoutSlug />
+			<LayoutSlug >
 				<form onSubmit={this.submitForm.bind(this)}>
 				<FormField
 					labelShort={"email"}

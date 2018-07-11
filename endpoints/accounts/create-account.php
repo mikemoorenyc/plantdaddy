@@ -7,7 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] ."/endpoints/endpoint-header.php";
 
 if($_SESSION['logged_in']) {
 
-	errorResponse(403,"existing_user");
+//	errorResponse(403,"existing_user");
 }
 
 

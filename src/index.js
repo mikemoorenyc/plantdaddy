@@ -12,7 +12,7 @@ function init() {
 	let App = require('./components/AppWrap.jsx').default;
 	root = render(<App
 
-		      />, document.getElementById("root"), root);
+		      />, document.querySelector("body"), root);
 }
 
 // register ServiceWorker via OfflinePlugin, for prod only:
