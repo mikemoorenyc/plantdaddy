@@ -21,10 +21,16 @@ function get_items($ga) {
 		$safe_values = "*"
 	}
 	$safe_key = $db_conn->real_escape_string($ga['selector_key']);
+	
 	$safe_selector = $db_conn->real_escape_string($ga['$selector_value']);
-	$safe_limit = ($ga['limit']) ? "LIMIT ".intval($ga['limit']) : ""; 
+	
+	$safe_limit = ($ga['limit']) ? "LIMIT ".intval($ga['limit']) : "";
+	
+	$order = (in_array(strtoupper($ga['order']),['DESC','ASC']) ) ? $db_conn->real_escape_string(strtoupper($ga['order']) : "DESC";
+	
+	$order_by ($ga['order_by']) ? $db_conn->real_escape_string($ga['order_by']) : "date_created";
 
-	$get_items =  "SELECT $safe_values FROM $table WHERE `$safe_key` = '$safe_selector' $safe_limit";
+	$get_items =  "SELECT $safe_values FROM $table WHERE `$safe_key` = '$safe_selector' ORDER BY $order_by $order $safe_limit";
 
 	$items = $db_conn->query($get_items);
 	if(!$items) {
