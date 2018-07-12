@@ -1,24 +1,30 @@
 
 <?php
-function get_items($table,$values="*", $selector_key, $selector_value, $limit=1 ) {
-	if(!$selector_key || !$selector_value) {
+function get_items($ga) {
+	if(!is_array($ga) || !$ga['table'] || !$ga['selector_key'] || !$ga['selector_value'] ) {
 		return false;
 	}
 	global $db_conn;
-	$safe_values = [];
-	if(is_array($values)) {
-		foreach($values as $v) {
-			$safe_values[] = $db_conn->real_escape_string($v);
+	
+	if(!$ga['columns'])) {
+		$safe_values = [];
+		$ca = (is_array($ga['columns'])) ? $ga['columns'] : explode(",",$ga['columns']);
+		foreach($ca as $v) {
+			$string = $db_conn->real_escape_string($v);
+			if($string === 'password') {
+				continue;
+			}
+			$safe_values[] = $string;
 		}
 		$safe_values = implode(", ", $safe_values);
 	} else {
-		$safe_values = $db_conn->real_escape_string($value);
+		$safe_values = "*"
 	}
-	$safe_key = $db_conn->real_escape_string($selector_key);
-	$safe_selector = $db_conn->real_escape_string($selector_value);
-	$safe_limit = intval($limit);
+	$safe_key = $db_conn->real_escape_string($ga['selector_key']);
+	$safe_selector = $db_conn->real_escape_string($ga['$selector_value']);
+	$safe_limit = ($ga['limit']) ? "LIMIT ".intval($ga['limit']) : ""; 
 
-	$get_items =  "SELECT $safe_values FROM $table WHERE `$safe_key` = '$safe_selector' LIMIT ".$safe_limit;
+	$get_items =  "SELECT $safe_values FROM $table WHERE `$safe_key` = '$safe_selector' $safe_limit";
 
 	$items = $db_conn->query($get_items);
 	if(!$items) {
