@@ -7,7 +7,8 @@ function get_photo_by_id($id) {
 		"table" => "images",
 		"columns" => "url",
 		"selector_key" => "id",
-		"selector_value" => $id
+		"selector_value" => $id,
+		"limit" => 1
 	));
   if(!$photo) {
     return false;
