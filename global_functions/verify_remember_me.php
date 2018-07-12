@@ -11,7 +11,13 @@ function verify_remember_me() {
  if(!$credentials['selector'] || !$credentials['validator']) {
   return false;
  }
-$token = get_items("tokens", "*", "selector", intval($credentials['selector']));
+	
+$token = get_items(array(
+	"table" => "tokens",
+	"selector_key" => "selector",
+	"selector_value" => intval($credentials['selector']),
+	"limit" => 1
+));
 	if(!$token) {
 		return false;
 	}
