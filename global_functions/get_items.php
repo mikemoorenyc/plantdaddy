@@ -32,12 +32,17 @@ function get_items($ga) {
 	
 	$offset = intval($ga['offset']) ?: 0;
 
-	$get_items =  "SELECT $safe_values 
-									FROM $table 
-									WHERE `$safe_key` = '$safe_selector' 
-									ORDER BY $order_by $order 
-									LIMIT $safe_limit 
-									OFFSET $offset";
+	$get_items =  (
+		"SELECT 
+			$safe_values 
+		FROM 
+			$table 
+		WHERE 
+			`$safe_key` = '$safe_selector' 
+		ORDER BY 
+			$order_by $order 
+		LIMIT $safe_limit 
+		OFFSET $offset");
 
 	$items = $db_conn->query($get_items);
 	if(!$items) {
