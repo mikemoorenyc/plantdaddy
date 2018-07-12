@@ -3,6 +3,12 @@ function get_photo_by_id($id) {
   if(!$id) {return false;}
 
   $photo = get_items("images","url","id", $id);
+	$photo = get_items(array(
+		"table" => "images",
+		"columns" => "url",
+		"selector_key" => "id",
+		"selector_value" => $id
+	));
   if(!$photo) {
     return false;
   }
