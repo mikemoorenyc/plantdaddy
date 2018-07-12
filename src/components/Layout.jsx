@@ -1,12 +1,18 @@
 import { h } from 'preact';
 
-
+import MainMenu from "./MainMenu.jsx";
 
 export default function(p) {
 	let title = p.title || "PlantDaddy" ;
 	return (
-	<div id="app">
-		<div class="header">
+<Subscribe to={[UserContainer]}>
+	{function(user) {
+		let menu = (user.isLoggedIn) <MainMenu /> : null;
+		return(
+	<div id="app" className={p.menuOpen ? "menuOpen" : null}>
+		{menu}
+		<div class="main-content">
+			<div class="header">
 			<div class="left-side">
 				{p.headerLeft}		
 			</div>
@@ -18,8 +24,15 @@ export default function(p) {
 			<div class="content">
 				{p.children}
 			</div>
-	</div>	
+			
+		</div>
 		
+			
+	</div>	
+			
+			)
+		}}
+</Subscribe>
 	
 	)
 
