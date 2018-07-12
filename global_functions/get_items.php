@@ -24,7 +24,7 @@ function get_items($ga) {
 	
 	$safe_selector = $db_conn->real_escape_string($ga['$selector_value']);
 	
-	$safe_limit = intval($ga['limit']) ?: 999;
+	$safe_limit = intval($ga['limit']) ?: 100;
 	
 	$order = (in_array(strtoupper($ga['order']),['DESC','ASC']) ) ? $db_conn->real_escape_string(strtoupper($ga['order']) : "DESC";
 	
