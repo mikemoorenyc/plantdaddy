@@ -30,7 +30,7 @@ export default function(data, url, method,callback) {
 				code: response.headers.get('Error-Code')
 			}
 		} else {
-			return response.text();
+			return response.json();
 		}
 
   })

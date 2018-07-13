@@ -2,8 +2,9 @@ import { Container } from 'unstated';
 
 export default class TodoContainer extends Container {
   state = {
-    isLoggedIn: INITINFO.isLoggedIn,
-    login_noonce: INITINFO.login_noonce
+    isLoggedIn: (INITINFO.isLoggedIn === true) ? true : false,
+    login_noonce: INITINFO.login_noonce,
+    user: INITINFO.userProfile
   };
 
   recieveNewStateItem(key, state) {

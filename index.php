@@ -28,7 +28,8 @@ $HTML = file_get_contents(APP_PATH);
 $initInfo = [];
 
 $initInfo['isLoggedIn'] = is_user_logged_in();
-$initInfo['userProfile'] = null;
+
+$initInfo['userProfile'] = ($initInfo['isLoggedIn'] ) ? get_user_by_id($_SESSION['user']['id']) : null;
 $initInfo['reset_token'] = $_GET['reset_token'] ?: null  ;
 
 

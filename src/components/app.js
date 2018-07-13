@@ -16,6 +16,9 @@ import {findIndex} from "../util/array_helpers.js";
 export default class App extends Component {
   constructor(props) {
     super();
+    this.state = {
+      isLoggedIn : (INITINFO.isLoggedIn === true) ? true : false
+    }
     this.okNoLogPaths = [
 			'/login/',
 			'/create-account/',
@@ -23,6 +26,10 @@ export default class App extends Component {
 			"/reset-password/"
 		];
 		this.handleRoute = this.handleRoute.bind(this);
+    this.getLoginState = this.getLoginState.bind(this);
+  }
+  getLoginState(state) {
+    this.setState({isLoggedIn: state});
   }
   handleRoute() {
     let url = window.location.pathname;
@@ -43,8 +50,8 @@ export default class App extends Component {
             return (
             <Router onChange={this.handleRoute.bind(this)}>
               <Home user={user} path="/" />
-              <Home path="/index.php" />
-              <Login path="/login/" UserContainer={user} />
+              <Home user={user.state.user} path="/index.php" />
+              <Login switchLogin={this.getLoginState} path="/login/" UserContainer={user} login_noonce={user.state.login_noonce}/>
               <ForgotPassword login_noonce={user.state.login_noonce} path="/forgot-password/" />
             	<ResetPassword login_noonce={user.state.login_noonce} path="/reset-password/" />
             	<EditAccount path="/create-account/"

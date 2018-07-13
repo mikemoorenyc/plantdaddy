@@ -16,13 +16,14 @@ export default class Login extends Component {
 			first_name: null,
 		}
 		this.responseHandler = this.responseHandler.bind(this);
-
+    this.inputChange = this.inputChange.bind(this);
   }
-	
-	componentWillMount() {
 
+	componentWillMount() {
+    //console.log(this.props.login_noonce);
 		if(this.props.UserContainer.state.isLoggedIn) {
 			route('/', true);
+
 		}
 	}
   inputChange(e) {
@@ -34,15 +35,17 @@ export default class Login extends Component {
 		});
 	}
 	responseHandler(r) {
+    console.log(r);
 		if(!r.success) {
-			//Error Handling
+			//ERROR HANDLINE
 		}
 		this.setState({
 				loggedIn: true,
-				first_name: r.user.first_name
+				first_name: r.data.user.first_name
 		});
 		this.props.UserContainer.recieveNewStateItem('isLoggedIn',true);
-		this.props.UserContainer.recieveNewStateItem('userProfile', response.user);
+    this.props.switchLogin(true);
+		this.props.UserContainer.recieveNewStateItem('userProfile', r.data.user);
 		setTimeout(function(){
 			route("/",true)
 		}, 2000);
@@ -51,6 +54,8 @@ export default class Login extends Component {
 		e.preventDefault();
 		if(!this.state.password || !this.state.email) {return false;}
 		let state = this.state;
+    state.login_noonce = this.props.login_noonce;
+
 		fetch(state,"/endpoints/login-user/", "POST" ,this.responseHandler);
 	}
 
@@ -60,13 +65,13 @@ export default class Login extends Component {
 		let title = "Log into PlantDaddy";
 		if(props.UserContainer.state.isLoggedIn) {
 			return(
-				<Layout title={title}><div>You&rsquo;re logged in, {first_name}</div></Layout>
+				<Layout title={title}><div>You&rsquo;re logged in, {this.state.first_name}</div></Layout>
 			)
 		}
 
     return (
 		<Layout title={title}>
-      <form onSubmit={this.submitForm}>
+      <form onSubmit={this.submitForm.bind(this)}>
 				<FormField
 					labelShort={"email"}
 					value={state.email}

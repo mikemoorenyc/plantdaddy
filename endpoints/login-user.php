@@ -1,8 +1,10 @@
 <?php
-require_once "/header.php";
+require_once $_SERVER['DOCUMENT_ROOT'] ."/header.php";
+
 require_once "endpoint-header.php";
 
-if($_SESSION['login_noonce'] !== $_POST['login_noonce']) {
+
+if($_SESSION['login_noonce'] !== $response['login_noonce']) {
 
 	errorResponse(400, "bad_noonce");
 }
@@ -15,7 +17,7 @@ if($verifed === false) {
 $user = get_user_by_id($verified);
 $remember_me = create_remember_me($user['id']);
 $_SESSION['logged_in'] = true;
-$_SESSION['current_user'] = $user;
+$_SESSION['user'] = $user;
 
   $response = array(
     'logged_in' => true,

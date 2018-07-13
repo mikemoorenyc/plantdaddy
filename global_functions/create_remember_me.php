@@ -10,9 +10,12 @@ function create_remember_me($id) {
   $validator = hash('sha256', $plain_token, true);
   $user_id = intval($id);
 	$expires = strtotime("+6 month");
-	$insert_token = "INSERT INTO tokens (selector, hashedValidator, user_id, expires)
-    VALUES ('$selector','$validator','$user_id','$expires')";
-  $db_token = $dbconn->mysqli_query($db_conn, $insert_token);
+  $db_token = insert_item('tokens',array(
+    "selector" => $selector,
+    "hashedValidator" => $validator,
+    "user_id" => $user_id,
+    "expires" => $expires
+  ));
   if($db_token) {
     setcookie(REMEMBER_ME_NAME, json_encode(array("selector" => $selector , "validator" => $plain_token)),$expires, '/');
     return true;
