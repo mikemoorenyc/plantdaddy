@@ -5,8 +5,10 @@ function get_items($ga) {
 		return false;
 	}
 	global $db_conn;
-	
-	if(!$ga['columns'])) {
+
+
+
+	if($ga['columns']) {
 		$safe_values = [];
 		$ca = (is_array($ga['columns'])) ? $ga['columns'] : explode(",",$ga['columns']);
 		foreach($ca as $v) {
@@ -18,35 +20,40 @@ function get_items($ga) {
 		}
 		$safe_values = implode(", ", $safe_values);
 	} else {
-		$safe_values = "*"
+		$safe_values = "*";
 	}
 	$safe_key = $db_conn->real_escape_string($ga['selector_key']);
-	
-	$safe_selector = $db_conn->real_escape_string($ga['$selector_value']);
-	
+
+	$safe_selector = $db_conn->real_escape_string($ga['selector_value']);
+
+	$table = $db_conn->real_escape_string($ga['table']);
+
 	$safe_limit = intval($ga['limit']) ?: 100;
-	
-	$order = (in_array(strtoupper($ga['order']),['DESC','ASC']) ) ? $db_conn->real_escape_string(strtoupper($ga['order']) : "DESC";
-	
-	$order_by ($ga['order_by']) ? $db_conn->real_escape_string($ga['order_by']) : "date_created";
-	
+
+	$order = (in_array(strtoupper($ga['order']),['DESC','ASC']) ) ? $db_conn->real_escape_string(strtoupper($ga['order'])) : "DESC";
+
+	$order_by = ($ga['order_by']) ? $db_conn->real_escape_string($ga['order_by']) : "date_created";
+
 	$offset = intval($ga['offset']) ?: 0;
 
 	$get_items =  (
-		"SELECT 
-			$safe_values 
-		FROM 
-			$table 
-		WHERE 
-			`$safe_key` = '$safe_selector' 
-		ORDER BY 
-			$order_by $order 
-		LIMIT $safe_limit 
+		"SELECT
+			$safe_values
+		FROM
+			$table
+		WHERE
+			`$safe_key` = '$safe_selector'
+		ORDER BY
+			$order_by $order
+		LIMIT $safe_limit
 		OFFSET $offset");
 
+
 	$items = $db_conn->query($get_items);
+
+
 	if(!$items) {
-    return false;
+    return mysqli_error($db_conn);
   }
   if($items->num_rows < 1) {
     return false;

@@ -24,11 +24,15 @@ export default class CreateAccount extends Component {
 
 		this.inputChange = this.inputChange.bind(this);
 		this.submitForm = this.submitForm.bind(this);
+		this.getPhotoData = this.getPhotoData.bind(this);
 	}
 	componentWillMount() {
 		if(this.props.isLoggedIn && this.props.create) {
 			route('/',true);
 		}
+	}
+	getPhotoData(data) {
+		this.setState({photo_data: data});
 	}
 	inputChange(e) {
 		let stateObj = {};
@@ -50,6 +54,8 @@ export default class CreateAccount extends Component {
 	}
 	submitForm(e) {
 		e.preventDefault();
+
+
 		if(this.state.disabled) {
 			return false;
 		}
@@ -115,9 +121,11 @@ export default class CreateAccount extends Component {
 			}
 
 		].map(function(e,i) {
+			let change = (e.type === "photo")?this.getPhotoData : this.inputChange;
 			return <FormSection
 							key={i}
-							 onInput={this.inputChange}
+							type = {e.type}
+							 onInput={change}
 							 labelShort={e.labelShort}
 							 value={e.value}
 							 required={e.required}

@@ -9,14 +9,14 @@ export default function(p) {
 	return (
 <Subscribe to={[UserContainer]}>
 	{function(user) {
-		let menu = (user.isLoggedIn) <MainMenu /> : null;
+		let menu = (user.isLoggedIn) ? <MainMenu /> : null;
 		return(
 	<div id="app" className={p.menuOpen ? "menuOpen" : null}>
 		{menu}
 		<div class="main-content">
 			<div class="header">
 			<div class="left-side">
-				{p.headerLeft}		
+				{p.headerLeft}
 			</div>
 			<h1>{title}</h1>
 			<div class="right-side">
@@ -26,18 +26,18 @@ export default function(p) {
 			<div class="content">
 				{p.children}
 			</div>
-			
+
 		</div>
-		
-			
-	</div>	
-			
+
+
+	</div>
+
 			)
 		}}
 </Subscribe>
-	
+
 	)
 
-	
-	
+
+
 }

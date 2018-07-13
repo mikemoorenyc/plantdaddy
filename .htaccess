@@ -4,5 +4,5 @@ RewriteEngine On
 
 
 
-RewriteRule ^(install.php|robots.txt|favicon.ico)($|/) - [L]
+RewriteRule ^(assets|create-test.php|install.php|robots.txt|favicon.ico)($|/) - [L]
 RewriteRule ^(.*)$ index.php [L]

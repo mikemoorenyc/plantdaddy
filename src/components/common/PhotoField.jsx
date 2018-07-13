@@ -13,22 +13,32 @@ export default class App extends Component {
 		this.uploader.click();
 	}
 	fileChange(e) {
+
+		if(e.target.files.length < 1) {
+			return false;
+		}
 		let file = e.target.files[0];
   	let reader = new FileReader();
 		reader.readAsDataURL(file);
 		reader.onload = function () {
 			let data = reader.result;
 			this.setState({current_img:data});
-			this.props.callback(data);
+			this.props.onChange(data);
    	}.bind(this);
 	}
 
 
 	render(props,state) {
+		let img = (state.current_img) ? <img style={{width:100, height:100}} src={state.current_img} /> : null;
+		return(
 		<div class="photoField">
 		<input style={{display:"none"}} type="file" onChange={this.fileChange.bind(this)} accept="*/image" ref={uploader => this.uploader = uploader}/>
-		<img style={{width:100, height:100}} src={state.current_img} onClick={this.fakeClick.bind(this)}/>
+		<div onClick={this.fakeClick.bind(this)} class="click-state" style={{background: "red",width:100, height:100}}>
+			{img}
 		</div>
+
+		</div>
+	)
 	}
 
 

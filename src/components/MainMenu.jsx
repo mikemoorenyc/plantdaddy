@@ -10,21 +10,21 @@ export default function(p) {
 	return(
 		<div class="menu">
 		<a href="/account/">
-				
+
 		</a>
 		<ul>
 			<li><a href="/account/">View Your Account</a></li>
-			<li><a native "/logout/">Logout</a></li>
-			</ul>	
-			
+			<li><a native href="/logout/">Logout</a></li>
+			</ul>
+
 	</div>
-		
+
 		)
 }}
 </Subscribe>
-	
+
 	)
-	
-	
-	
+
+
+
 }

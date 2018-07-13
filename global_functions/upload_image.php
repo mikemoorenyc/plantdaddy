@@ -1,34 +1,47 @@
 <?php
 
 function upload_image($base64, $filename, $user) {
+
 	global $db_conn;
 	$user_id = $user ?: $_SESSION['user']['id'];
 
 	if(!$user_id) {
 		return false;
 	}
+$directory = $_SERVER['DOCUMENT_ROOT'].'/assets/user_images';
 
-	$name = "/assets/user_images/".str_replace(['.jpg.','.png','.gif','.jpeg'],'',strtolower($filename)).'.jpg';
-	$asset_route = $_SERVER['DOCUMENT_ROOT'] .$name;
+  if ( ! is_dir($directory)) {
+
+    mkdir($directory,0755, true);
+  }
+	$fname = str_replace(['.jpg','.png','.gif','.jpeg'],'',strtolower($filename)).'.jpg';
+
+	$public_path = "/assets/user_images/".$fname;
+	$asset_route = $directory.$name."/".$fname;
 
 	$exists = file_exists($asset_route);
 
 	$data = explode( ',', $base64 );
-	if($data >1){return false;}
+	if($data <1){return false;}
 
-	$img = imagecreatefromstring($data[1]);
+
+	$img = imagecreatefromstring(base64_decode($data[1]));
 	if(!$img) {
 		return false;
 	}
 
-	$scaled = imagescale($img, 1000);
+	$scaled = imagescale($img, 800);
 
-	$saved = imagejpeg($image, $asset_route, 65);
+	if(!$scaled) {
+		return false;
+	}
+
+	$saved = imagejpeg($scaled, $asset_route, 75);
 	if(!$saved) {return false;}
 
 	if(!$exists) {
 		$insert_array = array(
-			"url" => $name,
+			"url" => $public_path,
 			"date_created" => time(),
 			"date_modified" => time(),
 			"created_by" => $user_id,
@@ -45,7 +58,7 @@ function upload_image($base64, $filename, $user) {
 	$update_array = array(
 		"db" => "images",
 		"selector_key" => "url",
-		"selector_value" => $name,
+		"selector_value" => $public_path,
 		"update_array" => array(
 			"modified_by" => $user,
 			"date_modified" => time()

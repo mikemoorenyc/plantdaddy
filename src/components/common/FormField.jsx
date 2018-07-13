@@ -3,7 +3,9 @@ import {linkstate} from "linkstate";
 import PhotoField from "./PhotoField"
 
 export default function(p) {
+
 	let type = p.type || "text";
+
 	if(type == "photo") {
 		return <PhotoField current_img={p.value} onChange={p.onInput} />
 	}
