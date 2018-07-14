@@ -13,6 +13,7 @@ import ResetPassword from './login/ResetPassword.jsx';
 import {findIndex} from "../util/array_helpers.js";
 
 
+
 export default class App extends Component {
   constructor(props) {
     super();
@@ -37,6 +38,9 @@ export default class App extends Component {
     if(!this.state.isLoggedIn && !findIndex(this.okNoLogPaths, url)) {
 
      route('/login/', true)
+    }
+    if(this.state.isLoggedIn && findIndex(this.okNoLogPaths,url) !== false) {
+      route('/', true)
     }
 		return false;
   }

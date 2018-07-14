@@ -9,7 +9,7 @@ export default function(p) {
 	return (
 <Subscribe to={[UserContainer]}>
 	{function(user) {
-		let menu = (user.isLoggedIn) ? <MainMenu /> : null;
+		let menu = (user.state.isLoggedIn) ? <MainMenu /> : null;
 		return(
 	<div id="app" className={p.menuOpen ? "menuOpen" : null}>
 		{menu}

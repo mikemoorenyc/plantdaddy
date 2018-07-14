@@ -45,7 +45,7 @@ export default class Login extends Component {
 		});
 		this.props.UserContainer.recieveNewStateItem('isLoggedIn',true);
     this.props.switchLogin(true);
-		this.props.UserContainer.recieveNewStateItem('userProfile', r.data.user);
+		this.props.UserContainer.recieveNewStateItem('user', r.data.user);
 		setTimeout(function(){
 			route("/",true)
 		}, 2000);
