@@ -16,7 +16,7 @@ export default class App extends Component {
 	}
 	render() {
 		return (
-    <Provider>
+
 				<Subscribe to={[UserContainer]}>
 					{user => (
         <MainApp user={user}/>
@@ -24,9 +24,7 @@ export default class App extends Component {
       )}
 					
 				</Subscribe>
-    
 
-    </Provider>
   	)
 		
 	}
