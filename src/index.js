@@ -3,6 +3,8 @@
 import { h, render } from 'preact';
 import './style';
 
+import {Provider} from "unstated";
+
 import React from 'react';
 
 
@@ -10,9 +12,9 @@ import React from 'react';
 let root;
 function init() {
 	let App = require('./components/AppWrap.jsx').default;
-	root = render(<App
+	root = render(<Provider><App
 
-		      />, document.querySelector("body"), root);
+		      /></Provider>, document.querySelector("body"), root);
 }
 
 // register ServiceWorker via OfflinePlugin, for prod only:
