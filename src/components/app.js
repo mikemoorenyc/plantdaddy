@@ -66,6 +66,7 @@ export default class App extends Component {
             		create={false}
             		uc={user}
             	/>
+							<ChangePassword user={user} path="/change-password/" />
             </Router>
             )
           }.bind(this)}
