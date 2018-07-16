@@ -8,6 +8,9 @@ switch($method) {
 	case 'POST':
 		require 'accounts/create-account.php';
 		break;
+	case 'PUT':
+		require 'accounts/edit-account.php';
+		break;
 	default:
 		die();
 }
