@@ -2,7 +2,7 @@
 function update_item($p) {
   if(!$p || !is_array($p)) {return false;}
 	global $db_conn;
-  $values = ['update_array',"db","selector_key","selector_value"];
+  $values = ['update_array',"table","selector_key","selector_value"];
 
   if(!empty(array_diff($values,array_keys($p)))){return array_diff($values,array_keys($p));}
 	if(!is_array($p['update_array']) ||!count($p['update_array'])) {return "no update_array";}
@@ -11,7 +11,7 @@ function update_item($p) {
 
 	$update_array['date_modified'] = $update_array['date_modified'] ?: time();
 
-  $db = $db_conn->real_escape_string($p["db"]);
+  $db = $db_conn->real_escape_string($p["table"]);
 
   if($db !== 'users') {
     $update_array['modified_by'] = $update_array['modified_by'] ?: $_SESSION['user']['id'];
