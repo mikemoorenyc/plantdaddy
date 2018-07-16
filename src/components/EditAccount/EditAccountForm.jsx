@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import {linkstate} from "linkstate"
 import { route } from 'preact-router';
 import fetch from "../../util/endpointFetch.js";
-import checkStatus from "../../util/checkStatus.js";
+
 import Layout from "../Layout.jsx";
 
 import FormSection from "../common/FormField.jsx";
