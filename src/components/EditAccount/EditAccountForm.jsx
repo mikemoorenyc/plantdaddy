@@ -18,6 +18,7 @@ export default class CreateAccount extends Component {
 			password: "",
 			telephone: this.props.uc.user.telephone || "",
 			photo_data: this.props.uc.user.photo_url || null,
+			id: this.props.uc.user.id || null,
 			disabled: true,
 			status: null
 		}
