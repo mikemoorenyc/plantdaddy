@@ -62,6 +62,10 @@ export default class App extends Component {
             		create={true}
             		uc={user}
             	/>
+							<EditAccount path="/edit-account/"
+            		create={false}
+            		uc={user}
+            	/>
             </Router>
             )
           }.bind(this)}
