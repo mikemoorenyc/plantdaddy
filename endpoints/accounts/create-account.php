@@ -89,7 +89,6 @@ if($response['photo_data'])  {
 
 echo json_encode(array(
 	"msg"=> "User Created",
-	"user" => get_user_by_id($user['id']),
 	"success" => true
 ));
 
