@@ -1,20 +1,34 @@
-import { h } from 'preact';
+import { h, Component } from 'preact';
 
 import { Subscribe, Provider } from 'unstated';
 
 import MainApp from "./app.js";
+import UserContainer from "../containers/UserContainer.js";
 
 
 
 
 
-
-export default function() {
-  return (
+export default class App extends Component {
+	constructor() {
+		super();
+		
+	}
+	render() {
+		return (
     <Provider>
-    <MainApp />
+				<Subscribe to={[UserContainer]}>
+					{user => (
+        <MainApp user={user}/>
 
+      )}
+					
+				</Subscribe>
+    
 
     </Provider>
-  )
+  	)
+		
+	}
+  
 }
