@@ -8,6 +8,7 @@ import Home from './home';
 import Login from './login';
 import ForgotPassword from './login/ForgotPassword.jsx';
 import EditAccount from "./EditAccount/EditAccountForm.jsx";
+import ChangePassword from "./EditAccount/ChangePassword.jsx";
 import ResetPassword from './login/ResetPassword.jsx';
 
 import {findIndex} from "../util/array_helpers.js";
