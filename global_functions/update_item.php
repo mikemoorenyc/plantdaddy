@@ -40,14 +40,15 @@ function update_item($p) {
 
 	//Check if value will update multiple rows
 	$rows = get_items(array(
-		"db" => $db,
+		"table" => $db,
 		"selector_key" => $selector_key,
-		"selector_value" => $selector_value
+		"selector_value" => $selector_value,
+		"limit" => 1
 	));
 
 
 
-	if(count($rows) !== 1) {return "doesnt exists";}
+	if(count($rows) !== 1) {return false;}
 
 
 
@@ -62,17 +63,17 @@ function update_item($p) {
 
   $update_item = mysqli_query($db_conn, $sql);
 
-  if(!$update_item){return mysqli_error($db_conn);}
+  if(!$update_item){return false;}
 
 	$item = get_items(array(
-		"db" => $db,
+		"table" => $db,
 		"columns" => "id",
 		"limit" => 1,
 		"selector_key" => $selector_key,
 		"selector_value" => $selector_value
 	));
 
-	return $item['id'];
+	return $item;
 
 }
 
