@@ -97,7 +97,7 @@ export default class CreateAccount extends Component {
 											type={"password"}
 											/>
 		if(!props.create) {
-			password = <div><button>Change Password</button> </div>
+			password = <div><a href="/change-password/">Change your password</a> </div>
 		}
 		let sections = [
 			{
