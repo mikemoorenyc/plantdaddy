@@ -50,7 +50,7 @@ if(!$updated_item) {
 	errorResponse(500, "not_updated");
 }
 
-echo get_user_by_id($response['id']);
+echo json_encode(get_user_by_id($response['id']));
 die();
 
 
