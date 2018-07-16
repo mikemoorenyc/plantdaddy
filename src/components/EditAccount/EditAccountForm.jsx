@@ -13,11 +13,11 @@ export default class CreateAccount extends Component {
 		super();
 
 		this.state = {
-			first_name: '',
-			email: '',
-			password: '',
-			telephone: '',
-			photo_data: null,
+			first_name: this.props.uc.user.first_name || "",
+			email: this.props.uc.user.email || "",
+			password: "",
+			telephone: this.props.uc.user.telephone || "",
+			photo_data: this.props.uc.user.photo_url || null,
 			disabled: true,
 			status: null
 		}
@@ -50,6 +50,11 @@ export default class CreateAccount extends Component {
 			//Error Handling
 			return false;
 		}
+		if(!this.props.create) {
+			this.props.uc.recieveNewStateItem("user", data.data.user); 
+			route("/account/");
+			return false;
+		}
 		this.setState({status: "created"});
 	}
 	submitForm(e) {
@@ -62,6 +67,7 @@ export default class CreateAccount extends Component {
 		this.setState({status : "sending"});
 		let state = this.state;
 		state.login_noonce = this.props.uc.state.login_noonce;
+		let method = (this.props.create) ? "POST" : "PUT"; 
 		fetch(state,"/endpoints/accounts/","POST",this.handleResult.bind(this));
 
 	}
