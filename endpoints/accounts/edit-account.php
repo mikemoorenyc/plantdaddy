@@ -20,21 +20,25 @@ if(!$user) {
 if($user['id'] !== $response['id']) {
 	errorResponse(403, "wrong_user");
 }
+if($_GET['change_password']) {
+	include "change-password.php";
+	die();
+}
+
+
 $to_update = [];
 
 $allowed_values = array_keys($user);
 
+
+
 foreach($response as $k => $r) {
-	if(!in_array($k,$allowed_values)) {
-		continue;
-	}
-	$update_value = ($k == "password")? pw_hasher($r) : $r;
-	
-	if($update_value == $user[$k] && $k !== "password") {
+		
+	if(!in_array($k,$allowed_values) || $update_value == $user[$k] || $k == "password") {
 		continue;
 	}
 	
-	$to_update[$k] = $update_value;
+	$to_update[$k] = $r;
 
 }
 if(empty($to_update)) {
