@@ -7,7 +7,7 @@ export default function(p) {
 	let type = p.type || "text";
 
 	if(type == "photo") {
-		return <PhotoField current_img={p.value} onChange={p.onInput} />
+		return <PhotoField disabled={p.disabled} current_img={p.value} onChange={p.onInput} />
 	}
 	return(
 		<div class="formRow">
@@ -20,6 +20,7 @@ export default function(p) {
 					type={p.type}
 					value={p.value}
 					name={p.labelShort}
+					disabled={p.disabled}
 					 />
 		</div>
 
