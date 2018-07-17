@@ -10,6 +10,7 @@ import ForgotPassword from './login/ForgotPassword.jsx';
 import EditAccount from "./EditAccount/EditAccountForm.jsx";
 import ChangePassword from "./EditAccount/ChangePassword.jsx";
 import ResetPassword from './login/ResetPassword.jsx';
+import Account from "./account/Account.jsx";
 
 import {findIndex} from "../util/array_helpers.js";
 
@@ -28,24 +29,23 @@ export default class App extends Component {
 			"/reset-password/"
 		];
 		this.handleRoute = this.handleRoute.bind(this);
-    this.getLoginState = this.getLoginState.bind(this);
+
   }
-  getLoginState(state) {
-    this.setState({isLoggedIn: state});
-  }
+
   handleRoute() {
     let url = window.location.pathname;
 
-    if(!this.state.isLoggedIn && !findIndex(this.okNoLogPaths, url)) {
+    if(!this.props.user.state.isLoggedIn && !findIndex(this.okNoLogPaths, url)) {
 
      route('/login/', true)
     }
-    if(this.state.isLoggedIn && findIndex(this.okNoLogPaths,url) !== false) {
+    if(this.props.user.state.isLoggedIn && findIndex(this.okNoLogPaths,url) !== false) {
       route('/', true)
     }
 		return false;
   }
   componentWillMount() {
+
     this.handleRoute();
   }
   render() {
@@ -56,7 +56,8 @@ export default class App extends Component {
             <Router onChange={this.handleRoute.bind(this)}>
               <Home user={user} path="/" />
               <Home user={user.state.user} path="/index.php" />
-              <Login switchLogin={this.getLoginState} path="/login/" UserContainer={user} login_noonce={user.state.login_noonce}/>
+              <Account user={user} path="/account/:id/" />
+              <Login  path="/login/" UserContainer={user} login_noonce={user.state.login_noonce}/>
               <ForgotPassword login_noonce={user.state.login_noonce} path="/forgot-password/" />
             	<ResetPassword login_noonce={user.state.login_noonce} path="/reset-password/" />
             	<EditAccount path="/create-account/"

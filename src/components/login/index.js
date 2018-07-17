@@ -35,7 +35,7 @@ export default class Login extends Component {
 		});
 	}
 	responseHandler(r) {
-    console.log(r);
+  
 		if(!r.success) {
 			//ERROR HANDLINE
 		}
@@ -44,7 +44,7 @@ export default class Login extends Component {
 				first_name: r.data.user.first_name
 		});
 		this.props.UserContainer.recieveNewStateItem('isLoggedIn',true);
-    this.props.switchLogin(true);
+
 		this.props.UserContainer.recieveNewStateItem('user', r.data.user);
 		setTimeout(function(){
 			route("/",true)
