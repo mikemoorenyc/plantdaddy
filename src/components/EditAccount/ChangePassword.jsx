@@ -27,7 +27,7 @@ export default class extends Component {
 			//No match
 			return false;
 		}
-		fetch(sendPackage,"/endpoints/accounts/", "POST", this.successHandler );
+		fetch(sendPackage,"/endpoints/accounts/?reset_password=1", "POST", this.successHandler );
 		
 		
 	}
