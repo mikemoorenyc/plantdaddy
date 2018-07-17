@@ -37,7 +37,8 @@ export default class App extends Component {
 
     if(!this.props.user.state.isLoggedIn && findIndex(this.okNoLogPaths, url) === false) {
 
-     route('/login/', true)
+     route('/login/', true);
+			return false;
     }
     if(this.props.user.state.isLoggedIn && findIndex(this.okNoLogPaths,url) !== false) {
       route('/', true)
