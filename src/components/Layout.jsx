@@ -1,17 +1,17 @@
 import { h } from 'preact';
 import { Subscribe } from 'unstated';
 import UserContainer from "../containers/UserContainer.js";
-
+import UserContainer from "../containers/LayoutContainer.js";
 import MainMenu from "./MainMenu.jsx";
 
 export default function(p) {
 	let title = p.title || "PlantDaddy" ;
 	return (
-<Subscribe to={[UserContainer]}>
-	{function(user) {
+<Subscribe to={[UserContainer,LayoutContainer]}>
+	{function(user,layout) {
 		let menu = (user.state.isLoggedIn) ? <MainMenu /> : null;
 		return(
-	<div id="app" className={p.menuOpen ? "menuOpen" : null}>
+	<div id="app" className={(layout.state.menuOpen) ? "menu-open" : null}>
 		{menu}
 		<div class="main-content">
 			<div class="header">
