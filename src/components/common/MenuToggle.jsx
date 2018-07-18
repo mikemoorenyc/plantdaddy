@@ -6,7 +6,7 @@ export default function(p)  {
 	return (
 		<Subscribe to={[LayoutContainer]}>
 			{layout => (
-				<button onClick={(e) => (e.preventDefault(); p.toggleMenu();)}>
+				<button onClick={(e) => (e.preventDefault(), layout.toggleMenu())}>
 				Menu
 				</button>
 			)}
