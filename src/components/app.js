@@ -13,9 +13,6 @@ import ResetPassword from './login/ResetPassword.jsx';
 import Account from "./account/Account.jsx";
 
 import {findIndex} from "../util/array_helpers.js";
-
-
-
 export default class App extends Component {
   constructor(props) {
     super();
@@ -23,15 +20,13 @@ export default class App extends Component {
       isLoggedIn : (INITINFO.isLoggedIn === true) ? true : false
     }
     this.okNoLogPaths = [
-			'/login/',
-			'/create-account/',
-			'/forgot-password/',
-			"/reset-password/"
-		];
-		this.handleRoute = this.handleRoute.bind(this);
-
+      '/login/',
+      '/create-account/',
+      '/forgot-password/',
+      "/reset-password/"
+    ];
+    this.handleRoute = this.handleRoute.bind(this);
   }
-
   handleRoute() {
     let url = window.location.pathname;
 
