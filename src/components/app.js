@@ -31,14 +31,13 @@ export default class App extends Component {
     let url = window.location.pathname;
 
     if(!this.props.user.state.isLoggedIn && findIndex(this.okNoLogPaths, url) === false) {
-
-     route('/login/', true);
-			return false;
+      route('/login/', true);
+      return false;
     }
     if(this.props.user.state.isLoggedIn && findIndex(this.okNoLogPaths,url) !== false) {
       route('/', true)
     }
-		return false;
+    return false;
   }
   componentWillMount() {
 
@@ -51,21 +50,22 @@ export default class App extends Component {
             return (
             <Router onChange={this.handleRoute.bind(this)}>
               <Home user={user} path="/" />
-              <Home user={user.state.user} path="/index.php" />
+                <Home user={user.state.user} path="/index.php" />
               <Account user={user} path="/account/:id?/" />
               <Login  path="/login/" UserContainer={user} login_noonce={user.state.login_noonce}/>
               <ForgotPassword login_noonce={user.state.login_noonce} path="/forgot-password/" />
-            	<ResetPassword login_noonce={user.state.login_noonce} path="/reset-password/" />
-            	<EditAccount path="/create-account/"
-            		create={true}
-            		uc={user}
-            	/>
-							<EditAccount path="/edit-account/" create={false} uc={user} />
-							<ChangePassword user={user} path="/change-password/" />
+              <ResetPassword login_noonce={user.state.login_noonce} path="/reset-password/" />
+              <EditAccount 
+                path="/create-account/"
+                create={true}
+                uc={user}
+              />
+              <EditAccount path="/edit-account/" create={false} uc={user} />
+              <ChangePassword user={user} path="/change-password/" />
             </Router>
-            )
-          }.bind(this)}
-        </Subscribe>
-      );
+          )
+        }.bind(this)}
+      </Subscribe>
+    );
   }
 }
