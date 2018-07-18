@@ -13,7 +13,7 @@ export default class Account extends Component  {
 			loaded: false,
 			user: null
 		}
-		
+
 	}
 	componentWillMount() {
 		if(this.state.id === this.props.user.state.user.id) {
@@ -21,19 +21,20 @@ export default class Account extends Component  {
 			return false;
 		}
 	}
-	
-	
+
+
 	render(props,state) {
+
 		let editButton = (props.user.state.user.id == state.id ) ? <a href="/edit-account/">Edit</a> : null;
-		
+
 		return(
 				<Layout header={state.user.first_name} headerRight={editButton}>
 					<ProfileImg user={state.user} />
 					<h1>{state.user.first_name}</h1>
-					
+
 				</Layout>
-			
-			
+
+
 		);
 	}
 }

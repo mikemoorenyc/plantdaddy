@@ -32,7 +32,7 @@ export default class App extends Component {
 		let img = (state.current_img) ? <img style={{width:100, height:100}} src={state.current_img} /> : null;
 		return(
 		<div class="photoField">
-		<input disable{p.disabled} style={{display:"none"}} type="file" onChange={this.fileChange.bind(this)} accept="*/image" ref={uploader => this.uploader = uploader}/>
+		<input disabled={props.disabled} style={{display:"none"}} type="file" onChange={this.fileChange.bind(this)} accept="*/image" ref={uploader => this.uploader = uploader}/>
 		<div onClick={this.fakeClick.bind(this)} class="click-state" style={{background: "red",width:100, height:100}}>
 			{img}
 		</div>

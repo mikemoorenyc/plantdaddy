@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import { route } from 'preact-router';
 import fetch from "../../util/endpointFetch.js";
+import linkstate from "linkstate";
 import Layout from "../Layout.jsx";
 
 import FormField from "../common/FormField.jsx";
@@ -16,7 +17,6 @@ export default class Login extends Component {
 			first_name: null,
 		}
 		this.responseHandler = this.responseHandler.bind(this);
-    this.inputChange = this.inputChange.bind(this);
   }
 
 	componentWillMount() {
@@ -26,16 +26,9 @@ export default class Login extends Component {
 
 		}
 	}
-  inputChange(e) {
-		let stateObj = {};
-		stateObj[e.target.id] = e.target.value;
-		this.setState(stateObj,function(){
-			let disabled = (!this.state.password || !this.state.email) ? true : false;
-			this.setState({disabled: disabled});
-		});
-	}
+
 	responseHandler(r) {
-  
+
 		if(!r.success) {
 			//ERROR HANDLINE
 		}
@@ -68,6 +61,7 @@ export default class Login extends Component {
 				<Layout title={title}><div>You&rsquo;re logged in, {this.state.first_name}</div></Layout>
 			)
 		}
+    let disabled = (state.email && state.password) ? false : true;
 
     return (
 		<Layout title={title}>
@@ -77,7 +71,7 @@ export default class Login extends Component {
 					value={state.email}
 					required={true}
 					label={"Email"}
-					onInput={this.inputChange}
+					onInput={linkstate(this, "email")}
 					type={"email"}
 				/>
 				<FormField
@@ -85,10 +79,10 @@ export default class Login extends Component {
 					value={state.password}
 					required={true}
 					label={"Password"}
-					onInput={this.inputChange}
+					onInput={linkstate(this, "password")}
 					type={"password"}
 				/>
-				<button disabled={state.disabled}>Log In</button>
+				<button disabled={disabled}>Log In</button>
         <br/><br/>
         <a href="/create-account/">Create a new account</a><br/>
 	    <a href="/forgot-password/">Forget your password?</a>

@@ -57,7 +57,7 @@ export default class App extends Component {
             <Router onChange={this.handleRoute.bind(this)}>
               <Home user={user} path="/" />
               <Home user={user.state.user} path="/index.php" />
-              <Account user={user} path="/account/:id/" />
+              <Account user={user} path="/account/:id?/" />
               <Login  path="/login/" UserContainer={user} login_noonce={user.state.login_noonce}/>
               <ForgotPassword login_noonce={user.state.login_noonce} path="/forgot-password/" />
             	<ResetPassword login_noonce={user.state.login_noonce} path="/reset-password/" />
@@ -65,10 +65,7 @@ export default class App extends Component {
             		create={true}
             		uc={user}
             	/>
-							<EditAccount path="/edit-account/"
-            		create={false}
-            		uc={user}
-            	/>
+							<EditAccount path="/edit-account/" create={false} uc={user} />
 							<ChangePassword user={user} path="/change-password/" />
             </Router>
             )

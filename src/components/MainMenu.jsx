@@ -13,7 +13,7 @@ export default function(p) {
 
 		</a>
 		<ul>
-			<li><a href="/account/2/">View Your Account</a></li>
+			<li><a href="/account/">View Your Account</a></li>
 			<li><a native href="/logout/">Logout</a></li>
 			</ul>
 
