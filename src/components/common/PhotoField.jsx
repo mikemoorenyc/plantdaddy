@@ -25,8 +25,6 @@ export default class PhotoField extends Component {
       this.props.onChange(data);
     }.bind(this);
   }
-
-
   render(props,state) {
     let img = (state.current_img) ? <img style={{width:100, height:100}} src={state.current_img} /> : null;
 		
