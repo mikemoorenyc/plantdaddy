@@ -1,13 +1,13 @@
 import {h} from "preact";
 
-export default function(p) {
-
-	let interior = (p.user.photo_url)?
-			<img src={p.user.photo_url} alt={p.user.first_name} /> :
+export default function({user}) {
+	let color = user.color;
+	let interior = (user.photo_url)?
+			<img src={user.photo_url} alt={user.first_name} /> :
 			<span>{p.user.first_name.charAt(0)}</span>;
 
 	return(
-		<a style={{backgroundColor: p.user.color}} href={"/profile/"+p.user.id}>
+		<a style={{backgroundColor: {color}} href={`/account/${user.id}/`}>
 			{interior}
 		</a>
 	)
