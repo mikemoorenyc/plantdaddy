@@ -28,27 +28,25 @@ export default class PhotoField extends Component {
 	}
 
 
-	render(props,state) {
-		let img = (state.current_img) ? <img style={{width:100, height:100}} src={state.current_img} /> : null;
+  render(props,state) {
+    let img = (state.current_img) ? <img style={{width:100, height:100}} src={state.current_img} /> : null;
 		
-		return(
-			<div class="photoField">
-				<input type="hidden" value={state.current_img} onChange={props.onChange} />
-				<input 
-					disabled={props.disabled} 
-					style={{display:"none"}} 
-					type="file" 
-					onChange={this.fileChange.bind(this)} 
-					accept="*/image" ref={uploader => this.uploader = uploader} />
-				<div 
-					onClick={this.fakeClick.bind(this)} 
-					class="click-state" 
-					style={{background: "red",width:100, height:100}}>
-						{img}
-				</div>
-			</div>
-		)
-	}
-
-
+    return(
+      <div class="photoField">
+        <input type="hidden" value={state.current_img} onChange={props.onChange} />
+        <input 
+          disabled={props.disabled} 
+          style={{display:"none"}} 
+          type="file" 
+          onChange={this.fileChange.bind(this)} 
+          accept="*/image" ref={uploader => this.uploader = uploader} />
+        <div 
+          onClick={this.fakeClick.bind(this)} 
+          class="click-state" 
+          style={{background: "red",width:100, height:100}}>
+          {img}
+        </div>
+      </div>
+    )
+  }
 }
