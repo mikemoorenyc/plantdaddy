@@ -2,30 +2,29 @@ import {Component, h} from 'preact';
 
 
 export default class PhotoField extends Component {
-	constructor(props) {
-		super();
-		this.state = {
-			current_img: props.current_img
-		}
-	}
-	fakeClick(e) {
-		e.preventDefault();
-		this.uploader.click();
-	}
-	fileChange(e) {
-
-		if(e.target.files.length < 1) {
-			return false;
-		}
-		let file = e.target.files[0];
-  	let reader = new FileReader();
-		reader.readAsDataURL(file);
-		reader.onload = function () {
-			let data = reader.result;
-			this.setState({current_img:data});
-			this.props.onChange(data);
-   	}.bind(this);
-	}
+  constructor(props) {
+    super();
+    this.state = {
+      current_img: props.current_img
+    }
+  }
+  fakeClick(e) {
+    e.preventDefault();
+    this.uploader.click();
+  }
+  fileChange(e) {
+    if(e.target.files.length < 1) {
+      return false;
+    }
+    let file = e.target.files[0];
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      let data = reader.result;
+      this.setState({current_img:data});
+      this.props.onChange(data);
+    }.bind(this);
+  }
 
 
   render(props,state) {
