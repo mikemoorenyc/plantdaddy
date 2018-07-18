@@ -12,7 +12,7 @@ export default function(props) {
      <Subscribe to={[LayoutContainer,UserContainer]}> 
       {(layout,user) => (
         <Layout 
-          headerLeft={<button onClick={layout.toggleMenu()}><ProfileImage user={user.state.user} /><button>}
+          headerLeft={<button onClick={layout.toggleMenu}><ProfileImage user={user.state.user} /><button>}
          >
       <div>
         Hi, {props.user.state.user.first_name}
