@@ -13,7 +13,7 @@ export default function(p) {
         return(
           <div id="app" className={(layout.state.menuOpen) ? "menu-open" : null}>
             {menu}
-            <div id="app">
+            <div id="main-section">
               <div class="header">
                 <div class="left-side">
                   {p.headerLeft}
