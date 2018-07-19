@@ -1,5 +1,4 @@
 import {Component, h} from "preact";
-import fetch from "unfetch";
 import {Subscribe} from "unstated";
 import SvgContainer from "../../containers/SvgContainer";
 
