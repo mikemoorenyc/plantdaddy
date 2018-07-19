@@ -9,15 +9,21 @@ import UserContainer from "../../containers/UserContainer";
 import ProfileImage from "../common/ProfileImage";
 export default function(props) {
   return(
-     <Subscribe to={[LayoutContainer,UserContainer]}> 
-      {(layout,user) => (
-        <Layout 
-          headerLeft={<button onClick={layout.toggleMenu}><ProfileImage user={user.state.user} /><button>}
-         >
-      <div>
-        Hi, {props.user.state.user.first_name}
-      </div>
-    </Layout>
-    )
+
+
+     <Subscribe to={[LayoutContainer,UserContainer]}>
+      {function(layout,user) {
+      return(
+        <Layout headerLeft={<button onClick={layout.toggleMenu}><ProfileImage user={user.state.user} /></button>}>
+          <div>
+            Hi, {props.user.state.user.first_name}
+          </div>
+        </Layout>
+      )
+
+    }
+
   }
+  </Subscribe>
+)
 }

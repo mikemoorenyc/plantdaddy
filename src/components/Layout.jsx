@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { Subscribe } from 'unstated';
 import UserContainer from "../containers/UserContainer.js";
-import UserContainer from "../containers/LayoutContainer.js";
+import LayoutContainer from "../containers/LayoutContainer.js";
 import MainMenu from "./MainMenu.jsx";
 
 export default function(p) {

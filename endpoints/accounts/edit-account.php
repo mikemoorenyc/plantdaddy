@@ -1,19 +1,14 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] ."/header.php";
 require_once $_SERVER['DOCUMENT_ROOT'] ."/endpoints/endpoint-header.php";
-	
+
 if(!$_SESSION['logged_in']) {
 	errorResponse();
 }
 if($_SESSION['user']['id'] !== $response['id']) {
 	errorResponse(403, "wrong_user");
 }
-$user = get_items(array(
-	"table" => "users",
-	"selector_key" => "id",
-	"selector_value" => $response['id'],
-	"limit" => 1
-));
+$user = get_user_by_id($response['id']);
 if(!$user) {
 	errorResponse(404, "user_not_found");
 }
@@ -33,14 +28,23 @@ $allowed_values = array_keys($user);
 
 
 foreach($response as $k => $r) {
-		
-	if(!in_array($k,$allowed_values) || $update_value == $user[$k] || $k == "password") {
+
+	if(!in_array($k,$allowed_values) || $update_value == $user[$k] || $k == "password" || $k == "id") {
 		continue;
 	}
-	
+
 	$to_update[$k] = $r;
 
 }
+
+if(!empty($response['photo_data']) && $response['photo_data'] !== $user['photo_url'] ) {
+	$photo_id = upload_image($to_update['photo_data'], "account_img_".time(), $user['id']);
+	if(!$photo_id) {
+		errorResponse(500,"image_error");
+	}
+	$to_update['photo_id'] = $photo_id;
+}
+
 if(empty($to_update)) {
 	errorResponse(304, "not_modified");
 }

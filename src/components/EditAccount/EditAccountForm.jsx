@@ -103,8 +103,8 @@ export default class CreateAccount extends Component {
         <FormSection
           key={i}
           type = {e.type}
-          onInput={change}
-          labelShort={linkstate(this,e.labelShort)}
+          onInput={linkstate(this,e.labelShort)}
+          labelShort={e.labelShort}
           value={e.value}
           required={e.required}
           label={e.label} />
