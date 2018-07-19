@@ -19,14 +19,6 @@ export default class Login extends Component {
 		this.responseHandler = this.responseHandler.bind(this);
   }
 
-	componentWillMount() {
-    //console.log(this.props.login_noonce);
-		if(this.props.UserContainer.state.isLoggedIn) {
-			route('/', true);
-
-		}
-	}
-
 	responseHandler(r) {
 
 		if(!r.success) {
