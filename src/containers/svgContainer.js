@@ -1,5 +1,5 @@
 import {Container} from "unstated";
-
+import fetch from "unfetch";
 
 export default class SvgContainer extends Container {
 	state = {
