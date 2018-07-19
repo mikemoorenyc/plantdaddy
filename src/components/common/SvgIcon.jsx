@@ -1,48 +1,43 @@
 import {Component, h} from "preact";
 import fetch from "unfetch";
+import {Subscribe} from "unstated";
+import SvgContainer from "../../containers/SvgContainer";
 
 
-export default class SvgIcon extends Component {
+
+class SvgIconInner extends Component {
 	constructor(props) {
 		super();
 		this.state = {
-			svgCode: ''
+			svgCode: '',
+			iconName : props.iconName.replace('.svg','').toLowerCase()
 		}
 		
 	}
 	componentWillMount() {
-		if(!this.props.iconName || typeof this.props.iconName !== "string") {
+		if(this.props.svgContainer.state.svgs[this.state.iconName]) {
 			return false;
 		}
-		let iconName = this.props.iconName.replace('.svg','');
-		fetch(`/assets/icons/${iconName}.svg`)
-		.then(function(response) {
-			if(response.status > 299) {
-				throw {
-					success:false,
-					status : response.status,
-				}
-			} else {
-				return response.text();
-			}
-		})
-		.then(function(r){
-			this.setState({svgCode: r});
-			return false;
-  	})
-		.catch(function(error) {
-			return false;
-		})
+		this.props.svgContainer.getSvg(this.state.iconName);
 		
 	}
 	render(props,state) {
+		let icon = props.svgContainer.state.svgs[this.state.iconName];
+		let code = (icon) ? icon.code || '';
 		return (
-			<span dangerouslySetInnerHTML={{__html: state.svgCode}} />
+			<span dangerouslySetInnerHTML={{__html: code}} />
 			
 		)
 	}
-	
-	
-	
+		
+}
+export default function SvgIcon(p) {
+	return (
+			<Subscribe to={[SvgContainer]}>
+				{(user) => (
+					<SvgIconInner iconName={p.iconName} svgContainer={user} />
+				)}
+			</Subscribe>
+	)
 	
 }
