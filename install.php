@@ -62,9 +62,13 @@ $create_users = mysqli_query($db_conn, $users_table);
 $create_waterings = mysqli_query($db_conn, $waterings_table);
 $create_images = mysqli_query($db_conn, $images_table);
 if(!$create_plants || !$create_tokens || !$create_users || !$create_waterings || !$create_images) {
-  die('something went wrong');
+  $info_box_content = 'Something went wrong. Delete Plantdaddy and try again.';
+	include "info_box.php";
+	die();
+	
 }
-echo 'Tables created <a href="/">Go to Plant Daddy</a>';
+$info_box_content = '<p>Plantdaddy database was successfully installed.</p><a href="/login/">Log into Plantdaddy</a>';
+include "info_box.php";
 die();
 
 ?>
