@@ -1,7 +1,9 @@
 <?php
 require 'db_connect.php';
 if(!$need_to_install) {
-  die('Site is already installed');
+  $info_box_content='<p>You&rsquo;ve already installed Plantdaddy.</p> <a href="/login/">Login Now</a>';
+	require "info_box.php";
+	die();
 }
 $errors = false;
 
