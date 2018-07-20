@@ -39,11 +39,10 @@ export default function(data, url, method,callback) {
 			success: true,
 			data: r
 		})
-		return false;
+		return {success:true, data: r};
   })
 	.catch(function(error) {
-		callback(error);
-		return false;
+		return error;
 	})
 
 }
