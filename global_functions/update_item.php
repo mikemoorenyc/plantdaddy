@@ -66,12 +66,16 @@ function update_item($p) {
   if(!$update_item){return false;}
 
 	$item = get_items(array(
-		"table" => $db,
-		"columns" => "id",
-		"limit" => 1,
-		"selector_key" => $selector_key,
-		"selector_value" => $selector_value
+    "selector_key" => $p['selector_key'],
+    "selector_value" => $p['selector_value'],
+    "limit" => 1,
+    "table" => $p["table"]
 	));
+
+
+  if(!$item) {
+    return false;
+  }
 
 	return $item;
 

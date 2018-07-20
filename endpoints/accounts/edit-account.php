@@ -8,7 +8,12 @@ if(!$_SESSION['logged_in']) {
 if($_SESSION['user']['id'] !== $response['id']) {
 	errorResponse(403, "wrong_user");
 }
-$user = get_user_by_id($response['id']);
+$user = get_items(array(
+	"selector_key" => "id",
+	"selector_value" => $response['id'],
+	"limit" => 1,
+	"table" => "users"
+));
 if(!$user) {
 	errorResponse(404, "user_not_found");
 }
@@ -51,7 +56,7 @@ if(empty($to_update)) {
 $updated_item = update_item(array(
 	"table" => "users",
 	"selector_value" => $response['id'],
-	"selector_key" => "id"
+	"selector_key" => "id",
 	"update_array" => $to_update
 ));
 if(!$updated_item) {

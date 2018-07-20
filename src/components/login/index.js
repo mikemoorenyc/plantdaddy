@@ -20,7 +20,6 @@ export default class Login extends Component {
   }
 
 	responseHandler(r) {
-
 		if(!r.success) {
 			//ERROR HANDLINE
 		}

@@ -29,7 +29,7 @@ export default class FormField extends Component {
           value={p.value}
           name={p.labelShort}
           disabled={p.disabled} />
-        <button onClick={this.cancelClick}>X</button>
+        <span onClick={this.cancelClick}>X</span>
         <br/><br/>
       </div>
     )

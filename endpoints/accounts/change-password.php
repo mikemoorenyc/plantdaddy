@@ -21,12 +21,16 @@ $updated_item = update_item(array(
 	)
 ));
 
+
+
+
 if(!$updated_item) {
 	errorResponse(501, "not_implemented");
 }
 
+
 echo json_encode(array(
-	"success" => true, 
+	"success" => true,
 	"msg" => "Password updated"
 
 )

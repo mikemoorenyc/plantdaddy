@@ -14,9 +14,11 @@ export default class extends Component {
 			current_password: '',
 			new_password: '',
 			new_password_2: '',
-			status: "inputing"
+			status: "inputing",
+			id: props.user.state.user.id
 		}
 		this.submitForm = this.submitForm.bind(this);
+		this.successHandler = this.successHandler.bind(this);
 	}
 	submitForm(e) {
 		e.preventDefault();
@@ -29,13 +31,14 @@ export default class extends Component {
 			return false;
 		}
 		this.setState({status: "loading"});
-		fetch(sendPackage,"/endpoints/accounts/?change_password=1", "POST", this.successHandler );
+		fetch(this.state,"/endpoints/accounts/?change_password=1", "PUT", this.successHandler );
 
 
 	}
 	successHandler(data) {
+		console.log(data);
 		if(!data.success) {
-			//ERROR HANDLING
+
 			return false;
 		}
 		this.setState({status: "success"});
@@ -43,7 +46,6 @@ export default class extends Component {
 	}
 
 	render(props,state) {
-
 		let disabledState = (state.current_password && state.new_password && state.new_password_2 && state.status == "inputing")? false : true;
 		let disabledFields = (state.status !== "inputing" || state.status !== "server_error") ? false : true;
 		let successMsg = (state.status == "success") ? <div>Password Changed</div> : null;
