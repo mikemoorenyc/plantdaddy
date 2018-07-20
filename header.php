@@ -14,7 +14,7 @@ define("SITE_URL",$site_specs['site_url']);
 
 if($need_to_install) {
 	$info_box_content = '
-	  <p>Plantdaddy&rsquo;s database needs to be install. Make sure you have the information filled out in <code>database_info.php</code> filled out correctly</p>
+	  <p>Plantdaddy&rsquo;s database needs to be installed. Make sure you have the information filled out in <code>database_info.php</code> filled out correctly</p>
   <a class="button" href="install.php">Install now</a>
 		'
 		include "info_box.php"
