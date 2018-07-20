@@ -47,7 +47,7 @@ export default class UserContainer extends Container {
 			}, 2000);
 			
 		}.bind(this)
-		
+		resultGetter();
 	}
 
 	
