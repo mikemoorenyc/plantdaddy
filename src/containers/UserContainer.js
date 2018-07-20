@@ -28,7 +28,7 @@ export default class UserContainer extends Container {
 		}
 		
 		async function resultGetter() {
-			let result = await fetch(state,"/endpoints/login-user/", "POST" ,request);
+			let result = await fetch(state,"/endpoints/login-user/", "POST" );
 			if(!result.success) {
 				this.setState({
 					login_error: {
