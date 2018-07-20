@@ -35,13 +35,16 @@ export default function(data, url, method,callback) {
 
   })
   .then(function(r){
-		callback({
+		if(callback) {
+			callback({
 			success: true,
 			data: r
 		})
+		}
 		return {success:true, data: r};
   })
 	.catch(function(error) {
+	  	if(callback) {callback(error)}
 		return error;
 	})
 
