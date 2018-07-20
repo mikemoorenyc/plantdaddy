@@ -26,7 +26,7 @@ export default class Login extends Component {
   render(props,state) {		
     let disabled = (state.email && state.password) ? false : true;
     return (
-		<Layout title={"Log into PlantDaddy}>
+		<Layout title={"Log into PlantDaddy"}>
 			<Subscribe to={[UserContainer]}>
 			{function(user) {
 				if(user.isLoggedIn) {
