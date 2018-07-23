@@ -1,5 +1,6 @@
 import {h, Component} from "preact";
 import {Subscribe} from "unstated";
+import featch from "../../util/endpointFetch.js";
 
 import PlantContainer from "../../containers/PlantContainer";
 
@@ -10,6 +11,10 @@ export default class PlantList extends Component {
 			status: "loading",
 			plants: null	
 		}
+	}
+	componentWillMount() {
+	
+		
 	}
 	
 	render(p,s) {
@@ -26,9 +31,10 @@ export default class PlantList extends Component {
 		
 		return <div class="plant-list"><Subscribe to={[PlantContainer]}>
 			{function(pc) {
+				let
 				let plist = s.plants.map(function(e,i) {
 					pc.getPlant(e);
-					return <div>{e.name}</div>
+					return <div>{pc.state.plants[i].name}</div>
 				})
 				
 				return {plist}
