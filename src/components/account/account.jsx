@@ -21,7 +21,22 @@ export default class Account extends Component  {
 			this.setState({user:this.props.user.state.user, loaded: true, isUser: true});
 			return false;
 		}
+		let id = this.state.id;
+		async function getUser() {
+			let user = await fetch({},"/endpoints/accounts/${id}/", "GET" );
+			if(!user.success) {
+				//Error Handling
+				return false;
+			}
+			this.setState({
+				user: user.user,
+				loaded: true
+			});
+			return null;
+		}.bind(this);
+		getUser();
 	}
+	
 
 
 	render(props,state) {
