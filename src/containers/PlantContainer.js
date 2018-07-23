@@ -8,23 +8,10 @@ export default class PlantContainer extends Container {
 		loadError: false
 	}
 
-	getPlants() {
-		async function plantGetter() {
-			let plants = await fetch(state,"/endpoints/plants/", "GET" );
-			if(!plants.success) {
-				this.setState({
-					loadError: true
-				});
-				return false;
-			}
-			this.setState({
-				loadError: false,
-				plants: plants.data.plants
-			});
-			
-		}.bind(this);
-		plantGetter();
-		
+	getPlant(plant) {
+		let plants = this.state.plants;
+		plants[plant.id] = plant;
+		this.setState({plants: plants});		
 	}
 
 	
