@@ -7,8 +7,10 @@ export default function SvgIcon(p) {
 	return (
 			<Subscribe to={[SvgContainer]}>
 				{function(svgContainer) {
-					let iconName =  p.iconName.replace('.svg','').toLowerCase()
-					svgContainer.getSvg(iconName);
+					let iconName =  p.iconName.replace('.svg','').toLowerCase();
+					if(!svgContainer.state.svgs[iconName]) {
+						svgContainer.getSvg(iconName);
+					}
 					let code = (svgContainer.state.svgs[iconName])? svgContainer.state.svgs[iconName].code : "";
 					return <span dangerouslySetInnerHTML={{__html: code}} />
 				
