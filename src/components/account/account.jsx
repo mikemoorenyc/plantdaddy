@@ -2,7 +2,7 @@ import {Component, h} from "preact";
 
 import Layout from "../Layout";
 import ProfileImg from "../common/ProfileImage";
-
+import fetch from "../../util/endpointFetch.js"
 
 
 export default class Account extends Component  {
@@ -11,13 +11,14 @@ export default class Account extends Component  {
 		this.state = {
 			id : props.id || props.user.state.user.id,
 			loaded: false,
-			user: null
+			user: null,
+			isUser: null
 		}
 
 	}
 	componentWillMount() {
 		if(this.state.id === this.props.user.state.user.id) {
-			this.setState({user:this.props.user.state.user, loaded: true});
+			this.setState({user:this.props.user.state.user, loaded: true, isUser: true});
 			return false;
 		}
 	}
@@ -25,7 +26,7 @@ export default class Account extends Component  {
 
 	render(props,state) {
 
-		let editButton = (props.user.state.user.id == state.id ) ? <a href="/edit-account/">Edit</a> : null;
+		let editButton = (state.isUser) ? <a href="/edit-account/">Edit</a> : null;
 
 		return(
 				<Layout title={state.user.first_name} headerRight={editButton}>
