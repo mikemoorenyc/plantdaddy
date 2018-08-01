@@ -29,6 +29,7 @@ export default class App extends Component {
   }
   handleRoute() {
     let url = window.location.pathname;
+		document.title = "PlantDaddy";
 
     if(!this.props.user.state.isLoggedIn && findIndex(this.okNoLogPaths, url) === false) {
       route('/login/', true);
