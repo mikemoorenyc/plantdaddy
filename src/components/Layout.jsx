@@ -5,10 +5,19 @@ import LayoutContainer from "../containers/LayoutContainer.js";
 import MainMenu from "./MainMenu.jsx";
 
 export default class Layout extends Component {
-	
-	componentDidMount() {
-		let title = (this.props.title) ? this.props.title+" | PlantDaddy" : "PlantDaddy";
+	constructor() {
+		super();
+		this.updateTitle = this.updateTitle.bind(this);
+	}
+	updateTitle(newTitle) {
+		let title = (newTitle) ? newTitle+" | PlantDaddy" : "PlantDaddy";
 		document.title = title;
+	}
+	componentDidMount() {
+		this.updateTitle(this.props.title);
+	}
+	componentWillReceiveProps(newProps) {
+		this.updateTitle(newProps.title);
 	}
 	render(p,s) {
 		let title = p.title || "PlantDaddy" ;
