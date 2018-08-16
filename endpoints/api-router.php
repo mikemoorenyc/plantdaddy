@@ -12,9 +12,12 @@ if(!$_SESSION['logged_in'] && !in_array($url_sections[0],$open_routes)) {
 
 
 switch($url_sections[0]) {
-    case 'accounts':
+  case 'accounts':
         require 'accounts.php';
         break;
+	case "plants" : 
+		require "plants.php";
+		break; 
 	case "login-user":
 		require "login-user.php";
 		break;
