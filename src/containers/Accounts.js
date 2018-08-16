@@ -4,18 +4,15 @@ import fetch from "../util/endpointFetch";
 export default class UserContainer extends Container {
 	state = {
 		accounts: {},
-		fetchError: null	
+		fetchError: {},
+		fetching: {}
 	};
-	fetchError(statement) {
-		this.setState({
-			fetchError: statement
-		});
-		setTimeout(function(){
-			this.setState({fetchError:null});
-		}.bind(this),5000);
-		
-	}
+
 	updateAccount(response) {
+		let fetching = this.state.fetching;
+		let fetchError = this.state.fetchError;
+		
+		this.setState(
 		switch(response) {
     case (response.status === 304):
         return null;
@@ -31,11 +28,21 @@ export default class UserContainer extends Container {
 		}
 	}
 	getAccount(id) {
-		if(!id || isNaN(id)) {fetchError('Could not find account');return false;}
+		if(!id) {
+			return null;
+		}
+		let fetchError = this.state.fetchError;
+		fetchError[id] = null;
+		let fetching = this.state.fetching;
+		fetching[id] = true;
+		this.setState({
+			fetching: fetching,
+			fetchError: fetchError
+		});
 		
 		let currentData = this.state.accounts[id] || {};
 		
-		fetch(currentData,"/endpoints/accounts/${id}/", "GET" , this.fetchError); 
+		fetch(currentData,"/endpoints/accounts/${id}/", "GET" , this.updateAccount); 
 	}
 
 	
