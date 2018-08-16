@@ -13,6 +13,9 @@ function get_plant_by_id($id) {
 		return false;
 	}
 	
+	 $plant['photo_url'] = ($plant['photo_id']) ? get_photo_by_id($plant['photo_id']) : '';
+	
+	
 	return $plant;
 	
 	
