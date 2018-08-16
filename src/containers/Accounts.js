@@ -1,5 +1,6 @@
 import { Container } from 'unstated';
-import fetch from "../util/endpointFetch";
+import fetch from "unfetch";
+import apiSettings from "../util/apiSettings";
 
 export default class UserContainer extends Container {
 	state = {
@@ -8,25 +9,6 @@ export default class UserContainer extends Container {
 		fetching: {}
 	};
 
-	updateAccount(response) {
-		let fetching = this.state.fetching;
-		let fetchError = this.state.fetchError;
-		
-		this.setState(
-		switch(response) {
-    case (response.status === 304):
-        return null;
-        break;
-    case (response.status > 399):
-        this.fetchError('Could not find account');
-				return null
-        break;
-    default:
-				let accounts = this.state.accounts;
-				accounts[response.data.id] = response.data;
-        this.setState({accounts: accounts});
-		}
-	}
 	getAccount(id) {
 		if(!id) {
 			return null;
@@ -41,8 +23,32 @@ export default class UserContainer extends Container {
 		});
 		
 		let currentData = this.state.accounts[id] || {};
+		fetch("/endpoints/accounts/${id}/",apiSettings(currentData, "GET"))
+		.then(function(response){
+			fetching[id] = false;
+			this.setState({fetching: fetching});
+			if(response.status > 299) {
+				throw response.status;
+			}	else {
+					return response.json();
+			}
+			
+		}.bind(this))
+		.then(function(d){
+			let accounts = this.state.accounts;
+			accounts[d.id] = d;
+      this.setState({accounts: accounts});
 		
-		fetch(currentData,"/endpoints/accounts/${id}/", "GET" , this.updateAccount); 
+		}.bind(this))
+		.catch(function(status){
+			if(status === 305) {
+				return false;
+			}
+			if(staus > 399) {
+				fetchError[id] = "Could not find account";
+				this.setState({fetchError : fetchError});
+			}
+		}.bind(this))
 	}
 
 	
