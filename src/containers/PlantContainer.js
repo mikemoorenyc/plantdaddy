@@ -4,8 +4,8 @@ import fetch from "unfetched";
 
 export default class PlantContainer extends Container {
 	state = {
-		plants:null,
-		loadError: false
+		plants: {},
+		fetching: null
 	}
 
 	getPlant(plant) {
