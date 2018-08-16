@@ -17,7 +17,7 @@ if(!$db_user) {
 
 //Check if User Needs Updating
 $needs_updating = false;
-$keys = ["id", "photo_id", "email", "first_name" , "color","telephone"];
+$keys = ["id", 'photo_url', "email", "first_name" , "color","telephone"];
 foreach($keys as $k) {
 	if($db_user[$k] !== $response[$k] {
 		$needs_updating = true;
