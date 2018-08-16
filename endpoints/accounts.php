@@ -11,6 +11,9 @@ switch($method) {
 	case 'PUT':
 		require 'accounts/edit-account.php';
 		break;
+	case 'GET':
+		require 'accounts/get-account.php';
+		break;
 	default:
 		die();
 }
