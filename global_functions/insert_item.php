@@ -20,7 +20,7 @@ function insert_item($table, $insert_array) {
 	$insert_db = "INSERT INTO $db ($insert_keys) VALUES ($insert_values)";
 	$insert_item = mysqli_query($db_conn, $insert_db);
 	if(!$insert_item) {
-		echo mysqli_error($db_conn);
+		
 		die();
 		return false;
 	}
