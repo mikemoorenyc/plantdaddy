@@ -5,6 +5,7 @@ import SnackBar from "SnackBar";
 
 import UserContainer from "../containers/UserContainer.js";
 import PlantContainer from "../containers/PlantContainer";
+import SnackBarConainer from "../container/SnackBarContainer";
 
 import Home from './home';
 import Login from './login';
@@ -49,8 +50,8 @@ export default class App extends Component {
   }
   render() {
     return (
-        <Subscribe to={[UserContainer, PlantContainer]}>
-          {function(user, plant) {
+        <Subscribe to={[UserContainer, PlantContainer,SnackBarContainer]}>
+          {function(user, plant,snackbar) {
             return (
             <Router onChange={this.handleRoute.bind(this)}>
               <Home user={user} path="/" />
