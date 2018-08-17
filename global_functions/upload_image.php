@@ -14,7 +14,7 @@ $directory = $_SERVER['DOCUMENT_ROOT'].'/assets/user_images';
 
     mkdir($directory,0755, true);
   }
-	$fname = str_replace(['.jpg','.png','.gif','.jpeg'],'',strtolower($filename)).'.jpg';
+	$fname = str_replace(['.jpg','.png','.gif','.jpeg'],'',strtolower($filename)).'_'.time().'.jpg';
 
 	$public_path = "/assets/user_images/".$fname;
 	$asset_route = $directory.$name."/".$fname;
