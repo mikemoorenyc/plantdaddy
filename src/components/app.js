@@ -3,6 +3,7 @@ import { Subscribe, Provider } from 'unstated'
 import { Router, route } from 'preact-router';
 
 import UserContainer from "../containers/UserContainer.js";
+import PlantContainer from "../containers/PlantContainer";
 
 import Home from './home';
 import Login from './login';
@@ -11,6 +12,7 @@ import EditAccount from "./EditAccount/EditAccountForm.jsx";
 import ChangePassword from "./EditAccount/ChangePassword.jsx";
 import ResetPassword from './login/ResetPassword.jsx';
 import Account from "./account/Account.jsx";
+import EditPlant from "./plants/EditPlant";
 
 import {findIndex} from "../util/array_helpers.js";
 export default class App extends Component {
@@ -46,8 +48,8 @@ export default class App extends Component {
   }
   render() {
     return (
-        <Subscribe to={[UserContainer]}>
-          {function(user) {
+        <Subscribe to={[UserContainer, PlantContainer]}>
+          {function(user, plant) {
             return (
             <Router onChange={this.handleRoute.bind(this)}>
               <Home user={user} path="/" />
@@ -63,6 +65,7 @@ export default class App extends Component {
               />
               <EditAccount path="/edit-account/" create={false} uc={user} />
               <ChangePassword user={user} path="/change-password/" />
+							<EditPlant path="/create-plant/" create={true} pc={plants} uc={user} />
             </Router>
           )
         }.bind(this)}
