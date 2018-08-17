@@ -16,8 +16,12 @@ export default class EditPlant extends Component {
 			{title: "", watering_frequency:null,photo_url:"",id:null}
 		this.state = {
 			plant: plant,
-			loading: null
+			loading: null,
+			errors: {}
 		}
+	}
+	submitForm(e) {
+		e.preventDefault();
 		
 	}
 	
