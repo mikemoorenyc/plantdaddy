@@ -18,6 +18,12 @@ export default class SnackBarContainer extends Container {
 			stamp: stamp
 		})
 		this.setState({snackbars: snackbars});
+		setTimeout(function() {
+			let snackbars = this.state.snackbars.filter(function(e) {
+				return e.stams !== stamp;
+			});
+			this.setState({snackbars: snackbars});
+		}.bind(this), 3000);
 	}
 	
 	
