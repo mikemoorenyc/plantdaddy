@@ -6,6 +6,11 @@ if(!$_SESSION['logged_in']) {
 	errorResponse(401);
 }
 $required_fields =["title", "watering_frequency"];
+
+if(!is_numeric($response["watering_frequency"])) {
+	errorResponse(400, "bad_watering_frequency");
+}
+
 $required_diff = array_diff($required_fields, array_keys($response));
 
 if(!empty($required_diff)) {
