@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import { Subscribe, Provider } from 'unstated'
 import { Router, route } from 'preact-router';
+import SnackBar from "SnackBar";
 
 import UserContainer from "../containers/UserContainer.js";
 import PlantContainer from "../containers/PlantContainer";
@@ -65,8 +66,9 @@ export default class App extends Component {
               />
               <EditAccount path="/edit-account/" create={false} uc={user} />
               <ChangePassword user={user} path="/change-password/" />
-							<EditPlant path="/create-plant/" create={true} pc={plants} uc={user} />
+							<EditPlant path="/create-plant/" create={true} pc={plants} uc={user} createSnackbar={snackbar.createSnackback} />
             </Router>
+						<SnackBar snackbars={snackbar.state.snackbars} />
           )
         }.bind(this)}
       </Subscribe>
