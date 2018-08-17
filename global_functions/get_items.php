@@ -1,11 +1,19 @@
 
 <?php
 function get_items($ga) {
-	if(!is_array($ga) || !$ga['table'] || !$ga['selector_key'] || !$ga['selector_value'] ) {
+	if(!is_array($ga) || !$ga['table']  ) {
 		return false;
 	}
 	global $db_conn;
-
+	if(!$ga['selector_key'] || !$ga['selector_value']) {
+		$where_statement = "";
+	}else {
+		$safe_key = $db_conn->real_escape_string($ga['selector_key']);\
+		$safe_value = $db_conn->real_escape_string($ga['selector_value']);
+		$where_statement = " WHERE `".$safe_key."` = '".$safe_selector."' ";
+		
+	}
+		
 
 
 	if($ga['columns']) {
@@ -22,9 +30,7 @@ function get_items($ga) {
 	} else {
 		$safe_values = "*";
 	}
-	$safe_key = $db_conn->real_escape_string($ga['selector_key']);
-
-	$safe_selector = $db_conn->real_escape_string($ga['selector_value']);
+	
 
 	$table = $db_conn->real_escape_string($ga['table']);
 
@@ -41,8 +47,7 @@ function get_items($ga) {
 			$safe_values
 		FROM
 			$table
-		WHERE
-			`$safe_key` = '$safe_selector'
+		$where_statement
 		ORDER BY
 			$order_by $order
 		LIMIT $safe_limit
