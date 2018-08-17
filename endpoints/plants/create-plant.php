@@ -18,17 +18,9 @@ if(!empty($required_diff)) {
 }
 
 //CHECK IF Title EXISTS
-$all_plants =  get_plants();
-if(!empty($all_plants)) {
-	$matches = array_filter($all_plants,function($p) {
-		return strtolower($response['title']) === strtolower($p['title']);
-	});
-	if(!empty($matches)) {
-		errorResponse(400, "title match");
-	}
+if(plant_title_exists($response['title']) {
+	errorResponse(400,"title exists");
 }
-
-
 
 $insert_fields = array(
 	"title" => $response['title'],
