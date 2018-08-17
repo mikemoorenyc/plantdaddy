@@ -9,6 +9,9 @@ switch($method) {
 	case "DELETE" :
 		return "plants/delete-plant.php";
 		break;
+	case "PUT" :
+		return "plants/update-plant.php";
+		break;
 	default:
 		die();
 }
