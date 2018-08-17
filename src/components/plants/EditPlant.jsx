@@ -50,7 +50,7 @@ export default class EditPlant extends Component {
 		}.bind(this))
 		.then(function(data){
 			this.props.pc.getPlant(data);
-			this.props.SendSnackbar({kind: "good", text: "Plant Created!"});
+			this.props.createSnackBar({kind: "good", text: "Plant Created!"});
 			route('/',true);
 		});
 	}
