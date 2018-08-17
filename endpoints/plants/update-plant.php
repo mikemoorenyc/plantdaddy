@@ -18,20 +18,27 @@ if(!$plant) {
 	errorResponse(404);
 }
 
-$update_keys = [];
+$to_update = [];
 
 foreach($response as $k => $v) {
-	if($v) !== $plant[$k]) {
-		$update_keys[] = $k;
+	if($k === "photo_data") {
+		continue;
+	}
+	if($v !== $plant[$k]) {
+		$to_update[$k] = $k;
 	}
 }
 
-if(in_array("title", $update_keys) && !$response['title']) {
+if(in_array("title", array_keys($to_update)) && !$response['title']) {
 	errorResponse(400, "no title");
 }
 
-if(plant_title_exists($response['title']) {
+if(plant_title_exists($response['title'])) {
 	errorResponse(400,"title exists");
 }
+
+
+
+	
 
 ?>
