@@ -2,7 +2,7 @@
 export default function(data, method) {
 	
 	return {
-    	method: method,
+    	method: method.toUpperCase(),
     	headers: {
       	"Content-Type" : 'application/json'
 			},
