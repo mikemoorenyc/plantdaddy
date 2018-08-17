@@ -67,7 +67,7 @@ export default class App extends Component {
               />
               <EditAccount path="/edit-account/" create={false} uc={user} />
               <ChangePassword user={user} path="/change-password/" />
-							<EditPlant path="/create-plant/" create={true} pc={plants} uc={user} createSnackbar={snackbar.createSnackback} />
+							<EditPlant path="/create-plant/" create={true} pc={plants} uc={user} createSnackbBar={snackbar.createSnackBar} />
             </Router>
 						<SnackBar snackbars={snackbar.state.snackbars} />
           )
