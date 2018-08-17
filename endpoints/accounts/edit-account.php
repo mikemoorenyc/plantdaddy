@@ -42,7 +42,7 @@ foreach($response as $k => $r) {
 
 }
 
-if(!empty($response['photo_data']) && $response['photo_data'] !== $user['photo_url'] ) {
+if(!empty($response['photo_data']) && $response['photo_data'] !== get_photo_by_id($user['photo_id']) ) {
 	$photo_id = upload_image($to_update['photo_data'], "account_img_".time(), $user['id']);
 	if(!$photo_id) {
 		errorResponse(500,"image_error");
