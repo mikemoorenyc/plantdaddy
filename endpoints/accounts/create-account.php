@@ -86,7 +86,7 @@ if($response['photo_data'])  {
 		$insert_photo = update_item($update_array);
 	}
 }
-
+http_response_code(201);
 echo json_encode(get_user_by_id($user['id']));
 
 die();
