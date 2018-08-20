@@ -22,7 +22,7 @@ if(plant_title_exists($response['title']) {
 
 $insert_fields = array(
 	"title" => $response['title'],
-	"watering_frequency" => $response["watering_frequency"],
+	"watering_frequency" => intval($response["watering_frequency"]),
 	"date_created" => time(),
 	"date_modified" => time(),
 	"created_by" => $_SESSION['user']['id'],
@@ -33,6 +33,7 @@ if(!$add_plant) {
 	errorResponse(501, "insert_error");
 }
 if(!$response['photo_data'])  {
+	http_response_code(201);
 	echo json_encode(get_plant_by_id($add_plant['id']));
 	die();
 }
