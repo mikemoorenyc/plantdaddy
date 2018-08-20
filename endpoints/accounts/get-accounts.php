@@ -44,7 +44,8 @@ $users = get_items(array(
 		"page" => $page,
 		"per_page" => 25,
 		"total" => $total,
-		"total_pages" => $total_pages
+		"total_pages" => $total_pages,
+		"data" => $users
 	);
 echo json_encode($return_package);
 	die();
