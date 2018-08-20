@@ -39,9 +39,6 @@ if(!$updated_pass) {
 
   errorResponse(500, "update_error");
 }
-echo json_encode(array(
-  "msg" => "Password updated Successfully",
-  "success" => true
-));
+http_response_code(204);
 die();
 ?>
