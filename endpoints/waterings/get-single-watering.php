@@ -11,6 +11,8 @@ if(!$waterings) {
 	errorResponse(404);
 	die();
 }
+$waterings = array();
 
-echo json_encode(array("data" => $watering));
+$waterings[$watering['id']] = $watering;
+echo json_encode(array("data" => $waterings));
 die();
