@@ -8,7 +8,7 @@ function get_items($ga) {
 	if(!$ga['selector_key'] || !$ga['selector_value']) {
 		$where_statement = "";
 	}else {
-		$safe_key = $db_conn->real_escape_string($ga['selector_key']);\
+		$safe_key = $db_conn->real_escape_string($ga['selector_key']);
 		$safe_value = $db_conn->real_escape_string($ga['selector_value']);
 		$where_statement = " WHERE `".$safe_key."` = '".$safe_selector."' ";
 		
