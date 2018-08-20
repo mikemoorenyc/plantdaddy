@@ -5,27 +5,48 @@ if(!$_SESSION['logged_in']) {
 	errorResponse();
 }
 
-if(!$response['id']) {
-	errorResponse();
-}
-
-//Get User
-$db_user = get_user_by_id($response['id']);
-if(!$db_user) {
-	errorResponse();
-}
-
-//Check if User Needs Updating
-$needs_updating = false;
-$keys = ["id", 'photo_url', "email", "first_name" , "color","telephone"];
-foreach($keys as $k) {
-	if($db_user[$k] !== $response[$k] {
-		$needs_updating = true;
+if($url_sections[1]) {
+	if(!is_numeric($url_sections[1])) {
+		errorResponse();
 	}
-}
-if(!$needs_updating) {
-	errorResponse(304);
+	$id = intval($url_sections[1]);
+	$user = get_user_by_id($id);
+	if(!$user) {
+		errorResponse(404);
+	}
+
+	echo json_encode(array("data" => $user));
+	die();
 }
 
-echo json_encode($db_user);
+
+
+if(!$_GET['page'] || !is_numeric($_GET['page']) || intval($_GET['page']) < 1) {
+	$page = 1;
+} else {
+	$page = intval($_GET['page']);
+}
+$users = get_items(array(
+	"table" => "users",
+	"limit" => 25,
+	"offset" => ($page -1) * 25,
+	"columns" => "id"
+));
+	if(!$users) {
+		$users = [];
+	}
+	$row = $db_conn->query( "select count(id) as num_rows from table"  );
+	$total = $row->num_rows;
+	$total_pages = ($total < 25) ? 1 : (int) ($total /25);
+
+		
+	$return_package = array(
+		"page" => $page,
+		"per_page" => 25,
+		"total" => $total,
+		"total_pages" => $total_pages
+	);
+echo json_encode($return_package);
+	die();
+
 die();
