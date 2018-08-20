@@ -29,11 +29,7 @@ if(!$updated_item) {
 }
 
 
-echo json_encode(array(
-	"success" => true,
-	"msg" => "Password updated"
-
-)
+echo json_encode(get_user_by_id($user['id']));
 
 );
 die();
