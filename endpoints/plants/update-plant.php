@@ -3,16 +3,13 @@
 require_once $_SERVER['DOCUMENT_ROOT'] ."/header.php";
 require_once $_SERVER['DOCUMENT_ROOT'] ."/endpoints/endpoint-header.php";
 
-if(!$_SESSION['logged_in']) {
+if(!$_SESSION['logged_in'] || !$url_sections[1] || !is_int($url_sections[1])) {
 	errorResponse();
 }
 
-$plant = get_items(array(
-	"selector_key" => "id",
-	"selector_value" => $response['id'],
-	"limit" => 1,
-	"table" => "plants"
-));
+$update_id = $url_sections[1];
+
+$plant = get_plant_by_id($update_id);
 
 if(!$plant) {
 	errorResponse(404);
