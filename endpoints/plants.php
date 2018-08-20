@@ -1,6 +1,10 @@
 <?php
 $method = $_SERVER['REQUEST_METHOD'];
 
+if(!$_SESSION['logged_in']) {
+	errorResponse(403) ;
+}
+
 
 switch($method) {
 	case 'POST':
