@@ -31,7 +31,7 @@ switch($url_sections[0]) {
 
 
     default:
-
+			http_response_code(404);
 			die();
 
 }
