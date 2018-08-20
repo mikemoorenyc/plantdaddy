@@ -7,12 +7,13 @@ switch($method) {
 		require 'plants/create-plant.php';
 		break;
 	case "DELETE" :
-		return "plants/delete-plant.php";
+		require "plants/delete-plant.php";
 		break;
 	case "PUT" :
-		return "plants/update-plant.php";
+		require "plants/update-plant.php";
 		break;
 	default:
+		require "plants/get-plants.php";
 		die();
 }
 die()
