@@ -9,7 +9,7 @@ switch($method) {
 		require 'accounts/create-account.php';
 		break;
 	case 'PUT':
-		require 'accounts/edit-account.php';
+		require 'accounts/update-account.php';
 		break;
 	case 'GET':
 		require 'accounts/get-account.php';
