@@ -28,8 +28,8 @@ if(!$_GET['page'] || !is_numeric($_GET['page']) || intval($_GET['page']) < 1) {
 		$plants = [];
 	}
 
-	$row = $db_conn->query( "select count(id) as num_rows from table"  );
-	$total = $row->num_rows;
+	$row = $db_conn->query( "select count(id) as plant_total from plants"  );
+	$total = $row->plant_total;
 
 	$total_pages = ($total < 25) ? 1 : (int) ($total /25);
 	$return_package = array(
