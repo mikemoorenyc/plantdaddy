@@ -2,15 +2,21 @@
 require_once $_SERVER['DOCUMENT_ROOT'] ."/header.php";
 require_once $_SERVER['DOCUMENT_ROOT'] ."/endpoints/endpoint-header.php";
 
+
+if( !$url_sections[1] || !is_numeric($url_sections[1])) {
+	errorResponse();
+}
+$request_id = intval($url_sections[1]);
+
 if(!$_SESSION['logged_in']) {
 	errorResponse();
 }
-if($_SESSION['user']['id'] !== $response['id']) {
+if($_SESSION['user']['id'] !== $request_id) {
 	errorResponse(403, "wrong_user");
 }
 $user = get_items(array(
 	"selector_key" => "id",
-	"selector_value" => $response['id'],
+	"selector_value" => $request_id,
 	"limit" => 1,
 	"table" => "users"
 ));
@@ -55,7 +61,7 @@ if(empty($to_update)) {
 }
 $updated_item = update_item(array(
 	"table" => "users",
-	"selector_value" => $response['id'],
+	"selector_value" => $user['id'],
 	"selector_key" => "id",
 	"update_array" => $to_update
 ));
@@ -63,7 +69,7 @@ if(!$updated_item) {
 	errorResponse(500, "not_updated");
 }
 
-echo json_encode(get_user_by_id($response['id']));
+echo json_encode(get_user_by_id($user['id']));
 die();
 
 
