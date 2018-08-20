@@ -8,13 +8,33 @@ if($_SESSION['login_noonce'] !== $response['login_noonce']) {
 
 	errorResponse(400, "bad_noonce");
 }
-
-$verified = verify_login($response['email'],$response['password']);
-
-if($verifed === false) {
-	errorResponse(403,"verification_failed");
+$missing = [];
+foreach(['email','password'] as $k) {
+	if(!$response[$k]) {
+		$missing[] = $k;
+	}
 }
-$user = get_user_by_id($verified);
+if(!empty($missing)) {
+	errorResponse(400, "missing values || ".implode(",",$missing));
+}
+
+$user = get_items(array(
+	"table" => "users",
+	"selector_key" => "email",
+	"selector_value" => $response['email'],
+	"limit" => 1
+));
+if(!$user) {
+	errorResponse(400, "bad email or password");
+}
+$pass_pass = password_verify(base64_encode(hash('sha256', $response['password'], true)),$user['password']);
+
+if(!$pass_pass) {
+	errorResponse(400, "bad email or password");
+}
+
+
+$user = get_user_by_id($user['id']);
 $remember_me = create_remember_me($user['id']);
 $_SESSION['logged_in'] = true;
 $_SESSION['user'] = $user;
