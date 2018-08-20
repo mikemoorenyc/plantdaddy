@@ -3,11 +3,11 @@
 require_once $_SERVER['DOCUMENT_ROOT'] ."/header.php";
 require_once $_SERVER['DOCUMENT_ROOT'] ."/endpoints/endpoint-header.php";
 
-if( !$url_sections[1] || !is_int($url_sections[1])) {
+if( !$url_sections[1] || !is_numeric($url_sections[1])) {
 	errorResponse();
 }
 
-$update_id = $url_sections[1];
+$update_id = intval($url_sections[1]);
 
 $plant = get_plant_by_id($update_id);
 
@@ -36,7 +36,7 @@ if(plant_title_exists($response['title'])) {
 
 //MAKE UPDATE PACKAGE
 if(!empty($response['photo_data']) && $response['photo_data'] !== get_photo_by_id($plant['photo_id']) ) {
-	$photo_id = upload_image($to_update['photo_data'], "plant_img",);
+	$photo_id = upload_image($to_update['photo_data'], "plant_img");
 	if(!$photo_id) {
 		errorResponse(500,"image_error");
 	}
@@ -45,13 +45,16 @@ if(!empty($response['photo_data']) && $response['photo_data'] !== get_photo_by_i
 if(empty($to_update)) {
 	errorResponse(304, "not_modified");
 }
-
+$to_update['date_modified'] = time();
+$to_update['modified_by'] = $_SESSION['user']['id'];
 $updated_item = update_item(array(
 	"table" => "plants",
 	"selector_value" => $plant['id'],
 	"selector_key" => "id",
 	"update_array" => $to_update
 ));
+
+
 if(!$updated_item) {
 	errorResponse(500, "not_updated");
 }
