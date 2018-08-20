@@ -9,12 +9,7 @@ if($url_sections[1]) {
 	if(!$plant) {
 		errorResponse(404);
 	}
-	if($_SESSION['plant_requests'][$id] && $_SESSION['plant_requests'][$id] > $plant['date_modified']) {
-		$_SESSION['plant_requests'][$id]= time();
-		http_response_code(304);
-		die();
-	}
-	$_SESSION['plant_requests'][$id]= time();
+
 	echo json_encode(array("data" => $plant));
 	die();
 }
