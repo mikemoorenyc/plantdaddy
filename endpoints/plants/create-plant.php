@@ -2,9 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] ."/header.php";
 require_once $_SERVER['DOCUMENT_ROOT'] ."/endpoints/endpoint-header.php";
 
-if(!$_SESSION['logged_in']) {
-	errorResponse(401);
-}
+
 $required_fields =["title", "watering_frequency"];
 
 if(!is_numeric($response["watering_frequency"])) {
