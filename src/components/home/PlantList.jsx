@@ -9,11 +9,11 @@ export default class PlantList extends Component {
 		super();
 		this.state = {
 			status: "loading",
-			plantOrder:null
+			plantOrder:[]
 		}
 	}
 	componentWillMount() {
-		fetch(
+	
 		
 	}
 	
@@ -31,10 +31,12 @@ export default class PlantList extends Component {
 		
 		return <div class="plant-list"><Subscribe to={[PlantContainer]}>
 			{function(pc) {
-				let
-				let plist = s.plants.map(function(e,i) {
-					pc.getPlant(e);
-					return <div>{pc.state.plants[i].name}</div>
+				let plants = s.plantOrder.map(function(e,i) {
+					if(!pc.state.plants[e]) {
+						pc.fetchPlant(e);
+						return <div>Blank</div>
+					}
+					return <div>{pc.state.plants[e].name}</div>
 				})
 				
 				return {plist}
