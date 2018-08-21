@@ -1,6 +1,6 @@
 import {h, Component} from "preact";
 import {Subscribe} from "unstated";
-import featch from "../../util/endpointFetch.js";
+import fetch from "unfetch";
 
 import PlantContainer from "../../containers/PlantContainer";
 
@@ -9,11 +9,11 @@ export default class PlantList extends Component {
 		super();
 		this.state = {
 			status: "loading",
-			plants: null	
+			plantOrder:null
 		}
 	}
 	componentWillMount() {
-	
+		fetch(
 		
 	}
 	
