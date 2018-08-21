@@ -18,6 +18,12 @@ switch($url_sections[0]) {
 	case "plants" : 
 		require "plants.php";
 		break; 
+	case "waterings" :
+		require "waterings.php";
+		break;
+	case "home" :
+		require "home.php";
+		break;
 	case "login-user":
 		require "login-user.php";
 		break;
