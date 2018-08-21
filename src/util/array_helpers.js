@@ -16,7 +16,7 @@ function removeItem(item, array) {
 	if (index > -1) {
   	return array.splice(index, 1);
 	}
-	return array;
+	return array.splice();
 }
 	
 
