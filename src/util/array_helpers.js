@@ -11,7 +11,16 @@ function findIndex(array,value,key) {
 	return true;
 }
 
+function removeItem(item, array) {
+	var index = array.indexOf(item);
+	if (index > -1) {
+  	return array.splice(index, 1);
+	}
+	return array;
+}
+	
 
 
 
-export {findIndex};
+
+export {findIndex, removeItem};
