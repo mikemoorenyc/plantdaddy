@@ -11,7 +11,15 @@ function upload_image($base64, $filename, $user, $width=0, $height=0) {
 	
 	function crop_image_dimensions($img, $width, $height) {
 		if(intval($width) < 20 && intval($height) < 20) {
-			return imagescale($img, 800);	
+			$cw = 800;
+			$ch = 0;
+			$re_multiplier = (!$ch) ? $cw / $iw : $ch / $ih;
+			return array(
+				"x" => 0,
+				"y" => 0,
+				"width" => round($iw * $re_multiplier),
+				"height" => round($ih * $re_multiplier),
+			);	
 		}
 		$cw = intval($width);
 		$ch = intval($height);
@@ -20,20 +28,19 @@ function upload_image($base64, $filename, $user, $width=0, $height=0) {
 		if(!$cw || !$ch) {
 			$re_multiplier = (!$ch) ? $cw / $iw : $ch / $ih;
 			return array(
-				"width" => round($iw * $scale),
-				"height" => round($ih * $scale),
+				"width" => round($iw * $re_multiplier),
+				"height" => round($ih * $re_multiplier),
 				"x" => 0,
 				"y" => 0
 			)
 		}
-		$scale = ($ch / $ih > $scale_w) ? $ch / $ih : $cw / $iw; 
+		$scale = ($ch / $ih > $cw / $iw) ? $ch / $ih : $cw / $iw; 
 		$scaled_x = round($iw * $scale);
 		$scaled_y = round($ih * $scale);
 		$w_remainder = ($iw - $scaled_x) / 2;
 		$h_remainder = ($ih - $scaled_y) / 2;
 		
-		$crop_array['width'] = imagesx($scaled_img) - ($w_remainder * 2);
-		$crop_array['height'] = imagesy($scaled_img) - ($h_remainer * 2);
+
 		return array(
 			"x" => $w_remainder,
 			"y" => $h_remainder,
