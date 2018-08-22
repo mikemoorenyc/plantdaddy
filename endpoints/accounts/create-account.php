@@ -73,7 +73,7 @@ $user = get_user_by_id($add_user);
 //UPLOAD PHOTO
 
 if($response['photo_data'])  {
-	$photo_id = upload_image($response['photo_data'], "account_img_".$user['id'], $user['id']);
+	$photo_id = upload_image($response['photo_data'], "account_img_".$user['id'], $user['id'],800,800);
 	if($photo_id) {
 		$update_array = array(
 			"db" => "users",
