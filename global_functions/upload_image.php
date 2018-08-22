@@ -1,6 +1,6 @@
 <?php
 
-function upload_image($base64, $filename, $user, $size) {
+function upload_image($base64, $filename, $user, $width=0, $height=0) {
 	
 	global $db_conn;
 	$user_id = $user ?: $_SESSION['user']['id'];
@@ -8,6 +8,40 @@ function upload_image($base64, $filename, $user, $size) {
 	if(!$user_id) {
 		return false;
 	}
+	
+	function crop_image_dimensions($img, $width, $height) {
+		if(intval($width) < 20 && intval($height) < 20) {
+			return imagescale($img, 800);	
+		}
+		$cw = intval($width);
+		$ch = intval($height);
+		$iw = imagesx($img);
+		$ih = imagesy($img);
+		if(!$cw || !$ch) {
+			$re_multiplier = (!$ch) ? $cw / $iw : $ch / $ih;
+			return array(
+				"width" => round($iw * $scale),
+				"height" => round($ih * $scale),
+				"x" => 0,
+				"y" => 0
+			)
+		}
+		$scale = ($ch / $ih > $scale_w) ? $ch / $ih : $cw / $iw; 
+		$scaled_x = round($iw * $scale);
+		$scaled_y = round($ih * $scale);
+		$w_remainder = ($iw - $scaled_x) / 2;
+		$h_remainder = ($ih - $scaled_y) / 2;
+		
+		$crop_array['width'] = imagesx($scaled_img) - ($w_remainder * 2);
+		$crop_array['height'] = imagesy($scaled_img) - ($h_remainer * 2);
+		return array(
+			"x" => $w_remainder,
+			"y" => $h_remainder,
+			"width" => $scaled_x - ($w_remainder * 2),
+			"height" => $scaled_y - ($h_remainer * 2)
+		);
+	}
+	
 $directory = $_SERVER['DOCUMENT_ROOT'].'/assets/user_images';
 
   if ( ! is_dir($directory)) {
@@ -29,22 +63,31 @@ $directory = $_SERVER['DOCUMENT_ROOT'].'/assets/user_images';
 	if(!$img) {
 		return false;
 	}
-	
-	if(!is_array($size) || count($size) !== 2) {
-		$scaled = imagescale($img, 800);	
-	} else {
-		
-		
+	if(!imagesx($img) < 20 || imgagesy($img) < 20) {
+		return false;
 	}
 	
-
+	$crop_helper = crop_image_dimensions($img, $width, $height) ;
 	
-
-	if(!$scaled) {
+	if(!$crop_helper) {
+		return false;
+	}
+	
+	$destination = imagecreatetruecolor($crop_helper['width'], $crop_helper['height']);
+	$cropped = imagecopyresampled($destination, $img, 
+																$crop_helper['x'], 
+																$crop_helper['y'], 
+																0, 
+																0, 
+																$crop_helper['width'], 
+																$crop_helper['height'] 
+																imagesx($img), 
+																imagesy($img));
+	if(!$cropped) {
 		return false;
 	}
 
-	$saved = imagejpeg($scaled, $asset_route, 75);
+	$saved = imagejpeg($cropped, $asset_route, 80);
 	if(!$saved) {return false;}
 
 	if(!$exists) {
