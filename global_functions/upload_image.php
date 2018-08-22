@@ -1,7 +1,7 @@
 <?php
 
-function upload_image($base64, $filename, $user) {
-
+function upload_image($base64, $filename, $user, $size) {
+	
 	global $db_conn;
 	$user_id = $user ?: $_SESSION['user']['id'];
 
@@ -29,8 +29,16 @@ $directory = $_SERVER['DOCUMENT_ROOT'].'/assets/user_images';
 	if(!$img) {
 		return false;
 	}
+	
+	if(!is_array($size) || count($size) !== 2) {
+		$scaled = imagescale($img, 800);	
+	} else {
+		
+		
+	}
+	
 
-	$scaled = imagescale($img, 800);
+	
 
 	if(!$scaled) {
 		return false;
